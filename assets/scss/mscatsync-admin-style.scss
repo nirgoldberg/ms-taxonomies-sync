@@ -1,0 +1,65 @@
+@import "mscatsync-admin-params";
+
+/**
+ * mscatsync-admin-style.scss
+ */
+.wrap {
+	.mscatsync-admin-box {
+		position: relative;
+		margin: 20px 0;
+		border: 1px solid $gray-color1;
+		background: $white;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+
+		.title {
+			margin: 0;
+			padding: 0 15px;
+			border-bottom: 1px solid $gray-color2;
+
+			h3 {
+				margin: 1em 0;
+				padding: 0;
+				line-height: 1em;
+				font-size: 14px;
+			}
+
+			.desc {
+				margin: 1em 0;
+				font-style: italic;
+			}
+		}
+
+		.content {
+			padding: 15px;
+
+			input[type="text"],
+			input[type="password"],
+			input[type="number"],
+			textarea,
+			select {
+				width: 100%;
+				max-width: 400px;
+			}
+
+			textarea {
+				resize: none;
+			}
+		}
+	}
+}
+
+/**************/
+/* responsive */
+/**************/
+
+@media (max-width: 782px) {
+	.wrap {
+		.mscatsync-admin-box {
+			.content {
+				select {
+					height: auto !important;
+				}
+			}
+		}
+	}
+}

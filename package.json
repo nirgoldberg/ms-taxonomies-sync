@@ -1,0 +1,16 @@
+{
+  "name": "ms-cat-sync",
+  "version": "1.0.0",
+  "license": "(ISC OR GPL-3.0)",
+  "author": {
+    "name": "Nir Goldberg",
+    "email": "nir@htmline.com",
+    "url": "http://www.htmline.com"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0"
+  }
+}
