@@ -206,6 +206,7 @@ class MSCatSync_Admin_Settings_Page {
 		// vars
 		$view = array(
 
+			'parent'		=> $this->settings[ 'parent' ],
 			'slug'			=> $this->settings[ 'slug' ],
 			'page_title'	=> $this->settings[ 'page_title' ],
 			'tabs'			=> $this->settings[ 'tabs' ],

@@ -12,16 +12,27 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // extract args
 extract( $args );
 
+// vars
+$options_group_id = ( ! empty( $tabs ) ) ? $slug . '-' . $active_tab : $slug;
+
+// check if the user have submitted the settings
+if ( isset( $_GET[ 'settings-updated' ] ) ) {
+
+	// add settings saved message with the class of "updated"
+	add_settings_error( $options_group_id . '_messages', $options_group_id . '_message', __( 'Settings saved.', 'mscatsync' ), 'updated' );
+
+}
+
+// display notifications only if outside wordpress settings page
+if ( 'options-general.php' != $parent ) {
+	settings_errors( $options_group_id . '_messages' );
+}
+
 ?>
 
 <div class="wrap" id="mscatsync-admin-settings">
 
 	<div id="icon-options-general" class="icon32"></div>
-
-	<?php
-		// display notifications
-		settings_errors();
-	?>
 
 	<h1><?php echo $page_title; ?></h1>
 
@@ -40,9 +51,6 @@ extract( $args );
 
 	<form method="post" action="options.php">
 		<?php
-
-			// vars
-			$options_group_id = ( ! empty( $tabs ) ) ? $slug . '-' . $active_tab : $slug;
 
 			settings_fields( $options_group_id );
 
