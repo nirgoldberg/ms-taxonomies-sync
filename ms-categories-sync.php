@@ -22,13 +22,9 @@ class MSCatSync {
 	 *
 	 * @var $version (string) plugin version number
 	 * @var required_plugins (array) required plugins must be active for MSCatSync
-	 * @var $settings (array) plugin settings array
 	 */
-	var $version = '1.0.0';
-
-	var $required_plugins = array();
-
-	var $settings = array();
+	public $version;
+	public $required_plugins;
 
 	/**
 	* __construct
@@ -41,7 +37,8 @@ class MSCatSync {
 	*/
 	function __construct() {
 
-		add_action( 'admin_init', array( $this, 'check_required_plugins' ) );
+		$this->version				= '1.0.0';
+		$this->required_plugins		= array();
 
 		/* Do nothing here */
 
@@ -85,6 +82,9 @@ class MSCatSync {
 
 		);
 
+		if ( ! $this->check_required_plugins() )
+			return;
+
 		// constants
 		$this->define( 'MSCatSync',			true );
 		$this->define( 'MSCatSync_VERSION',	$version );
@@ -96,56 +96,21 @@ class MSCatSync {
 		// core
 		mscatsync_include( 'includes/classes/class-mscatsync-core.php' );
 
-		if ( is_admin() ) {
+		// actions
+		add_action( 'init',	array( $this, 'init' ), 5 );
+		add_action( 'init',	array( $this, 'register_assets' ), 5 );
 
-			// admin
-			// functions
-			mscatsync_include( 'includes/admin/settings-api.php' );
+		// admin
+		if ( is_admin() ) {
 
 			// actions
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts') );
 
-		} else {
-
-			// frontend
-
 		}
-
-		// actions
-		add_action( 'plugins_loaded',	array( $this, 'plugins_loaded' ), 5 );
-		add_action( 'init',				array( $this, 'init' ), 5 );
-		add_action( 'init',				array( $this, 'register_assets' ), 5 );
 
 		// plugin activation / deactivation
 		register_activation_hook	( __FILE__,	array( $this, 'mscatsync_activate' ) );
 		register_deactivation_hook	( __FILE__,	array( $this, 'mscatsync_deactivate' ) );
-
-	}
-
-	/**
-	* plugins_loaded
-	*
-	* This function will run after all plugins and theme functions have been included
-	*
-	* @since		1.0.0
-	* @param		N/A
-	* @return		N/A
-	*/
-	function plugins_loaded() {
-
-		// exit if called too early
-		if ( ! did_action( 'plugins_loaded' ) )
-			return;
-
-		if ( is_admin() ) {
-
-			// admin
-
-		} else {
-
-			// frontend
-
-		}
 
 	}
 
@@ -177,10 +142,12 @@ class MSCatSync {
 		// set textdomain
 		$this->load_plugin_textdomain();
 
-		// admin
 		if ( is_admin() ) {
 
 			// admin
+			mscatsync_include( 'includes/admin/settings-api.php' );
+			mscatsync_include( 'includes/admin/class-admin.php' );
+			mscatsync_include( 'includes/admin/class-admin-dashboard.php' );
 			mscatsync_include( 'includes/admin/class-admin-settings-page.php' );
 			mscatsync_include( 'includes/admin/class-admin-settings.php' );
 
@@ -203,10 +170,10 @@ class MSCatSync {
 	function register_assets() {
 
 		// append styles
-		$styles		= array(
+		$styles = array(
 			'mscatsync-admin'	=> array(
-				'src'		=> mscatsync_get_url( 'assets/css/mscatsync-admin-style.css' ),
-				'deps'		=> false
+				'src'	=> mscatsync_get_url( 'assets/css/mscatsync-admin-style.css' ),
+				'deps'	=> false
 			)
 		);
 
@@ -335,15 +302,7 @@ class MSCatSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function mscatsync_activate() {
-
-		if ( $this->check_required_plugins() ) {
-
-			// perform activation process
-
-		}
-
-	}
+	function mscatsync_activate() {}
 
 	/**
 	* mscatsync_deactivate

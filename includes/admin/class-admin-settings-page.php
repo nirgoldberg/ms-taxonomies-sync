@@ -16,74 +16,11 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * vars
 	 *
-	 * @protected static (array) instances array
-	 * @var (array) settings array
+	 * @var $_instances (array) instances array
+	 * @var $settings (array) settings array
 	 */
 	protected static $_instances = array();
-
-	var $settings = array(
-
-		// slugs
-		'parent'				=> '',
-		'slug'					=> '',
-
-		// titles
-		'page_title'			=> '',
-		'menu_title'			=> '',
-
-		// tabs
-		/**
-		 * tabs structure:
-		 *
-		 * '[tab slug]'	=> array(
-		 * 		'title'		=> [tab title],
-		 * 		'sections'	=> array(
-		 * 			'[section slug]'	=> array(
-		 * 				'title'			=> [section title],
-		 * 				'description'	=> [section description]'
-		 * 			),
-		 *			...
-		 * 		)
-		 * ),
-		 * ...
-		 */
-		'tabs'					=> array(),
-		'active_tab'			=> '',
-
-		// sections
-		/**
-		 * sections structure:
-		 *
-		 * '[section slug]'	=> array(
-		 * 		'title'			=> [section title],
-		 * 		'description'	=> [section description]'
-		 * ),
-		 * ...
-		 */
-		'sections'				=> array(),
-
-		// fields
-		/**
-		 * fields structure:
-		 *
-		 * array(
-		 *		'uid'			=> [field slug],
-		 *		'label'			=> [field label],
-		 *		'label_for'		=> [field label_for],
-		 *		'tab'			=> [tab slug],
-		 *		'section'		=> [section slug],
-		 *		'type'			=> [field type: text/password/number/textarea/select/multiselect/radio/checkbox],
-		 *		'placeholder'	=> [field placeholder],
-		 *		'options'		=> [array of field options: slugs and labels]
-		 *		'default'		=> [field default value]
-		 *		'helper'		=> [field helper text],
-		 *		'supplimental'	=> [field description text]
-		 * ),
-		 * ...
-		 */
-		'fields'				=> array()
-
-	);
+	public $settings = array();
 
 	/**
 	 * __construct
@@ -136,7 +73,70 @@ class MSCatSync_Admin_Settings_Page {
 	 */
 	function initialize() {
 
-		/* do nothing */
+		// settings
+		$this->$settings = array(
+
+			// slugs
+			'parent'				=> '',
+			'slug'					=> '',
+
+			// titles
+			'page_title'			=> '',
+			'menu_title'			=> '',
+
+			// tabs
+			/**
+			 * tabs structure:
+			 *
+			 * '[tab slug]'	=> array(
+			 * 		'title'		=> [tab title],
+			 * 		'sections'	=> array(
+			 * 			'[section slug]'	=> array(
+			 * 				'title'			=> [section title],
+			 * 				'description'	=> [section description]'
+			 * 			),
+			 *			...
+			 * 		)
+			 * ),
+			 * ...
+			 */
+			'tabs'					=> array(),
+			'active_tab'			=> '',
+
+			// sections
+			/**
+			 * sections structure:
+			 *
+			 * '[section slug]'	=> array(
+			 * 		'title'			=> [section title],
+			 * 		'description'	=> [section description]'
+			 * ),
+			 * ...
+			 */
+			'sections'				=> array(),
+
+			// fields
+			/**
+			 * fields structure:
+			 *
+			 * array(
+			 *		'uid'			=> [field slug],
+			 *		'label'			=> [field label],
+			 *		'label_for'		=> [field label_for],
+			 *		'tab'			=> [tab slug],
+			 *		'section'		=> [section slug],
+			 *		'type'			=> [field type: text/password/number/textarea/select/multiselect/radio/checkbox],
+			 *		'placeholder'	=> [field placeholder],
+			 *		'options'		=> [array of field options: slugs and labels]
+			 *		'default'		=> [field default value]
+			 *		'helper'		=> [field helper text],
+			 *		'supplimental'	=> [field description text]
+			 * ),
+			 * ...
+			 */
+			'fields'				=> array()
+
+		);
 
 	}
 
@@ -174,7 +174,7 @@ class MSCatSync_Admin_Settings_Page {
 	function admin_menu() {
 
 		// exit if no show_admin
-		if( ! mscatsync_get_setting( 'show_admin' ) )
+		if ( ! mscatsync_get_setting( 'show_admin' ) )
 			return;
 
 		// vars

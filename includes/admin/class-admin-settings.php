@@ -28,12 +28,12 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 		$this->settings = array(
 
 			// slugs
-			'parent'				=> 'options-general.php',
-			'slug'					=> 'mscatsync_settings',
+			'parent'				=> 'mscatsync-dashboard',
+			'slug'					=> 'mscatsync-settings',
 
 			// titles
 			'page_title'			=> __( 'Multisite Categories Sync Settings', 'mscatsync' ),
-			'menu_title'			=> __( 'Categories Sync', 'mscatsync' ),
+			'menu_title'			=> __( 'Settings', 'mscatsync' ),
 
 			// tabs
 			'tabs'					=> array(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Categories Sync Uninstall
+ * Multisite Categories Sync uninstall
  *
  * @author		Nir Goldberg
  * @version		1.0.0
