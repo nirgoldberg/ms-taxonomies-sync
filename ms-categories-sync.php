@@ -56,7 +56,6 @@ class MSCatSync {
 	function initialize() {
 
 		// vars
-		$version	= $this->version;
 		$basename	= plugin_basename( __FILE__ );
 		$path		= plugin_dir_path( __FILE__ );
 		$url		= plugin_dir_url( __FILE__ );
@@ -67,7 +66,7 @@ class MSCatSync {
 
 			// basic
 			'name'				=> __( 'Multisite Categories Sync', 'mscatsync' ),
-			'version'			=> $version,
+			'version'			=> $this->version,
 
 			// urls
 			'basename'			=> $basename,
@@ -87,7 +86,7 @@ class MSCatSync {
 
 		// constants
 		$this->define( 'MSCatSync',			true );
-		$this->define( 'MSCatSync_VERSION',	$version );
+		$this->define( 'MSCatSync_VERSION',	$this->version );
 		$this->define( 'MSCatSync_PATH',	$path );
 
 		// api
@@ -147,6 +146,7 @@ class MSCatSync {
 			// admin
 			mscatsync_include( 'includes/admin/settings-api.php' );
 			mscatsync_include( 'includes/admin/class-admin.php' );
+			mscatsync_include( 'includes/admin/class-admin-page.php' );
 			mscatsync_include( 'includes/admin/class-admin-dashboard.php' );
 			mscatsync_include( 'includes/admin/class-admin-settings-page.php' );
 			mscatsync_include( 'includes/admin/class-admin-settings.php' );

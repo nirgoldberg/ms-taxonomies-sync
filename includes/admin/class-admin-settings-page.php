@@ -25,7 +25,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * __construct
 	 *
-	 * This function will initialize the settings page
+	 * This function will initialize the admin settings page
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -65,7 +65,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * initialize
 	 *
-	 * This function will initialize the settings page
+	 * This function will initialize the admin settings page
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -195,7 +195,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * html
 	 *
-	 * This function will display the settings page content
+	 * This function will display the admin settings page content
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -228,7 +228,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * setup_sections
 	 *
-	 * This function will setup settings page sections
+	 * This function will setup admin settings page sections
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -275,7 +275,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * setup_section
 	 *
-	 * This function will setup settings page section
+	 * This function will setup admin settings page section
 	 *
 	 * @since		1.0.0
 	 * @param		$section_id (string)
@@ -297,7 +297,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * setup_fields
 	 *
-	 * This function will setup settings page fields
+	 * This function will setup admin settings page fields
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -339,7 +339,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * setup_field
 	 *
-	 * This function will setup settings page field
+	 * This function will setup admin settings page field
 	 *
 	 * @since		1.0.0
 	 * @param		$field_id (string)

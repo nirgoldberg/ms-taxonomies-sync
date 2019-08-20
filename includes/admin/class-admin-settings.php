@@ -16,7 +16,7 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 	/**
 	 * initialize
 	 *
-	 * This function will setup the settings page data
+	 * This function will initialize the admin settings page
 	 *
 	 * @since		1.0.0
 	 * @param		N/A

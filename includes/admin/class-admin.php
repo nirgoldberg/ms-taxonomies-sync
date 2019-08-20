@@ -72,7 +72,7 @@ class MSCatSync_Admin {
 	/**
 	 * admin_menu
 	 *
-	 * This function will add the MSCatSync menu item to the wordpress admin
+	 * This function will add Multisite Categories Sync submenu item to the WP admin
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
