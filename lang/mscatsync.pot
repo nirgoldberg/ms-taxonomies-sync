@@ -1,0 +1,108 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ms-categories-sync 1.0.0\n"
+"POT-Creation-Date: 2019-08-21 19:32+0300\n"
+"PO-Revision-Date: 2019-08-21 17:56+0300\n"
+"Last-Translator: Nir Goldberg <nir@htmline.com>\n"
+"Language-Team: Nir Goldberg <nir@htmline.com>\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: .git\n"
+"X-Poedit-SearchPathExcluded-1: .sass-cache\n"
+"X-Poedit-SearchPathExcluded-2: assets/css\n"
+"X-Poedit-SearchPathExcluded-3: lang\n"
+"X-Poedit-SearchPathExcluded-4: node_modules\n"
+"X-Poedit-SearchPathExcluded-5: .gitignore\n"
+"X-Poedit-SearchPathExcluded-6: Gruntfile.js\n"
+"X-Poedit-SearchPathExcluded-7: README.md\n"
+"X-Poedit-SearchPathExcluded-8: package.json\n"
+"X-Poedit-SearchPathExcluded-9: readme.txt\n"
+
+#: includes/admin/class-admin-dashboard.php:34
+msgid "Multisite Categories Sync Dashboard"
+msgstr ""
+
+#: includes/admin/class-admin-dashboard.php:35
+msgid "Dashboard"
+msgstr ""
+
+#: includes/admin/class-admin-dashboard.php:39
+msgid "What's New"
+msgstr ""
+
+#: includes/admin/class-admin-dashboard.php:40
+msgid "Changelog"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:35
+msgid "Multisite Categories Sync Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:36
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:41
+msgid "General"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:44
+msgid "General Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:50
+msgid "Uninstall"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:53
+msgid "Uninstall Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:71
+msgid "Used to assign default language(s) for already registered subscribers"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:81
+msgid "Used to assign default post categories"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:93
+msgid "Caution: all data will be removed without any option to restore"
+msgstr ""
+
+#: includes/admin/class-admin.php:59 ms-categories-sync.php:68
+msgid "Multisite Categories Sync"
+msgstr ""
+
+#: includes/admin/class-admin.php:60
+msgid "Categories Sync"
+msgstr ""
+
+#: includes/admin/views/mscatsync-dashboard.php:19
+msgid "Welcome to Multisite Categories Sync"
+msgstr ""
+
+#: includes/admin/views/mscatsync-dashboard.php:20
+msgid "Thank you for installing, we hope you like it."
+msgstr ""
+
+#: includes/admin/views/settings.php:22
+msgid "Settings saved."
+msgstr ""
+
+#: ms-categories-sync.php:410
+#, php-format
+msgid ""
+"<strong>%s</strong> plugin can't be activated.<br />The following plugins "
+"should be installed and activated first:<br />"
+msgstr ""

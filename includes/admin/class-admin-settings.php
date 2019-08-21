@@ -38,19 +38,19 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 			// tabs
 			'tabs'					=> array(
 				'general'			=> array(
-					'title'				=> 'General',
+					'title'				=> __( 'General', 'mscatsync' ),
 					'sections'			=> array(
 						'general'		=> array(
-							'title'			=> 'General Settings',
+							'title'			=> __( 'General Settings', 'mscatsync' ),
 							'description'	=> ''
 						)
 					)
 				),
 				'uninstall'			=> array(
-					'title'				=> 'Uninstall',
+					'title'				=> __( 'Uninstall', 'mscatsync' ),
 					'sections'			=> array(
 						'uninstall'		=> array(
-							'title'			=> 'Uninstall Settings',
+							'title'			=> __( 'Uninstall Settings', 'mscatsync' ),
 							'description'	=> ''
 						)
 					)
