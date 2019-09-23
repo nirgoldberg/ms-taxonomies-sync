@@ -63,7 +63,7 @@ class MSCatSync_Admin {
 			'icon_url'		=> 'dashicons-category',
 
 			// position
-			'position'		=> 6
+			'position'		=> 6,
 
 		);
 

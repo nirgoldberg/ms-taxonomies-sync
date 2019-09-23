@@ -37,9 +37,9 @@ class MSCatSync_Admin_Dashboard extends MSCatSync_Admin_Page {
 			// tabs
 			'tabs'			=> array(
 				'new'		=> __( 'What\'s New',	'mscatsync' ),
-				'changelog'	=> __( 'Changelog',		'mscatsync' )
+				'changelog'	=> __( 'Changelog',		'mscatsync' ),
 			),
-			'active'		=> 'new'
+			'active_tab'	=> 'new',
 
 		);
 

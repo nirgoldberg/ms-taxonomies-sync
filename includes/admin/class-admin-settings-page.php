@@ -77,8 +77,8 @@ class MSCatSync_Admin_Settings_Page {
 		$this->$settings = array(
 
 			// slugs
-			'parent'				=> '',
-			'slug'					=> '',
+			'parent_slug'			=> '',
+			'menu_slug'				=> '',
 
 			// titles
 			'page_title'			=> '',
@@ -93,10 +93,10 @@ class MSCatSync_Admin_Settings_Page {
 			 * 		'sections'	=> array(
 			 * 			'[section slug]'	=> array(
 			 * 				'title'			=> [section title],
-			 * 				'description'	=> [section description]'
+			 * 				'description'	=> [section description],
 			 * 			),
 			 *			...
-			 * 		)
+			 * 		),
 			 * ),
 			 * ...
 			 */
@@ -109,7 +109,7 @@ class MSCatSync_Admin_Settings_Page {
 			 *
 			 * '[section slug]'	=> array(
 			 * 		'title'			=> [section title],
-			 * 		'description'	=> [section description]'
+			 * 		'description'	=> [section description],
 			 * ),
 			 * ...
 			 */
@@ -127,14 +127,14 @@ class MSCatSync_Admin_Settings_Page {
 			 *		'section'		=> [section slug],
 			 *		'type'			=> [field type: text/password/number/textarea/select/multiselect/radio/checkbox],
 			 *		'placeholder'	=> [field placeholder],
-			 *		'options'		=> [array of field options: slugs and labels]
-			 *		'default'		=> [field default value]
+			 *		'options'		=> [array of field options: slugs and labels],
+			 *		'default'		=> [field default value],
 			 *		'helper'		=> [field helper text],
-			 *		'supplimental'	=> [field description text]
+			 *		'supplimental'	=> [field description text],
 			 * ),
 			 * ...
 			 */
-			'fields'				=> array()
+			'fields'				=> array(),
 
 		);
 
@@ -182,11 +182,11 @@ class MSCatSync_Admin_Settings_Page {
 
 		// add submenu page
 		add_submenu_page(
-			$this->settings[ 'parent' ],
+			$this->settings[ 'parent_slug' ],
 			$this->settings[ 'page_title' ],
 			$this->settings[ 'menu_title' ],
 			$capability,
-			$this->settings[ 'slug' ],
+			$this->settings[ 'menu_slug' ],
 			array( $this, 'html' )
 		);
 
@@ -206,12 +206,12 @@ class MSCatSync_Admin_Settings_Page {
 		// vars
 		$view = array(
 
-			'parent'		=> $this->settings[ 'parent' ],
-			'slug'			=> $this->settings[ 'slug' ],
+			'parent_slug'	=> $this->settings[ 'parent_slug' ],
+			'menu_slug'		=> $this->settings[ 'menu_slug' ],
 			'page_title'	=> $this->settings[ 'page_title' ],
 			'tabs'			=> $this->settings[ 'tabs' ],
 			'active_tab'	=> $this->settings[ 'active_tab' ],
-			'sections'		=> $this->settings[ 'sections' ]
+			'sections'		=> $this->settings[ 'sections' ],
 
 		);
 
@@ -237,7 +237,7 @@ class MSCatSync_Admin_Settings_Page {
 	function setup_sections() {
 
 		// vars
-		$slug		= $this->settings[ 'slug' ];
+		$menu_slug	= $this->settings[ 'menu_slug' ];
 		$tabs		= $this->settings[ 'tabs' ];
 		$sections	= $this->settings[ 'sections' ];
 
@@ -248,7 +248,7 @@ class MSCatSync_Admin_Settings_Page {
 				foreach ( $tab[ 'sections' ] as $section_slug => $section_title ) {
 
 					// vars
-					$options_group_id	= $slug . '-' . $tab_slug;
+					$options_group_id	= $menu_slug . '-' . $tab_slug;
 					$section_id			= $tab_slug . '-' . $section_slug;
 
 					// add settings section
@@ -261,7 +261,7 @@ class MSCatSync_Admin_Settings_Page {
 			foreach ( $sections as $section_slug => $section ) {
 
 				// vars
-				$options_group_id	= $slug;
+				$options_group_id	= $menu_slug;
 				$section_id			= $section_slug;
 
 				// add settings section
@@ -306,7 +306,7 @@ class MSCatSync_Admin_Settings_Page {
 	function setup_fields() {
 
 		// vars
-		$slug		= $this->settings[ 'slug' ];
+		$menu_slug	= $this->settings[ 'menu_slug' ];
 		$tabs		= $this->settings[ 'tabs' ];
 		$sections	= $this->settings[ 'sections' ];
 		$fields		= $this->settings[ 'fields' ];
@@ -318,13 +318,13 @@ class MSCatSync_Admin_Settings_Page {
 			if ( ! empty( $tabs ) ) {
 
 				// tabs
-				$options_group_id	= $slug . '-' . $field[ 'tab' ];
+				$options_group_id	= $menu_slug . '-' . $field[ 'tab' ];
 				$section_id			= $field[ 'tab' ] . '-' . $field[ 'section' ];
 
 			} elseif ( ! empty( $sections ) ) {
 
 				// no tabs, only sections
-				$options_group_id	= $slug;
+				$options_group_id	= $menu_slug;
 				$section_id			= $field[ 'section' ];
 
 			}

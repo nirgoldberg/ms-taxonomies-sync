@@ -219,7 +219,7 @@ function mscatsync_get_categories() {
 	// vars
 	$categories	= get_terms( array(
 		'taxonomy'		=> 'category',
-		'hide_empty'	=> false
+		'hide_empty'	=> false,
 	) );
 
 	$cat_arr = array();
@@ -232,5 +232,21 @@ function mscatsync_get_categories() {
 
 	// return
 	return $cat_arr;
+
+}
+
+/**
+ * mscatsync_get_main_site_custom_taxonomies
+ *
+ * This function will return array of main site custom taxonomies objects
+ *
+ * @since		1.0.0
+ * @param		N/A
+ * @return		(array)
+ */
+function mscatsync_get_main_site_custom_taxonomies() {
+
+	// return
+	return mscatsync_core()->get_main_site_custom_taxonomies();
 
 }

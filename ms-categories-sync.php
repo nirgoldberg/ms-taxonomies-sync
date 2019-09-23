@@ -81,6 +81,9 @@ class MSCatSync {
 
 		);
 
+		if ( ! $this->check_multisite() )
+			return;
+
 		if ( ! $this->check_required_plugins() )
 			return;
 
@@ -96,8 +99,8 @@ class MSCatSync {
 		mscatsync_include( 'includes/classes/class-mscatsync-core.php' );
 
 		// actions
-		add_action( 'init',	array( $this, 'init' ), 5 );
-		add_action( 'init',	array( $this, 'register_assets' ), 5 );
+		add_action( 'init',	array( $this, 'init' ), 99 );
+		add_action( 'init',	array( $this, 'register_assets' ), 99 );
 
 		// admin
 		if ( is_admin() ) {
@@ -141,13 +144,14 @@ class MSCatSync {
 		// set textdomain
 		$this->load_plugin_textdomain();
 
+		// admin
 		if ( is_admin() ) {
 
-			// admin
 			mscatsync_include( 'includes/admin/settings-api.php' );
 			mscatsync_include( 'includes/admin/class-admin.php' );
 			mscatsync_include( 'includes/admin/class-admin-page.php' );
 			mscatsync_include( 'includes/admin/class-admin-dashboard.php' );
+			mscatsync_include( 'includes/admin/class-admin-categories.php' );
 			mscatsync_include( 'includes/admin/class-admin-settings-page.php' );
 			mscatsync_include( 'includes/admin/class-admin-settings.php' );
 
@@ -173,8 +177,8 @@ class MSCatSync {
 		$styles = array(
 			'mscatsync-admin'	=> array(
 				'src'	=> mscatsync_get_url( 'assets/css/mscatsync-admin-style.css' ),
-				'deps'	=> false
-			)
+				'deps'	=> false,
+			),
 		);
 
 		// register styles
@@ -316,6 +320,43 @@ class MSCatSync {
 	function mscatsync_deactivate() {}
 
 	/**
+	* check_multisite
+	*
+	* This function will check if multisite support is enabled
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		(boolean)
+	*/
+	function check_multisite() {
+
+		// vars
+		$basename = $this->settings[ 'basename' ];
+
+		if ( ! is_multisite() ) {
+
+			if ( is_plugin_active( $basename ) ) {
+
+				deactivate_plugins( $basename );
+				add_action( 'admin_notices', array( $this, 'admin_multisite_notices_error' ) );
+
+				if ( isset( $_GET[ 'activate' ] ) ) {
+					unset( $_GET[ 'activate' ] );
+				}
+
+			}
+
+			// return
+			return false;
+
+		}
+
+		// return
+		return true;
+
+	}
+
+	/**
 	* check_required_plugins
 	*
 	* This function will check if required plugins are activated.
@@ -336,7 +377,7 @@ class MSCatSync {
 			if ( is_plugin_active( $basename ) ) {
 
 				deactivate_plugins( $basename );
-				add_action( 'admin_notices', array( $this, 'admin_notices_error' ) );
+				add_action( 'admin_notices', array( $this, 'admin_required_plugins_notices_error' ) );
 
 				if ( isset( $_GET[ 'activate' ] ) ) {
 					unset( $_GET[ 'activate' ] );
@@ -394,7 +435,7 @@ class MSCatSync {
 	}
 
 	/**
-	* admin_notices_error
+	* admin_multisite_notices_error
 	*
 	* This function will add admin error notice
 	*
@@ -402,11 +443,28 @@ class MSCatSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function admin_notices_error() {
+	function admin_multisite_notices_error() {
+
+		// vars
+		$msg = sprintf( __( "<strong>%s</strong> plugin can't be activated.<br />Multisite support must be enabled.", 'mscatsync' ), $this->settings[ 'name' ] );
+
+		$this->admin_notices_error( $msg );
+
+	}
+
+	/**
+	* admin_required_plugins_notices_error
+	*
+	* This function will add admin error notice
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		N/A
+	*/
+	function admin_required_plugins_notices_error() {
 
 		// vars
 		$required	= $this->required_plugins;
-		$class		= 'notice notice-error is-dismissible';
 		$msg		= sprintf( __( "<strong>%s</strong> plugin can't be activated.<br />The following plugins should be installed and activated first:<br />", 'mscatsync' ), $this->settings[ 'name' ] );
 
 		foreach ( $required as $key => $plugin ) {
@@ -422,6 +480,24 @@ class MSCatSync {
 			$msg .= "<br />&bull; {$name}";
 
 		}
+
+		$this->admin_notices_error( $msg );
+
+	}
+
+	/**
+	* admin_notices_error
+	*
+	* This function will display admin error notice
+	*
+	* @since		1.0.0
+	* @param		$msg (string)
+	* @return		N/A
+	*/
+	function admin_notices_error( $msg ) {
+
+		// vars
+		$class = 'notice notice-error is-dismissible';
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $msg );
 

@@ -162,14 +162,16 @@ class MSCatSync_Admin_Page {
 		$view = array(
 
 			'version'		=> mscatsync_get_setting( 'version' ),
+			'menu_slug'		=> $this->settings[ 'menu_slug' ],
+			'page_title'	=> $this->settings[ 'page_title' ],
 			'tabs'			=> $this->settings[ 'tabs' ],
-			'active'		=> $this->settings[ 'active_tab' ]
+			'active_tab'	=> $this->settings[ 'active_tab' ],
 
 		);
 
 		// set active tab
 		if ( ! empty( $_GET[ 'tab' ] ) && array_key_exists( $_GET[ 'tab' ], $view[ 'tabs' ] ) ) {
-			$view[ 'active' ] = $_GET[ 'tab' ];
+			$view[ 'active_tab' ] = $_GET[ 'tab' ];
 		}
 
 		// load view

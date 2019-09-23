@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-categories-sync 1.0.0\n"
-"POT-Creation-Date: 2019-08-21 19:02+0300\n"
-"PO-Revision-Date: 2019-08-21 19:31+0300\n"
+"POT-Creation-Date: 2019-09-23 18:14+0300\n"
+"PO-Revision-Date: 2019-09-23 18:18+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -26,6 +26,15 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-7: README.md\n"
 "X-Poedit-SearchPathExcluded-8: package.json\n"
 "X-Poedit-SearchPathExcluded-9: readme.txt\n"
+
+#: includes/admin/class-admin-categories.php:34
+msgid "Categories & Taxonomies Sync"
+msgstr "סנכרון קטגוריות וטקסונומיות"
+
+#: includes/admin/class-admin-categories.php:35
+#: includes/admin/class-admin-categories.php:40
+msgid "Categories"
+msgstr "קטגוריות"
 
 #: includes/admin/class-admin-dashboard.php:34
 msgid "Multisite Categories Sync Dashboard"
@@ -99,11 +108,19 @@ msgstr "תודה רבה שהתקנתם את התוסף שלנו, אנחנו מק
 msgid "Settings saved."
 msgstr "ההגדרות נשמרו."
 
-#: ms-categories-sync.php:410
+#: ms-categories-sync.php:449
+#, php-format
+msgid ""
+"<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
+"be enabled."
+msgstr ""
+"לא ניתן להתקין את התוסף <strong>%s</strong>.<br />נדרשת התקנת מערכת Multisite"
+
+#: ms-categories-sync.php:468
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "
 "should be installed and activated first:<br />"
 msgstr ""
-"לא ניתן להתקין את התוסף <strong>%s</strong>.<br />יש להתקין ולהפעיל תחילה "
-"את התוספים הבאים:<br />"
+"לא ניתן להתקין את התוסף <strong>%s</strong>.<br />יש להתקין ולהפעיל תחילה את "
+"התוספים הבאים:<br />"

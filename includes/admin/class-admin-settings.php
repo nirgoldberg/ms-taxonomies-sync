@@ -28,8 +28,8 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 		$this->settings = array(
 
 			// slugs
-			'parent'				=> 'mscatsync-dashboard',
-			'slug'					=> 'mscatsync-settings',
+			'parent_slug'			=> 'mscatsync-dashboard',
+			'menu_slug'				=> 'mscatsync-settings',
 
 			// titles
 			'page_title'			=> __( 'Multisite Categories Sync Settings', 'mscatsync' ),
@@ -42,19 +42,19 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 					'sections'			=> array(
 						'general'		=> array(
 							'title'			=> __( 'General Settings', 'mscatsync' ),
-							'description'	=> ''
-						)
-					)
+							'description'	=> '',
+						),
+					),
 				),
 				'uninstall'			=> array(
 					'title'				=> __( 'Uninstall', 'mscatsync' ),
 					'sections'			=> array(
 						'uninstall'		=> array(
 							'title'			=> __( 'Uninstall Settings', 'mscatsync' ),
-							'description'	=> ''
-						)
-					)
-				)
+							'description'	=> '',
+						),
+					),
+				),
 			),
 			'active_tab'			=> 'general',
 
@@ -68,7 +68,7 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 					'section'		=> 'general',
 					'type'			=> 'checkbox',
 					'options'		=> mscatsync_get_active_languages(),
-					'helper'		=> __( 'Used to assign default language(s) for already registered subscribers', 'mscatsync' )
+					'helper'		=> __( 'Used to assign default language(s) for already registered subscribers', 'mscatsync' ),
 				),
 				array(
 					'uid'			=> 'mscatsync_general_default_cat' . ( defined( 'ICL_LANGUAGE_CODE' ) ? '_' . ICL_LANGUAGE_CODE : '' ),
@@ -78,7 +78,7 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 					'section'		=> 'general',
 					'type'			=> 'checkbox',
 					'options'		=> mscatsync_get_categories(),
-					'helper'		=> __( 'Used to assign default post categories', 'mscatsync' )
+					'helper'		=> __( 'Used to assign default post categories', 'mscatsync' ),
 				),
 				array(
 					'uid'			=> 'mscatsync_uninstall_remove_data',
@@ -88,11 +88,11 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 					'section'		=> 'uninstall',
 					'type'			=> 'checkbox',
 					'options'		=> array(
-						'remove'	=> ''
+						'remove'	=> '',
 					),
-					'helper'		=> __( 'Caution: all data will be removed without any option to restore', 'mscatsync' )
-				)
-			)
+					'helper'		=> __( 'Caution: all data will be removed without any option to restore', 'mscatsync' ),
+				),
+			),
 
 		);
 

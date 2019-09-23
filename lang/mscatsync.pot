@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-categories-sync 1.0.0\n"
-"POT-Creation-Date: 2019-08-21 19:32+0300\n"
+"POT-Creation-Date: 2019-09-23 18:14+0300\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -27,6 +27,15 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-7: README.md\n"
 "X-Poedit-SearchPathExcluded-8: package.json\n"
 "X-Poedit-SearchPathExcluded-9: readme.txt\n"
+
+#: includes/admin/class-admin-categories.php:34
+msgid "Categories & Taxonomies Sync"
+msgstr ""
+
+#: includes/admin/class-admin-categories.php:35
+#: includes/admin/class-admin-categories.php:40
+msgid "Categories"
+msgstr ""
 
 #: includes/admin/class-admin-dashboard.php:34
 msgid "Multisite Categories Sync Dashboard"
@@ -100,7 +109,14 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: ms-categories-sync.php:410
+#: ms-categories-sync.php:449
+#, php-format
+msgid ""
+"<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
+"be enabled."
+msgstr ""
+
+#: ms-categories-sync.php:468
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

@@ -14,9 +14,22 @@ extract( $args );
 
 ?>
 
-<div class="wrap about-wrap mscatsync-wrap">
+<div class="wrap about-wrap mscatsync-wrap" id="<?php echo $menu_slug; ?>">
 
 	<h1><?php _e( 'Welcome to Multisite Categories Sync', 'mscatsync' ); ?> <?php echo $version; ?></h1>
 	<div class="about-text"><?php _e( 'Thank you for installing, we hope you like it.', 'mscatsync' ); ?></div>
+
+	<?php
+		// display tabs
+		if ( ! empty( $tabs ) ) : ?>
+
+			<h2 class="nav-tab-wrapper">
+				<?php foreach ( $tabs as $tab_slug => $tab ) : ?>
+					<a class="nav-tab<?php echo ( $active_tab == $tab_slug ) ? ' nav-tab-active' : ''; ?>" href="<?php echo admin_url( "admin.php?page={$menu_slug}&tab={$tab_slug}" ); ?>"><?php echo $tab; ?></a>
+				<?php endforeach; ?>
+			</h2>
+
+		<?php endif;
+	?>
 
 </div>

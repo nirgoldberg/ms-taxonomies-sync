@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 extract( $args );
 
 // vars
-$options_group_id = ( ! empty( $tabs ) ) ? $slug . '-' . $active_tab : $slug;
+$options_group_id = ( ! empty( $tabs ) ) ? $menu_slug . '-' . $active_tab : $menu_slug;
 
 // check if the user have submitted the settings
 if ( isset( $_GET[ 'settings-updated' ] ) ) {
@@ -24,15 +24,13 @@ if ( isset( $_GET[ 'settings-updated' ] ) ) {
 }
 
 // display notifications only if outside wordpress settings page
-if ( 'options-general.php' != $parent ) {
+if ( 'options-general.php' != $parent_slug ) {
 	settings_errors( $options_group_id . '_messages' );
 }
 
 ?>
 
-<div class="wrap" id="mscatsync-admin-settings">
-
-	<div id="icon-options-general" class="icon32"></div>
+<div class="wrap mscatsync-wrap" id="<?php echo $menu_slug; ?>">
 
 	<h1><?php echo $page_title; ?></h1>
 
@@ -42,7 +40,7 @@ if ( 'options-general.php' != $parent ) {
 
 			<h2 class="nav-tab-wrapper">
 				<?php foreach ( $tabs as $tab_slug => $tab ) : ?>
-					<a class="nav-tab<?php echo ( $active_tab == $tab_slug ) ? ' nav-tab-active' : ''; ?>" href="<?php echo admin_url( "admin.php?page={$slug}&tab={$tab_slug}" ); ?>"><?php echo $tab[ 'title' ]; ?></a>
+					<a class="nav-tab<?php echo ( $active_tab == $tab_slug ) ? ' nav-tab-active' : ''; ?>" href="<?php echo admin_url( "admin.php?page={$menu_slug}&tab={$tab_slug}" ); ?>"><?php echo $tab[ 'title' ]; ?></a>
 				<?php endforeach; ?>
 			</h2>
 
@@ -65,7 +63,7 @@ if ( 'options-general.php' != $parent ) {
 					mscatsync_get_view( 'settings-form', array(
 						'options_group_id'	=> $options_group_id,
 						'section_id'		=> $section_id,
-						'section'			=> $section
+						'section'			=> $section,
 					) );
 
 				}
@@ -80,7 +78,7 @@ if ( 'options-general.php' != $parent ) {
 					mscatsync_get_view( 'settings-form', array(
 						'options_group_id'	=> $options_group_id,
 						'section_id'		=> $section_id,
-						'section'			=> $section
+						'section'			=> $section,
 					) );
 
 				}
