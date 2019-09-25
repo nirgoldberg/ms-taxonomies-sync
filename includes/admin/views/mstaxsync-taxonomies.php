@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin categories HTML content
+ * Admin taxonomies HTML content
  *
  * @author		Nir Goldberg
  * @package		includes/admin/views
@@ -14,7 +14,7 @@ extract( $args );
 
 ?>
 
-<div class="wrap mscatsync-wrap" id="<?php echo $menu_slug; ?>">
+<div class="wrap mstaxsync-wrap" id="<?php echo $menu_slug; ?>">
 
 	<h1><?php echo $page_title; ?></h1>
 

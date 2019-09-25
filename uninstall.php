@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Categories Sync uninstall
+ * Multisite Taxonomies Sync uninstall
  *
  * @author		Nir Goldberg
  * @version		1.0.0
@@ -22,18 +22,19 @@ if ( $sites ) {
 
 	// set options
 	$options	= array(
-		'mscatsync_general_default_lang',
-		'mscatsync_uninstall_remove_data'
+		'mstaxsync_sync_categories',
+		'mstaxsync_synced_taxonomies',
+		'mstaxsync_uninstall_remove_data',
 	);
 
 	foreach ( $sites as $site_id ) {
 
-		$remove_data = get_blog_option( $site_id, 'mscatsync_uninstall_remove_data' );
+		$remove_data = get_blog_option( $site_id, 'mstaxsync_uninstall_remove_data' );
 
 		if ( $remove_data && in_array( 'remove', $remove_data ) ) {
 
 			// remove plugin data
-			mscatsync_remove_data( $site_id, $options );
+			mstaxsync_remove_data( $site_id, $options );
 
 		}
 
@@ -42,36 +43,38 @@ if ( $sites ) {
 }
 
 /**
- * mscatsync_remove_data
+ * mstaxsync_remove_data
  *
- * This function will delete options and database plugin data
+ * This function will remove options and database plugin data
  *
  * @since		1.0.0
  * @param		$site_id (int) site ID
  * @param		$options (array) plugin options
  * @return		N/A
  */
-function mscatsync_remove_data( $site_id, $options = array() ) {
+function mstaxsync_remove_data( $site_id, $options = array() ) {
 
-	// delete plugin options
-	mscatsync_remove_options_data( $site_id, $options );
+	// remove plugin options
+	mstaxsync_remove_options_data( $site_id, $options );
 
-	// delete database plugin data
-	mscatsync_remove_db_data( $site_id );
+	// remove database plugin data
+	mstaxsync_remove_db_data( $site_id );
 
 }
 
 /**
- * mscatsync_remove_options_data
+ * mstaxsync_remove_options_data
  *
- * This function will delete plugin options
+ * This function will remove plugin options
  *
  * @since		1.0.0
  * @param		$site_id (int) site ID
  * @param		&$options (array) plugin options
  * @return		N/A
  */
-function mscatsync_remove_options_data( $site_id, &$options = array() ) {
+function mstaxsync_remove_options_data( $site_id, &$options = array() ) {
+
+	/* todo: add this block if language based options should be added
 
 	// globals
 	global $wpdb;
@@ -80,14 +83,16 @@ function mscatsync_remove_options_data( $site_id, &$options = array() ) {
 	$options_table = $wpdb->get_blog_prefix( $site_id ) . 'options';
 
 	// append language based options
-	$general_default_cat_options = $wpdb->get_results(
+	$mstaxsync_language_based_options = $wpdb->get_results(
 		"SELECT option_name FROM $options_table
-		 WHERE option_name like 'mscatsync_general_default_cat%'", ARRAY_N
+		 WHERE option_name like 'mstaxsync_%'", ARRAY_N
 	);
 
-	foreach ( $general_default_cat_options as $option ) {
+	foreach ( $mstaxsync_language_based_options as $option ) {
 		$options[] = $option[0];
 	}
+
+	*/
 
 	foreach ( $options as $option ) {
 		delete_blog_option( $site_id, $option );
@@ -96,12 +101,12 @@ function mscatsync_remove_options_data( $site_id, &$options = array() ) {
 }
 
 /**
- * mscatsync_remove_db_data
+ * mstaxsync_remove_db_data
  *
- * This function will delete database plugin data
+ * This function will remove database plugin data
  *
  * @since		1.0.0
  * @param		$site_id (int) site ID
  * @return		N/A
  */
-function mscatsync_remove_db_data( $site_id ) {}
+function mstaxsync_remove_db_data( $site_id ) {}

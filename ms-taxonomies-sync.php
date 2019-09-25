@@ -1,27 +1,27 @@
 <?php
 /**
-* Plugin Name: Multisite Categories Sync
+* Plugin Name: Multisite Taxonomies Sync
 * Plugin URI: http://www.htmline.com/
-* Description: Extends WordPress Multisite platforms with categories sync capabilities
+* Description: Extends WordPress Multisite platforms with taxonomies sync capabilities
 * Version: 1.0.0
 * Author: Nir Goldberg
 * Author URI: http://www.htmline.com/
 * License: GPLv3
-* Text Domain: mscatsync
+* Text Domain: mstaxsync
 * Domain Path: /lang
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'MSCatSync' ) ) :
+if ( ! class_exists( 'MSTaxSync' ) ) :
 
-class MSCatSync {
+class MSTaxSync {
 
 	/**
 	 * vars
 	 *
 	 * @var $version (string) plugin version number
-	 * @var required_plugins (array) required plugins must be active for MSCatSync
+	 * @var required_plugins (array) required plugins must be active for MSTaxSync
 	 */
 	public $version;
 	public $required_plugins;
@@ -29,7 +29,7 @@ class MSCatSync {
 	/**
 	* __construct
 	*
-	* A dummy constructor to ensure MSCatSync is only initialized once
+	* A dummy constructor to ensure MSTaxSync is only initialized once
 	*
 	* @since		1.0.0
 	* @param		N/A
@@ -47,7 +47,7 @@ class MSCatSync {
 	/**
 	* initialize
 	*
-	* The real constructor to initialize MSCatSync
+	* The real constructor to initialize MSTaxSync
 	*
 	* @since		1.0.0
 	* @param		N/A
@@ -65,7 +65,7 @@ class MSCatSync {
 		$this->settings = array(
 
 			// basic
-			'name'				=> __( 'Multisite Categories Sync', 'mscatsync' ),
+			'name'				=> __( 'Multisite Taxonomies Sync', 'mstaxsync' ),
 			'version'			=> $this->version,
 
 			// urls
@@ -88,15 +88,15 @@ class MSCatSync {
 			return;
 
 		// constants
-		$this->define( 'MSCatSync',			true );
-		$this->define( 'MSCatSync_VERSION',	$this->version );
-		$this->define( 'MSCatSync_PATH',	$path );
+		$this->define( 'MSTaxSync',			true );
+		$this->define( 'MSTaxSync_VERSION',	$this->version );
+		$this->define( 'MSTaxSync_PATH',	$path );
 
 		// api
-		include_once( MSCatSync_PATH . 'includes/api/api-helpers.php' );
+		include_once( MSTaxSync_PATH . 'includes/api/api-helpers.php' );
 
 		// core
-		mscatsync_include( 'includes/classes/class-mscatsync-core.php' );
+		mstaxsync_include( 'includes/classes/class-mstaxsync-core.php' );
 
 		// actions
 		add_action( 'init',	array( $this, 'init' ), 99 );
@@ -111,8 +111,8 @@ class MSCatSync {
 		}
 
 		// plugin activation / deactivation
-		register_activation_hook	( __FILE__,	array( $this, 'mscatsync_activate' ) );
-		register_deactivation_hook	( __FILE__,	array( $this, 'mscatsync_deactivate' ) );
+		register_activation_hook	( __FILE__,	array( $this, 'mstaxsync_activate' ) );
+		register_deactivation_hook	( __FILE__,	array( $this, 'mstaxsync_deactivate' ) );
 
 	}
 
@@ -132,14 +132,14 @@ class MSCatSync {
 			return;
 
 		// exit if already init
-		if ( mscatsync_get_setting( 'init' ) )
+		if ( mstaxsync_get_setting( 'init' ) )
 			return;
 
 		// only run once
-		mscatsync_update_setting( 'init', true );
+		mstaxsync_update_setting( 'init', true );
 
 		// update url - allow another plugin to modify dir
-		mscatsync_update_setting( 'url', plugin_dir_url( __FILE__ ) );
+		mstaxsync_update_setting( 'url', plugin_dir_url( __FILE__ ) );
 
 		// set textdomain
 		$this->load_plugin_textdomain();
@@ -147,18 +147,18 @@ class MSCatSync {
 		// admin
 		if ( is_admin() ) {
 
-			mscatsync_include( 'includes/admin/settings-api.php' );
-			mscatsync_include( 'includes/admin/class-admin.php' );
-			mscatsync_include( 'includes/admin/class-admin-page.php' );
-			mscatsync_include( 'includes/admin/class-admin-dashboard.php' );
-			mscatsync_include( 'includes/admin/class-admin-categories.php' );
-			mscatsync_include( 'includes/admin/class-admin-settings-page.php' );
-			mscatsync_include( 'includes/admin/class-admin-settings.php' );
+			mstaxsync_include( 'includes/admin/settings-api.php' );
+			mstaxsync_include( 'includes/admin/class-admin.php' );
+			mstaxsync_include( 'includes/admin/class-admin-page.php' );
+			mstaxsync_include( 'includes/admin/class-admin-dashboard.php' );
+			mstaxsync_include( 'includes/admin/class-admin-taxonomies.php' );
+			mstaxsync_include( 'includes/admin/class-admin-settings-page.php' );
+			mstaxsync_include( 'includes/admin/class-admin-settings.php' );
 
 		}
 
 		// action for 3rd party
-		do_action( 'mscatsync/init' );
+		do_action( 'mstaxsync/init' );
 
 	}
 
@@ -175,15 +175,15 @@ class MSCatSync {
 
 		// append styles
 		$styles = array(
-			'mscatsync-admin'	=> array(
-				'src'	=> mscatsync_get_url( 'assets/css/mscatsync-admin-style.css' ),
+			'mstaxsync-admin'	=> array(
+				'src'	=> mstaxsync_get_url( 'assets/css/mstaxsync-admin-style.css' ),
 				'deps'	=> false,
 			),
 		);
 
 		// register styles
 		foreach( $styles as $handle => $style ) {
-			wp_register_style( $handle, $style[ 'src' ], $style[ 'deps' ], MSCatSync_VERSION );
+			wp_register_style( $handle, $style[ 'src' ], $style[ 'deps' ], MSTaxSync_VERSION );
 		}
 
 	}
@@ -200,7 +200,7 @@ class MSCatSync {
 	function admin_enqueue_scripts() {
 
 		// enqueue styles
-		wp_enqueue_style( 'mscatsync-admin' );
+		wp_enqueue_style( 'mstaxsync-admin' );
 
 	}
 
@@ -234,15 +234,15 @@ class MSCatSync {
 	function load_plugin_textdomain() {
 
 		// vars
-		$domain = 'mscatsync';
-		$locale = apply_filters( 'plugin_locale', mscatsync_get_locale(), $domain );
+		$domain = 'mstaxsync';
+		$locale = apply_filters( 'plugin_locale', mstaxsync_get_locale(), $domain );
 		$mofile = $domain . '-' . $locale . '.mo';
 
 		// load from the languages directory first
 		load_textdomain( $domain, WP_LANG_DIR . '/plugins/' . $mofile );
 
 		// load from plugin lang folder
-		load_textdomain( $domain, mscatsync_get_path( 'lang/' . $mofile ) );
+		load_textdomain( $domain, mstaxsync_get_path( 'lang/' . $mofile ) );
 
 	}
 
@@ -298,7 +298,7 @@ class MSCatSync {
 	}
 
 	/**
-	* mscatsync_activate
+	* mstaxsync_activate
 	*
 	* Actions perform on activation of plugin
 	*
@@ -306,10 +306,10 @@ class MSCatSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function mscatsync_activate() {}
+	function mstaxsync_activate() {}
 
 	/**
-	* mscatsync_deactivate
+	* mstaxsync_deactivate
 	*
 	* Actions perform on deactivation of plugin
 	*
@@ -317,7 +317,7 @@ class MSCatSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function mscatsync_deactivate() {}
+	function mstaxsync_deactivate() {}
 
 	/**
 	* check_multisite
@@ -446,7 +446,7 @@ class MSCatSync {
 	function admin_multisite_notices_error() {
 
 		// vars
-		$msg = sprintf( __( "<strong>%s</strong> plugin can't be activated.<br />Multisite support must be enabled.", 'mscatsync' ), $this->settings[ 'name' ] );
+		$msg = sprintf( __( "<strong>%s</strong> plugin can't be activated.<br />Multisite support must be enabled.", 'mstaxsync' ), $this->settings[ 'name' ] );
 
 		$this->admin_notices_error( $msg );
 
@@ -465,7 +465,7 @@ class MSCatSync {
 
 		// vars
 		$required	= $this->required_plugins;
-		$msg		= sprintf( __( "<strong>%s</strong> plugin can't be activated.<br />The following plugins should be installed and activated first:<br />", 'mscatsync' ), $this->settings[ 'name' ] );
+		$msg		= sprintf( __( "<strong>%s</strong> plugin can't be activated.<br />The following plugins should be installed and activated first:<br />", 'mstaxsync' ), $this->settings[ 'name' ] );
 
 		foreach ( $required as $key => $plugin ) {
 
@@ -506,33 +506,33 @@ class MSCatSync {
 }
 
 /**
-* mscatsync
+* mstaxsync
 *
-* The main function responsible for returning the one true mscatsync instance
+* The main function responsible for returning the one true mstaxsync instance
 *
 * @since		1.0.0
 * @param		N/A
 * @return		(object)
 */
-function mscatsync() {
+function mstaxsync() {
 
 	// globals
-	global $mscatsync;
+	global $mstaxsync;
 
 	// initialize
-	if( ! isset( $mscatsync ) ) {
+	if( ! isset( $mstaxsync ) ) {
 
-		$mscatsync = new MSCatSync();
-		$mscatsync->initialize();
+		$mstaxsync = new MSTaxSync();
+		$mstaxsync->initialize();
 
 	}
 
 	// return
-	return $mscatsync;
+	return $mstaxsync;
 
 }
 
 // initialize
-mscatsync();
+mstaxsync();
 
 endif; // class_exists check

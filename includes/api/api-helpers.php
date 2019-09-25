@@ -10,40 +10,40 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * mscatsync_has_setting
+ * mstaxsync_has_setting
  *
- * Alias of mscatsync()->has_setting()
+ * Alias of mstaxsync()->has_setting()
  *
  * @since		1.0.0
  * @param		$name (string)
  * @return		(boolean)
  */
-function mscatsync_has_setting( $name = '' ) {
+function mstaxsync_has_setting( $name = '' ) {
 
 	// return
-	return mscatsync()->has_setting( $name );
+	return mstaxsync()->has_setting( $name );
 
 }
 
 /**
- * mscatsync_get_setting
+ * mstaxsync_get_setting
  *
- * This function will return a value from the settings array found in the mscatsync object
+ * This function will return a value from the settings array found in the mstaxsync object
  *
  * @since		1.0.0
  * @param		$name (string)
  * @return		(mixed)
  */
-function mscatsync_get_setting( $name, $default = null ) {
+function mstaxsync_get_setting( $name, $default = null ) {
 
 	// vars
-	$settings = mscatsync()->settings;
+	$settings = mstaxsync()->settings;
 
 	// find setting
-	$setting = mscatsync_maybe_get( $settings, $name, $default );
+	$setting = mstaxsync_maybe_get( $settings, $name, $default );
 
 	// filter for 3rd party
-	$setting = apply_filters( "mscatsync/settings/{$name}", $setting );
+	$setting = apply_filters( "mstaxsync/settings/{$name}", $setting );
 
 	// return
 	return $setting;
@@ -51,24 +51,24 @@ function mscatsync_get_setting( $name, $default = null ) {
 }
 
 /**
- * mscatsync_update_setting
+ * mstaxsync_update_setting
  *
- * Alias of mscatsync()->update_setting()
+ * Alias of mstaxsync()->update_setting()
  *
  * @since		1.0.0
  * @param		$name (string)
  * @param		$value (mixed)
  * @return		N/A
  */
-function mscatsync_update_setting( $name, $value ) {
+function mstaxsync_update_setting( $name, $value ) {
 
 	// return
-	return mscatsync()->update_setting( $name, $value );
+	return mstaxsync()->update_setting( $name, $value );
 
 }
 
 /**
- * mscatsync_get_path
+ * mstaxsync_get_path
  *
  * This function will return the path to a file within the plugin folder
  *
@@ -76,15 +76,15 @@ function mscatsync_update_setting( $name, $value ) {
  * @param		$path (string) the relative path from the root of the plugin folder
  * @return		(string)
  */
-function mscatsync_get_path( $path = '' ) {
+function mstaxsync_get_path( $path = '' ) {
 
 	// return
-	return MSCatSync_PATH . $path;
+	return MSTaxSync_PATH . $path;
 
 }
 
 /**
- * mscatsync_get_url
+ * mstaxsync_get_url
  *
  * This function will return the url to a file within the plugin folder
  *
@@ -92,18 +92,18 @@ function mscatsync_get_path( $path = '' ) {
  * @param		$path (string) the relative path from the root of the plugin folder
  * @return		(string)
  */
-function mscatsync_get_url( $path = '' ) {
+function mstaxsync_get_url( $path = '' ) {
 
-	// define MSCatSync_URL to optimize performance
-	mscatsync()->define( 'MSCatSync_URL', mscatsync_get_setting( 'url' ) );
+	// define MSTaxSync_URL to optimize performance
+	mstaxsync()->define( 'MSTaxSync_URL', mstaxsync_get_setting( 'url' ) );
 
 	// return
-	return MSCatSync_URL . $path;
+	return MSTaxSync_URL . $path;
 
 }
 
 /**
- * mscatsync_include
+ * mstaxsync_include
  *
  * This function will include a file
  *
@@ -111,9 +111,9 @@ function mscatsync_get_url( $path = '' ) {
  * @param		$file (string) the file name to be included
  * @return		N/A
  */
-function mscatsync_include( $file ) {
+function mstaxsync_include( $file ) {
 
-	$path = mscatsync_get_path( $file );
+	$path = mstaxsync_get_path( $file );
 
 	if ( file_exists( $path ) ) {
 		include_once( $path );
@@ -122,7 +122,7 @@ function mscatsync_include( $file ) {
 }
 
 /**
- * mscatsync_get_view
+ * mstaxsync_get_view
  *
  * This function will load in a file from the 'includes/admin/views' folder and allow variables to be passed through
  *
@@ -131,10 +131,10 @@ function mscatsync_include( $file ) {
  * @param		$args (array)
  * @return		N/A
  */
-function mscatsync_get_view( $view_name = '', $args = array() ) {
+function mstaxsync_get_view( $view_name = '', $args = array() ) {
 
 	// vars
-	$path = mscatsync_get_path( "includes/admin/views/{$view_name}.php" );
+	$path = mstaxsync_get_path( "includes/admin/views/{$view_name}.php" );
 
 	if( file_exists( $path ) ) {
 		include( $path );
@@ -143,7 +143,7 @@ function mscatsync_get_view( $view_name = '', $args = array() ) {
 }
 
 /**
- * mscatsync_maybe_get
+ * mstaxsync_maybe_get
  *
  * This function will return a variable if it exists in an array
  *
@@ -153,7 +153,7 @@ function mscatsync_get_view( $view_name = '', $args = array() ) {
  * @param		$default (mixed) the value returned if not found
  * @return		(mixed)
  */
-function mscatsync_maybe_get( $array = array(), $key = 0, $default = null ) {
+function mstaxsync_maybe_get( $array = array(), $key = 0, $default = null ) {
 
 	// return
 	return isset( $array[ $key ] ) ? $array[ $key ] : $default;
@@ -161,7 +161,7 @@ function mscatsync_maybe_get( $array = array(), $key = 0, $default = null ) {
 }
 
 /**
- * mscatsync_get_locale
+ * mstaxsync_get_locale
  *
  * This function is a wrapper for the get_locale() function
  *
@@ -169,7 +169,7 @@ function mscatsync_maybe_get( $array = array(), $key = 0, $default = null ) {
  * @param		N/A
  * @return		(string)
  */
-function mscatsync_get_locale() {
+function mstaxsync_get_locale() {
 
 	// return
 	return is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
@@ -177,7 +177,7 @@ function mscatsync_get_locale() {
 }
 
 /**
- * mscatsync_get_active_languages
+ * mstaxsync_get_active_languages
  *
  * This function will return array of language code and language native name
  *
@@ -185,7 +185,7 @@ function mscatsync_get_locale() {
  * @param		N/A
  * @return		(array)
  */
-function mscatsync_get_active_languages() {
+function mstaxsync_get_active_languages() {
 
 	if ( ! function_exists( 'icl_get_languages' ) )
 		return;
@@ -206,7 +206,7 @@ function mscatsync_get_active_languages() {
 }
 
 /**
- * mscatsync_get_categories
+ * mstaxsync_get_categories
  *
  * This function will return array of category ID and category name
  *
@@ -214,7 +214,7 @@ function mscatsync_get_active_languages() {
  * @param		N/A
  * @return		(array)
  */
-function mscatsync_get_categories() {
+function mstaxsync_get_categories() {
 
 	// vars
 	$categories	= get_terms( array(
@@ -236,7 +236,7 @@ function mscatsync_get_categories() {
 }
 
 /**
- * mscatsync_get_main_site_custom_taxonomies
+ * mstaxsync_get_main_site_custom_taxonomies_objects
  *
  * This function will return array of main site custom taxonomies objects
  *
@@ -244,9 +244,36 @@ function mscatsync_get_categories() {
  * @param		N/A
  * @return		(array)
  */
-function mscatsync_get_main_site_custom_taxonomies() {
+function mstaxsync_get_main_site_custom_taxonomies_objects() {
 
 	// return
-	return mscatsync_core()->get_main_site_custom_taxonomies();
+	return mstaxsync_core()->get_main_site_custom_taxonomies();
+
+}
+
+/**
+ * mstaxsync_get_main_site_custom_taxonomies_names
+ *
+ * This function will return array of taxonomy name and taxonomy label
+ *
+ * @since		1.0.0
+ * @param		N/A
+ * @return		(array)
+ */
+function mstaxsync_get_main_site_custom_taxonomies_names() {
+
+	// vars
+	$taxonomies	= mstaxsync_get_main_site_custom_taxonomies_objects();
+
+	$tax_arr = array();
+
+	if ( $taxonomies ) {
+		foreach ( $taxonomies as $tax ) {
+			$tax_arr[ $tax->name ] = $tax->label;
+		}
+	}
+
+	// return
+	return $tax_arr;
 
 }

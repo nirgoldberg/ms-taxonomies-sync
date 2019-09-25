@@ -1,7 +1,7 @@
-# Multisite Categories Sync
+# Multisite Taxonomies Sync
 
-Welcome to *Multisite Categories Sync* repository on GitHub.  
-*Multisite Categories Sync* is a WordPress plugin which extends WordPress Multisite platforms with categories sync capabilities.
+Welcome to *Multisite Taxonomies Sync* repository on GitHub.  
+*Multisite Taxonomies Sync* is a WordPress plugin which extends WordPress Multisite platforms with taxonomies sync capabilities.
 
 ## Documentation
 
@@ -9,7 +9,7 @@ Welcome to *Multisite Categories Sync* repository on GitHub.
 
 ## License
 
-*Multisite Categories Sync* plugin is licensed under the GPLv3.
+*Multisite Taxonomies Sync* plugin is licensed under the GPLv3.
 
 ## Prerequisites
 
@@ -25,4 +25,4 @@ For support requests, please use the following channels:
 
 ## Contributing
 
-Should you have a patch or an issue with *Multisite Categories Sync* core, you can contribute this back to the code. Please create a new github issue with as much information as possible.
+Should you have a patch or an issue with *Multisite Taxonomies Sync* core, you can contribute this back to the code. Please create a new github issue with as much information as possible.

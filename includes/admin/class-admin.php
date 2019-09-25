@@ -9,9 +9,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'MSCatSync_Admin' ) ) :
+if ( ! class_exists( 'MSTaxSync_Admin' ) ) :
 
-class MSCatSync_Admin {
+class MSTaxSync_Admin {
 
 	/**
 	 * vars
@@ -53,11 +53,11 @@ class MSCatSync_Admin {
 		$this->settings = array(
 
 			// slug
-			'menu_slug'		=> 'mscatsync-dashboard',
+			'menu_slug'		=> 'mstaxsync-dashboard',
 
 			// titles
-			'page_title'	=> __( 'Multisite Categories Sync', 'mscatsync' ),
-			'menu_title'	=> __( 'Categories Sync', 'mscatsync' ),
+			'page_title'	=> __( 'Multisite Taxonomies Sync', 'mstaxsync' ),
+			'menu_title'	=> __( 'Taxonomies Sync', 'mstaxsync' ),
 
 			// icon
 			'icon_url'		=> 'dashicons-category',
@@ -72,7 +72,7 @@ class MSCatSync_Admin {
 	/**
 	 * admin_menu
 	 *
-	 * This function will add Multisite Categories Sync submenu item to the WP admin
+	 * This function will add Multisite Taxonomies Sync submenu item to the WP admin
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -81,11 +81,11 @@ class MSCatSync_Admin {
 	function admin_menu() {
 		
 		// exit if no show_admin
-		if ( ! mscatsync_get_setting( 'show_admin' ) )
+		if ( ! mstaxsync_get_setting( 'show_admin' ) )
 			return;
 
 		// vars
-		$capability = mscatsync_get_setting( 'capability' );
+		$capability = mstaxsync_get_setting( 'capability' );
 
 		// add menu page
 		add_menu_page(
@@ -103,6 +103,6 @@ class MSCatSync_Admin {
 }
 
 // initialize
-new MSCatSync_Admin();
+new MSTaxSync_Admin();
 
 endif; // class_exists check

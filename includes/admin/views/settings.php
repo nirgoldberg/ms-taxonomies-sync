@@ -19,7 +19,7 @@ $options_group_id = ( ! empty( $tabs ) ) ? $menu_slug . '-' . $active_tab : $men
 if ( isset( $_GET[ 'settings-updated' ] ) ) {
 
 	// add settings saved message with the class of "updated"
-	add_settings_error( $options_group_id . '_messages', $options_group_id . '_message', __( 'Settings saved.', 'mscatsync' ), 'updated' );
+	add_settings_error( $options_group_id . '_messages', $options_group_id . '_message', __( 'Settings saved.', 'mstaxsync' ), 'updated' );
 
 }
 
@@ -30,7 +30,7 @@ if ( 'options-general.php' != $parent_slug ) {
 
 ?>
 
-<div class="wrap mscatsync-wrap" id="<?php echo $menu_slug; ?>">
+<div class="wrap mstaxsync-wrap" id="<?php echo $menu_slug; ?>">
 
 	<h1><?php echo $page_title; ?></h1>
 
@@ -60,7 +60,7 @@ if ( 'options-general.php' != $parent_slug ) {
 					$section_id = $active_tab . '-' . $section_slug;
 
 					// load view
-					mscatsync_get_view( 'settings-form', array(
+					mstaxsync_get_view( 'settings-form', array(
 						'options_group_id'	=> $options_group_id,
 						'section_id'		=> $section_id,
 						'section'			=> $section,
@@ -75,7 +75,7 @@ if ( 'options-general.php' != $parent_slug ) {
 					$section_id = $section_slug;
 
 					// load view
-					mscatsync_get_view( 'settings-form', array(
+					mstaxsync_get_view( 'settings-form', array(
 						'options_group_id'	=> $options_group_id,
 						'section_id'		=> $section_id,
 						'section'			=> $section,
@@ -89,4 +89,4 @@ if ( 'options-general.php' != $parent_slug ) {
 		?>
 	</form>
 
-</div><!-- #mscatsync-admin-settings -->
+</div><!-- #mstaxsync-admin-settings -->

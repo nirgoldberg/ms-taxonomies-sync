@@ -10,7 +10,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * mscatsync_admin_display_form_element
+ * mstaxsync_admin_display_form_element
  *
  * This function will display an admin form element
  *
@@ -18,28 +18,28 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @param		$args (array)
  * @return		N/A
  */
-function mscatsync_admin_display_form_element( $args ) {
+function mstaxsync_admin_display_form_element( $args ) {
 
 	switch ( $args[ 'type' ] ) {
 
 		case 'text':
 		case 'password':
 		case 'number':
-			mscatsync_admin_display_text_form_element( $args );
+			mstaxsync_admin_display_text_form_element( $args );
 			break;
 
 		case 'textarea':
-			mscatsync_admin_display_textarea_form_element( $args );
+			mstaxsync_admin_display_textarea_form_element( $args );
 			break;
 
 		case 'select':
 		case 'multiselect':
-			mscatsync_admin_display_select_form_element( $args );
+			mstaxsync_admin_display_select_form_element( $args );
 			break;
 
 		case 'radio':
 		case 'checkbox':
-			mscatsync_admin_display_radio_form_element( $args );
+			mstaxsync_admin_display_radio_form_element( $args );
 			break;
 
 	}
@@ -57,7 +57,7 @@ function mscatsync_admin_display_form_element( $args ) {
 }
 
 /**
- * mscatsync_admin_display_text_form_element
+ * mstaxsync_admin_display_text_form_element
  *
  * This function will display an admin text/password/number form element
  *
@@ -65,7 +65,7 @@ function mscatsync_admin_display_form_element( $args ) {
  * @param		$args (array)
  * @return		N/A
  */
-function mscatsync_admin_display_text_form_element( $args ) {
+function mstaxsync_admin_display_text_form_element( $args ) {
 
 	// vars
 	$value = get_option( $args[ 'uid' ] );
@@ -80,7 +80,7 @@ function mscatsync_admin_display_text_form_element( $args ) {
 }
 
 /**
- * mscatsync_admin_display_textarea_form_element
+ * mstaxsync_admin_display_textarea_form_element
  *
  * This function will display an admin textarea form element
  *
@@ -88,7 +88,7 @@ function mscatsync_admin_display_text_form_element( $args ) {
  * @param		$args (array)
  * @return		N/A
  */
-function mscatsync_admin_display_textarea_form_element( $args ) {
+function mstaxsync_admin_display_textarea_form_element( $args ) {
 
 	// vars
 	$value = get_option( $args[ 'uid' ] );
@@ -102,7 +102,7 @@ function mscatsync_admin_display_textarea_form_element( $args ) {
 }
 
 /**
- * mscatsync_admin_display_select_form_element
+ * mstaxsync_admin_display_select_form_element
  *
  * This function will display an admin select/multiselect form element
  *
@@ -110,7 +110,7 @@ function mscatsync_admin_display_textarea_form_element( $args ) {
  * @param		$args (array)
  * @return		N/A
  */
-function mscatsync_admin_display_select_form_element( $args ) {
+function mstaxsync_admin_display_select_form_element( $args ) {
 
 	// vars
 	$value = get_option( $args[ 'uid' ] );
@@ -144,7 +144,7 @@ function mscatsync_admin_display_select_form_element( $args ) {
 }
 
 /**
- * mscatsync_admin_display_radio_form_element
+ * mstaxsync_admin_display_radio_form_element
  *
  * This function will display an admin radio/checkbox form element
  *
@@ -152,7 +152,7 @@ function mscatsync_admin_display_select_form_element( $args ) {
  * @param		$args (array)
  * @return		N/A
  */
-function mscatsync_admin_display_radio_form_element( $args ) {
+function mstaxsync_admin_display_radio_form_element( $args ) {
 
 	// vars
 	$value = get_option( $args[ 'uid' ] );

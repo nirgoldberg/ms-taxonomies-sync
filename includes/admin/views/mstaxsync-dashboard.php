@@ -14,10 +14,10 @@ extract( $args );
 
 ?>
 
-<div class="wrap about-wrap mscatsync-wrap" id="<?php echo $menu_slug; ?>">
+<div class="wrap about-wrap mstaxsync-wrap" id="<?php echo $menu_slug; ?>">
 
-	<h1><?php _e( 'Welcome to Multisite Categories Sync', 'mscatsync' ); ?> <?php echo $version; ?></h1>
-	<div class="about-text"><?php _e( 'Thank you for installing, we hope you like it.', 'mscatsync' ); ?></div>
+	<h1><?php _e( 'Welcome to Multisite Taxonomies Sync', 'mstaxsync' ); ?> <?php echo $version; ?></h1>
+	<div class="about-text"><?php _e( 'Thank you for installing, we hope you like it.', 'mstaxsync' ); ?></div>
 
 	<?php
 		// display tabs

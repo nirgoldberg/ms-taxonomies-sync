@@ -1,15 +1,15 @@
-=== Multisite Categories Sync ===
+=== Multisite Taxonomies Sync ===
 Contributors: nirgoldberg
-Tags: multisite, posts, category, categories, categories sync, multisite categories, multisite categories sync
-Requires at least: 5.2.2
-Tested up to: 5.2.2
+Tags: multisite, posts, category, categories, categories sync, taxonomy, taxonomies, taxonomies sync, multisite categories, multisite categories sync, multisite taxonomies, multisite taxonomies sync
+Requires at least: 5.0
+Tested up to: 5.2.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 
 == Description ==
 
-Extends WordPress Multisite platforms with categories sync capabilities.
+Extends WordPress Multisite platforms with taxonomies sync capabilities.
 
 = Prerequisites =
 
@@ -25,8 +25,8 @@ This plugin requires WordPress Multisite installation.
 From your WordPress dashboard:
 
 1. **Visit** Plugins > Add New
-2. **Search** for "Multisite Categories Sync"
-3. **Activate** Multisite Categories Sync from your Plugins page
+2. **Search** for "Multisite Taxonomies Sync"
+3. **Activate** Multisite Taxonomies Sync from your Plugins page
 
 
 == Frequently Asked Questions ==

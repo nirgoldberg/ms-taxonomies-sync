@@ -14,7 +14,7 @@ extract( $args );
 
 ?>
 
-<div class="mscatsync-admin-box">
+<div class="mstaxsync-admin-box">
 
 	<?php if ( $section[ 'title' ] || $section[ 'description' ] ) : ?>
 
@@ -37,4 +37,4 @@ extract( $args );
 		</table>
 	</div>
 
-</div><!-- .mscatsync-admin-box -->
+</div><!-- .mstaxsync-admin-box -->

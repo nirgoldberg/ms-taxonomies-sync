@@ -1,6 +1,6 @@
 <?php
 /**
- * MSCatSync_Core
+ * MSTaxSync_Core
  *
  * @author		Nir Goldberg
  * @package		includes
@@ -9,9 +9,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'MSCatSync_Core' ) ) :
+if ( ! class_exists( 'MSTaxSync_Core' ) ) :
 
-class MSCatSync_Core {
+class MSTaxSync_Core {
 
 	/**
 	* __construct
@@ -31,7 +31,7 @@ class MSCatSync_Core {
 	/**
 	* initialize
 	*
-	* The real constructor to initialize MSCatSync_Core
+	* The real constructor to initialize MSTaxSync_Core
 	*
 	* @since		1.0.0
 	* @param		N/A
@@ -82,7 +82,7 @@ class MSCatSync_Core {
 		}
 
 		// action for 3rd party
-		do_action( 'mscatsync_core/init' );
+		do_action( 'mstaxsync_core/init' );
 
 	}
 
@@ -134,7 +134,7 @@ class MSCatSync_Core {
 }
 
 /**
-* mscatsync_core
+* mstaxsync_core
 *
 * The main function responsible for returning the one true instance
 *
@@ -142,25 +142,25 @@ class MSCatSync_Core {
 * @param		N/A
 * @return		(object)
 */
-function mscatsync_core() {
+function mstaxsync_core() {
 
 	// globals
-	global $mscatsync_core;
+	global $mstaxsync_core;
 
 	// initialize
-	if( ! isset( $mscatsync_core ) ) {
+	if( ! isset( $mstaxsync_core ) ) {
 
-		$mscatsync_core = new MSCatSync_Core();
-		$mscatsync_core->initialize();
+		$mstaxsync_core = new MSTaxSync_Core();
+		$mstaxsync_core->initialize();
 
 	}
 
 	// return
-	return $mscatsync_core;
+	return $mstaxsync_core;
 
 }
 
 // initialize
-mscatsync_core();
+mstaxsync_core();
 
 endif; // class_exists check

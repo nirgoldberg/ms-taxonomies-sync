@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin categories page filters, actions, variables and includes
+ * Admin taxonomies page filters, actions, variables and includes
  *
  * @author		Nir Goldberg
  * @package		includes/admin
@@ -9,14 +9,14 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'MSCatSync_Admin_Categories' ) ) :
+if ( ! class_exists( 'MSTaxSync_Admin_Taxonomies' ) ) :
 
-class MSCatSync_Admin_Categories extends MSCatSync_Admin_Page {
+class MSTaxSync_Admin_Taxonomies extends MSTaxSync_Admin_Page {
 
 	/**
 	 * initialize
 	 *
-	 * This function will initialize the categories submenu page
+	 * This function will initialize the taxonomies submenu page
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -27,17 +27,17 @@ class MSCatSync_Admin_Categories extends MSCatSync_Admin_Page {
 		$this->settings = array(
 
 			// slugs
-			'parent_slug'		=> 'mscatsync-dashboard',
-			'menu_slug'			=> 'mscatsync-categories',
+			'parent_slug'		=> 'mstaxsync-dashboard',
+			'menu_slug'			=> 'mstaxsync-taxonomies',
 
 			// titles
-			'page_title'		=> __( 'Categories & Taxonomies Sync', 'mscatsync' ),
-			'menu_title'		=> __( 'Categories', 'mscatsync' ),
+			'page_title'		=> __( 'Taxonomies Sync', 'mstaxsync' ),
+			'menu_title'		=> __( 'Taxonomies', 'mstaxsync' ),
 
 			// tabs
 			'tabs'				=> array(
 				'category'		=> array(
-					'title'		=> __( 'Categories', 'mscatsync' ),
+					'title'		=> __( 'Categories', 'mstaxsync' ),
 				),
 			),
 			'active_tab'		=> 'category',
@@ -61,7 +61,7 @@ class MSCatSync_Admin_Categories extends MSCatSync_Admin_Page {
 	function append_custom_taxonomies() {
 
 		// vars
-		$taxonomies = mscatsync_get_main_site_custom_taxonomies();
+		$taxonomies = mstaxsync_get_main_site_custom_taxonomies_objects();
 
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $taxonomy ) {
@@ -78,6 +78,6 @@ class MSCatSync_Admin_Categories extends MSCatSync_Admin_Page {
 }
 
 // initialize
-new MSCatSync_Admin_Categories();
+new MSTaxSync_Admin_Taxonomies();
 
 endif; // class_exists check

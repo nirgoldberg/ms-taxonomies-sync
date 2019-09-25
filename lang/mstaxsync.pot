@@ -1,8 +1,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ms-categories-sync 1.0.0\n"
-"POT-Creation-Date: 2019-09-23 18:14+0300\n"
+"Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
+"POT-Creation-Date: 2019-09-25 15:03+0300\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -28,17 +28,8 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-8: package.json\n"
 "X-Poedit-SearchPathExcluded-9: readme.txt\n"
 
-#: includes/admin/class-admin-categories.php:34
-msgid "Categories & Taxonomies Sync"
-msgstr ""
-
-#: includes/admin/class-admin-categories.php:35
-#: includes/admin/class-admin-categories.php:40
-msgid "Categories"
-msgstr ""
-
 #: includes/admin/class-admin-dashboard.php:34
-msgid "Multisite Categories Sync Dashboard"
+msgid "Multisite Taxonomies Sync Dashboard"
 msgstr ""
 
 #: includes/admin/class-admin-dashboard.php:35
@@ -54,7 +45,7 @@ msgid "Changelog"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:35
-msgid "Multisite Categories Sync Settings"
+msgid "Multisite Taxonomies Sync Settings"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:36
@@ -62,46 +53,60 @@ msgid "Settings"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:41
-msgid "General"
+#: includes/admin/class-admin-taxonomies.php:35
+msgid "Taxonomies"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:44
-msgid "General Settings"
+msgid "Categories Settings"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:50
+#: includes/admin/class-admin-settings.php:48
+msgid "Custom Taxonomies Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:54
 msgid "Uninstall"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:53
+#: includes/admin/class-admin-settings.php:57
 msgid "Uninstall Settings"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:71
-msgid "Used to assign default language(s) for already registered subscribers"
+#: includes/admin/class-admin-settings.php:69
+msgid "Sync categories?"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:81
-msgid "Used to assign default post categories"
+#: includes/admin/class-admin-settings.php:80
+msgid "Taxonomies to sync"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:93
+#: includes/admin/class-admin-settings.php:89
+msgid "Remove Data on Uninstall"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:97
 msgid "Caution: all data will be removed without any option to restore"
 msgstr ""
 
-#: includes/admin/class-admin.php:59 ms-categories-sync.php:68
-msgid "Multisite Categories Sync"
-msgstr ""
-
+#: includes/admin/class-admin-taxonomies.php:34
 #: includes/admin/class-admin.php:60
-msgid "Categories Sync"
+msgid "Taxonomies Sync"
 msgstr ""
 
-#: includes/admin/views/mscatsync-dashboard.php:19
-msgid "Welcome to Multisite Categories Sync"
+#: includes/admin/class-admin-taxonomies.php:40
+msgid "Categories"
 msgstr ""
 
-#: includes/admin/views/mscatsync-dashboard.php:20
+#: includes/admin/class-admin.php:59 ms-taxonomies-sync.php:68
+msgid "Multisite Taxonomies Sync"
+msgstr ""
+
+#: includes/admin/views/mstaxsync-dashboard.php:19
+msgid "Welcome to Multisite Taxonomies Sync"
+msgstr ""
+
+#: includes/admin/views/mstaxsync-dashboard.php:20
 msgid "Thank you for installing, we hope you like it."
 msgstr ""
 
@@ -109,14 +114,14 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: ms-categories-sync.php:449
+#: ms-taxonomies-sync.php:449
 #, php-format
 msgid ""
-"<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
-"be enabled."
+"<strong>%s</strong> plugin can't be activated.<br />Multisite support "
+"must be enabled."
 msgstr ""
 
-#: ms-categories-sync.php:468
+#: ms-taxonomies-sync.php:468
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

@@ -9,9 +9,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'MSCatSync_Admin_Settings' ) ) :
+if ( ! class_exists( 'MSTaxSync_Admin_Settings' ) ) :
 
-class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
+class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 
 	/**
 	 * initialize
@@ -28,69 +28,73 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 		$this->settings = array(
 
 			// slugs
-			'parent_slug'			=> 'mscatsync-dashboard',
-			'menu_slug'				=> 'mscatsync-settings',
+			'parent_slug'			=> 'mstaxsync-dashboard',
+			'menu_slug'				=> 'mstaxsync-settings',
 
 			// titles
-			'page_title'			=> __( 'Multisite Categories Sync Settings', 'mscatsync' ),
-			'menu_title'			=> __( 'Settings', 'mscatsync' ),
+			'page_title'			=> __( 'Multisite Taxonomies Sync Settings', 'mstaxsync' ),
+			'menu_title'			=> __( 'Settings', 'mstaxsync' ),
 
 			// tabs
 			'tabs'					=> array(
-				'general'			=> array(
-					'title'				=> __( 'General', 'mscatsync' ),
+				'taxonomies'		=> array(
+					'title'				=> __( 'Taxonomies', 'mstaxsync' ),
 					'sections'			=> array(
-						'general'		=> array(
-							'title'			=> __( 'General Settings', 'mscatsync' ),
+						'categories'	=> array(
+							'title'			=> __( 'Categories Settings', 'mstaxsync' ),
+							'description'	=> '',
+						),
+						'taxonomies'	=> array(
+							'title'			=> __( 'Custom Taxonomies Settings', 'mstaxsync' ),
 							'description'	=> '',
 						),
 					),
 				),
 				'uninstall'			=> array(
-					'title'				=> __( 'Uninstall', 'mscatsync' ),
+					'title'				=> __( 'Uninstall', 'mstaxsync' ),
 					'sections'			=> array(
 						'uninstall'		=> array(
-							'title'			=> __( 'Uninstall Settings', 'mscatsync' ),
+							'title'			=> __( 'Uninstall Settings', 'mstaxsync' ),
 							'description'	=> '',
 						),
 					),
 				),
 			),
-			'active_tab'			=> 'general',
+			'active_tab'				=> 'taxonomies',
 
 			// fields
-			'fields'				=> array(
+			'fields'					=> array(
 				array(
-					'uid'			=> 'mscatsync_general_default_lang',
-					'label'			=> 'Default Language(s)',
-					'label_for'		=> 'mscatsync_general_default_lang',
-					'tab'			=> 'general',
-					'section'		=> 'general',
-					'type'			=> 'checkbox',
-					'options'		=> mscatsync_get_active_languages(),
-					'helper'		=> __( 'Used to assign default language(s) for already registered subscribers', 'mscatsync' ),
-				),
-				array(
-					'uid'			=> 'mscatsync_general_default_cat' . ( defined( 'ICL_LANGUAGE_CODE' ) ? '_' . ICL_LANGUAGE_CODE : '' ),
-					'label'			=> 'Default Categories',
-					'label_for'		=> 'mscatsync_general_default_cat' . ( defined( 'ICL_LANGUAGE_CODE' ) ? '_' . ICL_LANGUAGE_CODE : '' ),
-					'tab'			=> 'general',
-					'section'		=> 'general',
-					'type'			=> 'checkbox',
-					'options'		=> mscatsync_get_categories(),
-					'helper'		=> __( 'Used to assign default post categories', 'mscatsync' ),
-				),
-				array(
-					'uid'			=> 'mscatsync_uninstall_remove_data',
-					'label'			=> 'Remove Data on Uninstall',
-					'label_for'		=> 'mscatsync_uninstall_remove_data',
-					'tab'			=> 'uninstall',
-					'section'		=> 'uninstall',
-					'type'			=> 'checkbox',
-					'options'		=> array(
-						'remove'	=> '',
+					'uid'				=> 'mstaxsync_sync_categories',
+					'label'				=> __( 'Sync categories?', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_sync_categories',
+					'tab'				=> 'taxonomies',
+					'section'			=> 'categories',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'category'		=> '',
 					),
-					'helper'		=> __( 'Caution: all data will be removed without any option to restore', 'mscatsync' ),
+				),
+				array(
+					'uid'				=> 'mstaxsync_synced_taxonomies',
+					'label'				=> __( 'Taxonomies to sync', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_synced_taxonomies',
+					'tab'				=> 'taxonomies',
+					'section'			=> 'taxonomies',
+					'type'				=> 'checkbox',
+					'options'			=> mstaxsync_get_main_site_custom_taxonomies_names(),
+				),
+				array(
+					'uid'				=> 'mstaxsync_uninstall_remove_data',
+					'label'				=> __( 'Remove Data on Uninstall', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_uninstall_remove_data',
+					'tab'				=> 'uninstall',
+					'section'			=> 'uninstall',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'remove'		=> '',
+					),
+					'helper'			=> __( 'Caution: all data will be removed without any option to restore', 'mstaxsync' ),
 				),
 			),
 
@@ -101,6 +105,6 @@ class MSCatSync_Admin_Settings extends MSCatSync_Admin_Settings_Page {
 }
 
 // initialize
-new MSCatSync_Admin_Settings();
+new MSTaxSync_Admin_Settings();
 
 endif; // class_exists check

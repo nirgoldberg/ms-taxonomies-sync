@@ -9,9 +9,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'MSCatSync_Admin_Dashboard' ) ) :
+if ( ! class_exists( 'MSTaxSync_Admin_Dashboard' ) ) :
 
-class MSCatSync_Admin_Dashboard extends MSCatSync_Admin_Page {
+class MSTaxSync_Admin_Dashboard extends MSTaxSync_Admin_Page {
 
 	/**
 	 * initialize
@@ -27,17 +27,17 @@ class MSCatSync_Admin_Dashboard extends MSCatSync_Admin_Page {
 		$this->settings = array(
 
 			// slugs
-			'parent_slug'	=> 'mscatsync-dashboard',
-			'menu_slug'		=> 'mscatsync-dashboard',
+			'parent_slug'	=> 'mstaxsync-dashboard',
+			'menu_slug'		=> 'mstaxsync-dashboard',
 
 			// titles
-			'page_title'	=> __( 'Multisite Categories Sync Dashboard', 'mscatsync' ),
-			'menu_title'	=> __( 'Dashboard', 'mscatsync' ),
+			'page_title'	=> __( 'Multisite Taxonomies Sync Dashboard', 'mstaxsync' ),
+			'menu_title'	=> __( 'Dashboard', 'mstaxsync' ),
 
 			// tabs
 			'tabs'			=> array(
-				'new'		=> __( 'What\'s New',	'mscatsync' ),
-				'changelog'	=> __( 'Changelog',		'mscatsync' ),
+				'new'		=> __( 'What\'s New',	'mstaxsync' ),
+				'changelog'	=> __( 'Changelog',		'mstaxsync' ),
 			),
 			'active_tab'	=> 'new',
 
@@ -48,6 +48,6 @@ class MSCatSync_Admin_Dashboard extends MSCatSync_Admin_Page {
 }
 
 // initialize
-new MSCatSync_Admin_Dashboard();
+new MSTaxSync_Admin_Dashboard();
 
 endif; // class_exists check

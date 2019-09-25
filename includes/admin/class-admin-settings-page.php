@@ -9,9 +9,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'MSCatSync_Admin_Settings_Page' ) ) :
+if ( ! class_exists( 'MSTaxSync_Admin_Settings_Page' ) ) :
 
-class MSCatSync_Admin_Settings_Page {
+class MSTaxSync_Admin_Settings_Page {
 
 	/**
 	 * vars
@@ -165,7 +165,7 @@ class MSCatSync_Admin_Settings_Page {
 	/**
 	 * admin_menu
 	 *
-	 * This function will add Multisite Categories Sync submenu item to the WP admin
+	 * This function will add Multisite Taxonomies Sync submenu item to the WP admin
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
@@ -174,11 +174,11 @@ class MSCatSync_Admin_Settings_Page {
 	function admin_menu() {
 
 		// exit if no show_admin
-		if ( ! mscatsync_get_setting( 'show_admin' ) )
+		if ( ! mstaxsync_get_setting( 'show_admin' ) )
 			return;
 
 		// vars
-		$capability = mscatsync_get_setting( 'capability' );
+		$capability = mstaxsync_get_setting( 'capability' );
 
 		// add submenu page
 		add_submenu_page(
@@ -221,7 +221,7 @@ class MSCatSync_Admin_Settings_Page {
 		}
 
 		// load view
-		mscatsync_get_view( 'settings', $view );
+		mstaxsync_get_view( 'settings', $view );
 
 	}
 
@@ -355,7 +355,7 @@ class MSCatSync_Admin_Settings_Page {
 		add_settings_field(
 			$field_id,
 			$field_label,
-			'mscatsync_admin_display_form_element',
+			'mstaxsync_admin_display_form_element',
 			$options_group_id,
 			$section_id,
 			$field_args

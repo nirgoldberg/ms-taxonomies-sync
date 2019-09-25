@@ -1,10 +1,10 @@
-@import "mscatsync-admin-params";
+@import "mstaxsync-admin-params";
 
 /**
- * mscatsync-admin-style.scss
+ * mstaxsync-admin-style.scss
  */
 .wrap {
-	.mscatsync-admin-box {
+	.mstaxsync-admin-box {
 		position: relative;
 		margin: 20px 0;
 		border: 1px solid $gray-color1;
@@ -54,7 +54,7 @@
 
 @media (max-width: 782px) {
 	.wrap {
-		.mscatsync-admin-box {
+		.mstaxsync-admin-box {
 			.content {
 				select {
 					height: auto !important;
