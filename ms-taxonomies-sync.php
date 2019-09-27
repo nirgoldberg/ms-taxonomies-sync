@@ -175,15 +175,44 @@ class MSTaxSync {
 
 		// append styles
 		$styles = array(
-			'mstaxsync-admin'	=> array(
+			'mstaxsync-admin'		=> array(
 				'src'	=> mstaxsync_get_url( 'assets/css/mstaxsync-admin-style.css' ),
 				'deps'	=> false,
+			),
+			'mstaxsync-admin-rtl'	=> array(
+				'src'	=> mstaxsync_get_url( 'assets/css/mstaxsync-admin-style-rtl.css' ),
+				'deps'	=> array( 'mstaxsync-admin' ),
+			),
+			'jquery-ui'				=> array(
+				'src'	=> '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css',
+				'deps'	=> false,
+			),
+		);
+
+		// append scripts
+		$scripts = array(
+			'jquery-ui'			=> array(
+				'src'	=> 'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
+				'deps'	=> array( 'jquery' ),
+			),
+			'nestedSortable'	=> array(
+				'src'	=> mstaxsync_get_url( 'assets/js/lib/jquery.mjs.nestedSortable.js' ),
+				'deps'	=> array( 'jquery-ui' ),
+			),
+			'mstaxsync'			=> array(
+				'src'	=> mstaxsync_get_url( 'assets/js/min/mstaxsync.min.js' ),
+				'deps'	=> array( 'jquery-ui' ),
 			),
 		);
 
 		// register styles
 		foreach( $styles as $handle => $style ) {
 			wp_register_style( $handle, $style[ 'src' ], $style[ 'deps' ], MSTaxSync_VERSION );
+		}
+
+		// register scripts
+		foreach( $scripts as $handle => $script ) {
+			wp_register_script( $handle, $script[ 'src' ], $script[ 'deps' ], MSTaxSync_VERSION, true );
 		}
 
 	}
@@ -201,6 +230,19 @@ class MSTaxSync {
 
 		// enqueue styles
 		wp_enqueue_style( 'mstaxsync-admin' );
+		wp_enqueue_style( 'jquery-ui' );
+
+		// rtl
+		if ( is_rtl() ) {
+
+			wp_enqueue_style( 'mstaxsync-admin-rtl' );
+
+		}
+
+		// enqueue scripts
+		wp_enqueue_script( 'jquery-ui' );
+		wp_enqueue_script( 'nestedSortable' );
+		wp_enqueue_script( 'mstaxsync' );
 
 	}
 

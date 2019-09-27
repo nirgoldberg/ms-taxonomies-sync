@@ -35,43 +35,63 @@ class MSTaxSync_Admin_Taxonomies extends MSTaxSync_Admin_Page {
 			'menu_title'		=> __( 'Taxonomies', 'mstaxsync' ),
 
 			// tabs
-			'tabs'				=> array(
-				'category'		=> array(
-					'title'		=> __( 'Categories', 'mstaxsync' ),
-				),
-			),
-			'active_tab'		=> 'category',
+			'tabs'				=> array(),
+			'active_tab'		=> '',
 
 		);
 
-		// append custom taxonomies
-		$this->append_custom_taxonomies();
+		// append taxonomies
+		$this->append_taxonomies();
 
 	}
 
 	/**
-	 * append_custom_taxonomies
+	 * append_taxonomies
 	 *
-	 * This function will append custom taxonomies to settings tabs
+	 * This function will append taxonomies to settings tabs according to taxonomies settings
 	 *
 	 * @since		1.0.0
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function append_custom_taxonomies() {
+	function append_taxonomies() {
 
 		// vars
-		$taxonomies = mstaxsync_get_main_site_custom_taxonomies_objects();
+		$categories	= get_option( 'mstaxsync_sync_categories' );
+		$taxonomies	= get_option( 'mstaxsync_synced_taxonomies' );
+		$active_tab	= '';
+
+		if ( $categories && in_array( 'category', $categories ) ) {
+
+			$this->settings[ 'tabs' ][ 'category' ] = array(
+				'title'	=> __( 'Categories', 'mstaxsync' ),
+			);
+
+			$active_tab = 'category';
+
+		}
 
 		if ( $taxonomies ) {
-			foreach ( $taxonomies as $taxonomy ) {
+			foreach ( $taxonomies as $tax_name ) {
 
-				$this->settings[ 'tabs' ][ $taxonomy->name ] = array(
-					'title'		=> $taxonomy->label,
-				);
+				$tax = get_taxonomy( $tax_name );
+
+				if ( $tax ) {
+
+					$this->settings[ 'tabs' ][ $tax_name ] = array(
+						'title'	=> $tax->label,
+					);
+
+					if ( ! $active_tab ) {
+						$active_tab = $tax_name;
+					}
+
+				}
 
 			}
 		}
+
+		$this->settings[ 'active_tab' ] = $active_tab;
 
 	}
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-09-25 15:03+0300\n"
-"PO-Revision-Date: 2019-09-25 15:04+0300\n"
+"POT-Creation-Date: 2019-09-27 13:19+0300\n"
+"PO-Revision-Date: 2019-09-27 13:22+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -82,7 +82,7 @@ msgstr "טקסונומיות לסנכרון"
 
 #: includes/admin/class-admin-settings.php:89
 msgid "Remove Data on Uninstall"
-msgstr "הסר את כלל נתוני התוסף עם הסרתו"
+msgstr "מחיקת כלל נתוני התוסף עם הסרתו"
 
 #: includes/admin/class-admin-settings.php:97
 msgid "Caution: all data will be removed without any option to restore"
@@ -93,7 +93,7 @@ msgstr "אזהרה: כל המידע יימחק ללא אפשרות שחזור"
 msgid "Taxonomies Sync"
 msgstr "סנכרון טקסונומיות"
 
-#: includes/admin/class-admin-taxonomies.php:40
+#: includes/admin/class-admin-taxonomies.php:67
 msgid "Categories"
 msgstr "קטגוריות"
 
@@ -103,17 +103,35 @@ msgstr "סנכרון טקסונומיות למערכת Multisite"
 
 #: includes/admin/views/mstaxsync-dashboard.php:19
 msgid "Welcome to Multisite Taxonomies Sync"
-msgstr "ברוך הבא לסנכרון טקסונומיות למערכת Multisite"
+msgstr "ברוכים הבאים לסנכרון טקסונומיות למערכת Multisite"
 
 #: includes/admin/views/mstaxsync-dashboard.php:20
 msgid "Thank you for installing, we hope you like it."
-msgstr "תודה שהתקנת את התוסף, מקווים שתהנה ממנו."
+msgstr "תודה שהתקנתם את התוסף, מקווים שתהנו ממנו."
+
+#: includes/admin/views/mstaxsync-taxonomies.php:47
+#, php-format
+msgid ""
+"No taxonomies were selected to be synced.<br /><a href=\"%s\">Please select "
+"at least one taxonomy</a>"
+msgstr ""
+"לא נבחרו טקסונומיות לסנכרון.<br /><a href=\"%s\">יש לבחור טקסונומיה אחת "
+"לפחות</a>"
 
 #: includes/admin/views/settings.php:22
 msgid "Settings saved."
 msgstr "הגדרות נשמרו."
 
-#: ms-taxonomies-sync.php:449
+#: includes/admin/views/taxonomy.php:43
+msgid "Select terms to sync"
+msgstr "בחירת ערכים לסנכרון"
+
+#: includes/admin/views/taxonomy.php:62
+#, php-format
+msgid "There are no %s defined in main site"
+msgstr "לא קיימים ערכי %s באתר הראשי"
+
+#: ms-taxonomies-sync.php:491
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
@@ -121,7 +139,7 @@ msgid ""
 msgstr ""
 "הפעלת התוסף <strong>%s</strong> נכשלה.<br />נדרשת התקנת מערכת Multisite."
 
-#: ms-taxonomies-sync.php:468
+#: ms-taxonomies-sync.php:510
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

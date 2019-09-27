@@ -1,0 +1,47 @@
+@import "mstaxsync-admin-params";
+
+/**
+ * mstaxsync-admin-style.scss
+ */
+.wrap {
+	.mstaxsync-admin-box {
+		.content {
+
+			/******************/
+			/* taxonomy terms */
+			/******************/
+
+			.mstaxsync-taxonomy-terms-box {
+				.mstaxsync-relationship {
+					.list {
+						ul {
+							padding-left: 0;
+							padding-right: 25px;
+						}
+					}
+
+					.selection {
+						.values,
+						.choices {
+							float: right;
+						}
+
+						.values {
+							.mstaxsync-icon {
+								left: 7px;
+								right: auto;
+							}
+						}
+
+						.choices {
+							.list {
+								border-left: 1px solid #DFDFDF;
+								border-right: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

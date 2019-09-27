@@ -19,6 +19,7 @@ extract( $args );
 	<h1><?php echo $page_title; ?></h1>
 
 	<?php
+
 		// display tabs
 		if ( ! empty( $tabs ) ) : ?>
 
@@ -28,7 +29,25 @@ extract( $args );
 				<?php endforeach; ?>
 			</h2>
 
+			<?php
+
+				if ( $active_tab ) {
+
+					// load taxonomy view
+					mstaxsync_get_view( 'taxonomy', array(
+						'active_tab'	=> $active_tab,
+					) );
+
+				}
+
+			?>
+
+		<?php else : ?>
+
+			<p><?php printf( __( 'No taxonomies were selected to be synced.<br /><a href="%s">Please select at least one taxonomy</a>', 'mstaxsync' ), 'admin.php?page=mstaxsync-settings' ); ?></p>
+
 		<?php endif;
+
 	?>
 
 </div>

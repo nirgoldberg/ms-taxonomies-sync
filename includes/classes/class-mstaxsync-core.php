@@ -106,9 +106,9 @@ class MSTaxSync_Core {
 		$taxonomies = get_taxonomies( $args, 'objects' );
 
 		if ( $taxonomies ) {
-			foreach ( $taxonomies as $taxonomy ) {
+			foreach ( $taxonomies as $tax ) {
 
-				$this->settings[ 'taxonomies' ][] = $taxonomy;
+				$this->settings[ 'taxonomies' ][] = $tax;
 
 			}
 		}

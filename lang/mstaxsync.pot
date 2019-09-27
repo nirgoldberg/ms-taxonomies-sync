@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-09-25 15:03+0300\n"
+"POT-Creation-Date: 2019-09-27 13:19+0300\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Taxonomies Sync"
 msgstr ""
 
-#: includes/admin/class-admin-taxonomies.php:40
+#: includes/admin/class-admin-taxonomies.php:67
 msgid "Categories"
 msgstr ""
 
@@ -110,18 +110,34 @@ msgstr ""
 msgid "Thank you for installing, we hope you like it."
 msgstr ""
 
+#: includes/admin/views/mstaxsync-taxonomies.php:47
+#, php-format
+msgid ""
+"No taxonomies were selected to be synced.<br /><a href=\"%s\">Please "
+"select at least one taxonomy</a>"
+msgstr ""
+
 #: includes/admin/views/settings.php:22
 msgid "Settings saved."
 msgstr ""
 
-#: ms-taxonomies-sync.php:449
+#: includes/admin/views/taxonomy.php:43
+msgid "Select terms to sync"
+msgstr ""
+
+#: includes/admin/views/taxonomy.php:62
+#, php-format
+msgid "There are no %s defined in main site"
+msgstr ""
+
+#: ms-taxonomies-sync.php:491
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:468
+#: ms-taxonomies-sync.php:510
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

@@ -206,36 +206,6 @@ function mstaxsync_get_active_languages() {
 }
 
 /**
- * mstaxsync_get_categories
- *
- * This function will return array of category ID and category name
- *
- * @since		1.0.0
- * @param		N/A
- * @return		(array)
- */
-function mstaxsync_get_categories() {
-
-	// vars
-	$categories	= get_terms( array(
-		'taxonomy'		=> 'category',
-		'hide_empty'	=> false,
-	) );
-
-	$cat_arr = array();
-
-	if ( $categories ) {
-		foreach ( $categories as $cat ) {
-			$cat_arr[ 'cat_' . $cat->term_id ] = $cat->name;
-		}
-	}
-
-	// return
-	return $cat_arr;
-
-}
-
-/**
  * mstaxsync_get_main_site_custom_taxonomies_objects
  *
  * This function will return array of main site custom taxonomies objects
@@ -275,5 +245,67 @@ function mstaxsync_get_main_site_custom_taxonomies_names() {
 
 	// return
 	return $tax_arr;
+
+}
+
+/**
+ * mstaxsync_sort_terms_hierarchically
+ *
+ * This function will recursively sort an array of taxonomy terms hierarchically.
+ * Child categories will be placed under a 'children' member of their parent term
+ *
+ * @since		1.0.0
+ * @param		$terms (array) taxonomy term objects to sort
+ * @param		$output (array) result array to put sorted terms in
+ * @param		$parent_id (int) the current parent ID to put sorted terms in
+ * @return		N/A
+ */
+function mstaxsync_sort_terms_hierarchically( &$terms = array(), &$output = array(), $parent_id = 0 ) {
+
+	foreach ( $terms as $key => $t ) {
+		if ( $t->parent == $parent_id ) {
+
+			$output[] = $t;
+			unset( $terms[ $key ] );
+
+		}
+	}
+
+	foreach ( $output as $top_term ) {
+
+		$top_term->children = array();
+		mstaxsync_sort_terms_hierarchically( $terms, $top_term->children, $top_term->term_id );
+
+	}
+
+}
+
+/**
+ * mstaxsync_display_terms_hierarchically
+ *
+ * This function will recursively display an array of taxonomy terms hierarchically.
+ * Child categories are placed under a 'children' member of their parent term
+ *
+ * @since		1.0.0
+ * @param		$terms (array) taxonomy term objects
+ * @return		(string)
+ */
+function mstaxsync_display_terms_hierarchically( $terms = array() ) {
+
+	foreach ( $terms as $t ) {
+
+		echo '<li><span class="mstaxsync-rel-item" data-id="' . $t->term_id . '">' . $t->name . '</span></li>';
+
+		if ( $t->children ) {
+
+			echo '<ul class="children">';
+
+				mstaxsync_display_terms_hierarchically( $t->children );
+
+			echo '</ul>';
+
+		}
+
+	}
 
 }
