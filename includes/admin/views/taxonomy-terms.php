@@ -12,6 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // extract args
 extract( $args );
 
+// get local site taxonomy terms
+$local_terms_args = array(
+	'taxonomy'		=> $tax->name,
+	'hide_empty'	=> false,
+);
+$local_terms = get_terms( apply_filters( 'mstaxsync_local,taxonomy_terms', $local_terms_args, $tax->name ) );
+
 ?>
 
 <div class="mstaxsync-taxonomy-terms-box">
@@ -28,7 +35,17 @@ extract( $args );
 			</div>
 
 			<div class="values">
-				<ul class="list values-list"></ul>
+				<ul class="list values-list">
+
+					<?php if ( ! is_wp_error( $local_terms ) && $local_terms ) :
+
+						$local_terms_hierarchically = array();
+						mstaxsync_sort_terms_hierarchically( $local_terms, $local_terms_hierarchically );
+						mstaxsync_display_terms_hierarchically( $local_terms_hierarchically );
+
+					endif; ?>
+
+				</ul>
 			</div>
 
 		</div>

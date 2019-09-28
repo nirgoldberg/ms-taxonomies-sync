@@ -50,4 +50,4 @@ extract( $args );
 
 	?>
 
-</div>
+</div><!-- #<?php echo $menu_slug; ?> -->

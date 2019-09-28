@@ -242,6 +242,15 @@ class MSTaxSync {
 		// enqueue scripts
 		wp_enqueue_script( 'jquery-ui' );
 		wp_enqueue_script( 'nestedSortable' );
+
+		// localize mstaxsync
+		$translation_arr = array(
+			'relationship_new_item_str'			=> __( 'New item',	'mstaxsync' ),
+			'relationship_changed_item_str'		=> __( 'Changed',	'mstaxsync' ),
+		);
+		wp_localize_script( 'mstaxsync', '_mstaxsync', $translation_arr );
+
+		// Enqueued script with localized data.
 		wp_enqueue_script( 'mstaxsync' );
 
 	}

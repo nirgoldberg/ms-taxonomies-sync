@@ -89,4 +89,4 @@ if ( 'options-general.php' != $parent_slug ) {
 		?>
 	</form>
 
-</div><!-- #mstaxsync-admin-settings -->
+</div><!-- #<?php echo $menu_slug; ?> -->

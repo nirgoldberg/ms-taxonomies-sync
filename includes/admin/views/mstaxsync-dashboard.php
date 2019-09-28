@@ -32,4 +32,4 @@ extract( $args );
 		<?php endif;
 	?>
 
-</div>
+</div><!-- #<?php echo $menu_slug; ?> -->

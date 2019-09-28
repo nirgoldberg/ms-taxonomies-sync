@@ -59,10 +59,11 @@ var $ = jQuery,
 
 			// return
 			return [
-			'<li>',
+			'<li class="new">',
 				'<div>',
 					'<input type="hidden" name="' + mstaxsync.getInputName(props.field) + '[]" value="' + props.id + '" />',
-					'<span data-id="' + props.id + '" class="mstaxsync-rel-item">' + props.text,
+					'<span class="mstaxsync-rel-item" data-id="' + props.id + '">' + props.text,
+						'<span>(' + _mstaxsync.relationship_new_item_str + ')</span>',
 						'<a href="#" class="mstaxsync-icon" data-name="remove_item"></a>',
 					'</span>',
 				'</div>',
@@ -88,7 +89,7 @@ var $ = jQuery,
 		/**
 		 * relationship
 		 *
-		 * relationship fields
+		 * Relationship fields
 		 *
 		 * @since		1.0.0
 		 * @param		N/A
@@ -110,22 +111,14 @@ var $ = jQuery,
 			});
 
 			// nestedSortable list
-			$('.values-list').nestedSortable({
-				listType: 'ul',
-				items: 'li',
-				handle: 'div',
-				toleranceElement: '> div',
-				opacity: .6,
-				revert: 250,
-				rtl: mstaxsync.params.rtl,
-			});
+			mstaxsync.relationshipNestedSortable();
 
 		},
 
 		/**
 		 * onClickAdd
 		 *
-		 * Append choices item to values list
+		 * Appends choices item to values list
 		 *
 		 * @since		1.0.0
 		 * @param		el (jQuery)
@@ -158,7 +151,7 @@ var $ = jQuery,
 		/**
 		 * onClickRemove
 		 *
-		 * Remove item from values list
+		 * Removes item from values list
 		 *
 		 * @since		1.0.0
 		 * @param		el (jQuery)
@@ -174,7 +167,7 @@ var $ = jQuery,
 				siblings = li.siblings(),
 				choice = field.find(mstaxsync.$list('choices')).find('li span[data-id=' + id + ']');
 
-			// unwrap li parent ul if does not have siblings and does not have chidren
+			// unwrap li parent ul if does not have siblings and does not have children
 			if (!siblings.length && !li.parent('ul').hasClass('list') && !ul.length) {
 				li.unwrap('ul');
 			}
@@ -192,6 +185,39 @@ var $ = jQuery,
 
 			// enable
 			choice.removeClass('disabled');
+
+		},
+
+		/**
+		 * relationshipNestedSortable
+		 *
+		 * Initializes relationship nestedSortable
+		 *
+		 * @since		1.0.0
+		 * @param		N/A
+		 * @return		N/A
+		 */
+		relationshipNestedSortable: function() {
+
+			$('.values-list').nestedSortable({
+				listType: 'ul',
+				items: 'li',
+				handle: 'div',
+				toleranceElement: '> div',
+				opacity: .6,
+				revert: 250,
+				rtl: mstaxsync.params.rtl,
+				relocate: function(event, ui){
+					ui.item.addClass('changed');
+
+					var span = ui.item.find('.mstaxsync-rel-item').first(),
+						ind = span.children('span');
+
+					if (!ind.length) {
+						$( '<span>(' + _mstaxsync.relationship_changed_item_str + ')</span>' ).appendTo(span);
+					}
+				},
+			});
 
 		},
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-09-27 13:19+0300\n"
-"PO-Revision-Date: 2019-09-27 13:22+0300\n"
+"POT-Creation-Date: 2019-09-28 22:09+0300\n"
+"PO-Revision-Date: 2019-09-28 22:10+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -18,14 +18,13 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: .git\n"
 "X-Poedit-SearchPathExcluded-1: .sass-cache\n"
-"X-Poedit-SearchPathExcluded-2: assets/css\n"
-"X-Poedit-SearchPathExcluded-3: lang\n"
-"X-Poedit-SearchPathExcluded-4: node_modules\n"
-"X-Poedit-SearchPathExcluded-5: .gitignore\n"
-"X-Poedit-SearchPathExcluded-6: Gruntfile.js\n"
-"X-Poedit-SearchPathExcluded-7: README.md\n"
-"X-Poedit-SearchPathExcluded-8: package.json\n"
-"X-Poedit-SearchPathExcluded-9: readme.txt\n"
+"X-Poedit-SearchPathExcluded-2: lang\n"
+"X-Poedit-SearchPathExcluded-3: node_modules\n"
+"X-Poedit-SearchPathExcluded-4: .gitignore\n"
+"X-Poedit-SearchPathExcluded-5: Gruntfile.js\n"
+"X-Poedit-SearchPathExcluded-6: README.md\n"
+"X-Poedit-SearchPathExcluded-7: package.json\n"
+"X-Poedit-SearchPathExcluded-8: readme.txt\n"
 
 #: includes/admin/class-admin-dashboard.php:34
 msgid "Multisite Taxonomies Sync Dashboard"
@@ -131,7 +130,15 @@ msgstr "בחירת ערכים לסנכרון"
 msgid "There are no %s defined in main site"
 msgstr "לא קיימים ערכי %s באתר הראשי"
 
-#: ms-taxonomies-sync.php:491
+#: ms-taxonomies-sync.php:251
+msgid "New item"
+msgstr "ערך חדש"
+
+#: ms-taxonomies-sync.php:256
+msgid "Changed"
+msgstr "השתנה"
+
+#: ms-taxonomies-sync.php:508
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
@@ -139,7 +146,7 @@ msgid ""
 msgstr ""
 "הפעלת התוסף <strong>%s</strong> נכשלה.<br />נדרשת התקנת מערכת Multisite."
 
-#: ms-taxonomies-sync.php:510
+#: ms-taxonomies-sync.php:527
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

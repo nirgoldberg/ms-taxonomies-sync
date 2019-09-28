@@ -288,23 +288,30 @@ function mstaxsync_sort_terms_hierarchically( &$terms = array(), &$output = arra
  *
  * @since		1.0.0
  * @param		$terms (array) taxonomy term objects
+ * @param		$li_class (string) taxonomy term li class
  * @return		(string)
  */
-function mstaxsync_display_terms_hierarchically( $terms = array() ) {
+function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = null ) {
 
 	foreach ( $terms as $t ) {
 
-		echo '<li><span class="mstaxsync-rel-item" data-id="' . $t->term_id . '">' . $t->name . '</span></li>';
+		echo
+			'<li' . ( $li_class ? ' class="' . $li_class . '"' : '' ) . '>' .
+				'<div>' .
+					'<span class="mstaxsync-rel-item" data-id="' . $t->term_id . '">' . $t->name . '</span>' .
+				'</div>';
 
 		if ( $t->children ) {
 
-			echo '<ul class="children">';
+			echo '<ul>';
 
 				mstaxsync_display_terms_hierarchically( $t->children );
 
 			echo '</ul>';
 
 		}
+
+		echo '</li>';
 
 	}
 
