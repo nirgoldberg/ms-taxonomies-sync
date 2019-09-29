@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-09-28 22:09+0300\n"
+"POT-Creation-Date: 2019-09-29 12:38+0300\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -120,31 +120,44 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
+#: includes/admin/views/taxonomy-terms.php:32
+msgid "Main site"
+msgstr ""
+
+#: includes/admin/views/taxonomy-terms.php:33
 #: includes/admin/views/taxonomy.php:43
 msgid "Select terms to sync"
 msgstr ""
 
-#: includes/admin/views/taxonomy.php:62
+#: includes/admin/views/taxonomy-terms.php:45
 #, php-format
 msgid "There are no %s defined in main site"
 msgstr ""
 
-#: ms-taxonomies-sync.php:251
+#: includes/admin/views/taxonomy-terms.php:55
+msgid "Local site"
+msgstr ""
+
+#: includes/admin/views/taxonomy-terms.php:56
+msgid "Sort and edit terms"
+msgstr ""
+
+#: ms-taxonomies-sync.php:248
 msgid "New item"
 msgstr ""
 
-#: ms-taxonomies-sync.php:256
+#: ms-taxonomies-sync.php:249
 msgid "Changed"
 msgstr ""
 
-#: ms-taxonomies-sync.php:508
+#: ms-taxonomies-sync.php:500
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:527
+#: ms-taxonomies-sync.php:519
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

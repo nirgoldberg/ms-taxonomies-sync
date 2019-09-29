@@ -27,14 +27,36 @@ $local_terms = get_terms( apply_filters( 'mstaxsync_local,taxonomy_terms', $loca
 		<div class="selection">
 
 			<div class="choices">
+				<div class="title">
+
+					<h3><?php _e( 'Main site', 'mstaxsync' ); ?></h3>
+					<p class="desc"><?php _e( 'Select terms to sync', 'mstaxsync' ); ?></p>
+
+				</div>
+
 				<ul class="list choices-list">
 
-					<?php mstaxsync_display_terms_hierarchically( $terms, 'choice' ); ?>
+					<?php if ( $terms ) :
+
+						mstaxsync_display_terms_hierarchically( $terms, 'choice' );
+
+					else : ?>
+
+						<p class="no-terms"><?php printf( __( 'There are no %s defined in main site', 'mstaxsync' ), $tax->label ); ?></p>
+
+					<?php endif; ?>
 
 				</ul>
 			</div>
 
 			<div class="values">
+				<div class="title">
+
+					<h3><?php _e( 'Local site', 'mstaxsync' ); ?></h3>
+					<p class="desc"><?php _e( 'Sort and edit terms', 'mstaxsync' ); ?></p>
+
+				</div>
+
 				<ul class="list values-list">
 
 					<?php if ( ! is_wp_error( $local_terms ) && $local_terms ) :

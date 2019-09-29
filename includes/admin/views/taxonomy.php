@@ -46,23 +46,27 @@ restore_current_blog();
 
 	<div class="content">
 
-		<?php if ( ! is_wp_error( $terms ) && $terms ) :
+		<?php if ( ! is_wp_error( $terms ) ) :
 
-			$terms_hierarchically = array();
-			mstaxsync_sort_terms_hierarchically( $terms, $terms_hierarchically );
+			if ( $terms ) {
+
+				$terms_hierarchically = array();
+				mstaxsync_sort_terms_hierarchically( $terms, $terms_hierarchically );
+
+				$terms = $terms_hierarchically;
+
+			}
 
 			// load taxonomy terms selection view
 			mstaxsync_get_view( 'taxonomy-terms', array(
 				'tax'	=> $tax,
-				'terms'	=> $terms_hierarchically,
+				'terms'	=> $terms,
 			) );
 
-		else : ?>
-
-			<p><?php printf( __( 'There are no %s defined in main site', 'mstaxsync' ), $tax->label ); ?></p>
-
-		<?php endif; ?>
+		endif; ?>
 
 	</div>
 
 </div><!-- .mstaxsync-admin-box -->
+
+<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Settings"></p>

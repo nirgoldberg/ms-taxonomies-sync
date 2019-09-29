@@ -27,6 +27,11 @@
 						}
 
 						.choices {
+							.title {
+								border-left: 1px solid #DFDFDF;
+								border-right: 0;
+							}
+
 							.list {
 								border-left: 1px solid #DFDFDF;
 								border-right: 0;
