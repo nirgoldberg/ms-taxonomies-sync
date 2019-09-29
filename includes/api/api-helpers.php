@@ -298,14 +298,22 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 		echo
 			'<li' . ( $li_class ? ' class="' . $li_class . '"' : '' ) . '>' .
 				'<div>' .
-					'<span class="mstaxsync-rel-item" data-id="' . $t->term_id . '">' . $t->name . '</span>' .
+					'<span class="mstaxsync-rel-item" data-id="' . $t->term_id . '">' .
+						'<span class="val">' . $t->name . '</span>' .
+						( 'choice' != $li_class ?
+							'<input type="text" placeholder="' . $t->name . '" />' .
+							'<span class="edit dashicons dashicons-edit"></span>' .
+							'<span class="ok dashicons dashicons-yes"></span>' .
+							'<span class="cancel dashicons dashicons-no"></span>'
+						: '' ) .
+					'</span>' .
 				'</div>';
 
 		if ( $t->children ) {
 
 			echo '<ul>';
 
-				mstaxsync_display_terms_hierarchically( $t->children );
+				mstaxsync_display_terms_hierarchically( $t->children, $li_class );
 
 			echo '</ul>';
 

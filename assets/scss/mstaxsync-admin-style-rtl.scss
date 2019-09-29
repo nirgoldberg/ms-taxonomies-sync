@@ -36,19 +36,19 @@
 						.values {
 							li {
 								.mstaxsync-rel-item {
-									.mstaxsync-icon {
-										left: 7px;
-										right: auto;
-									}
-								}
-
-								&.new,
-								&.changed {
-									.mstaxsync-rel-item {
-										span {
+									span {
+										&.ind,
+										&.edit,
+										&.ok,
+										&.cancel {
 											margin-left: 0;
 											margin-right: 5px;
 										}
+									}
+
+									.remove {
+										left: 7px;
+										right: auto;
 									}
 								}
 							}

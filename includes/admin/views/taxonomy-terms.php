@@ -29,7 +29,7 @@ $local_terms = get_terms( apply_filters( 'mstaxsync_local,taxonomy_terms', $loca
 			<div class="choices">
 				<ul class="list choices-list">
 
-					<?php mstaxsync_display_terms_hierarchically( $terms ); ?>
+					<?php mstaxsync_display_terms_hierarchically( $terms, 'choice' ); ?>
 
 				</ul>
 			</div>
@@ -41,7 +41,7 @@ $local_terms = get_terms( apply_filters( 'mstaxsync_local,taxonomy_terms', $loca
 
 						$local_terms_hierarchically = array();
 						mstaxsync_sort_terms_hierarchically( $local_terms, $local_terms_hierarchically );
-						mstaxsync_display_terms_hierarchically( $local_terms_hierarchically );
+						mstaxsync_display_terms_hierarchically( $local_terms_hierarchically, 'value' );
 
 					endif; ?>
 
