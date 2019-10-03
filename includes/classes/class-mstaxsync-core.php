@@ -131,6 +131,45 @@ class MSTaxSync_Core {
 
 	}
 
+	/**
+	* get_custom_taxonomy_terms
+	*
+	* This function will get custom taxonomy terms
+	*
+	* @since		1.0.0
+	* @param		$tax (object)
+	* @param		$main (boolean)
+	* @return		(mixed)
+	*/
+	function get_custom_taxonomy_terms( $tax, $main = false ) {
+
+		$terms_args = array(
+			'taxonomy'		=> $tax->name,
+			'hide_empty'	=> false,
+		);
+
+		if ( $main ) {
+
+			// get main site
+			$main_site_id = get_main_site_id();
+
+			switch_to_blog( $main_site_id );
+
+		}
+
+		$terms = get_terms( apply_filters( "mstaxsync_" . ( $main ? "main" : "local" ) . "_taxonomy_terms/{$tax->name}", $terms_args ) );
+
+		if ( $main ) {
+
+			restore_current_blog();
+
+		}
+
+		// return
+		return $terms;
+
+	}
+
 }
 
 /**

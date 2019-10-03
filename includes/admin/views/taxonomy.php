@@ -18,21 +18,6 @@ $tax = get_taxonomy( $active_tab );
 if ( ! $tax )
 	return;
 
-// get main site taxonomy terms
-$terms_args = array(
-	'taxonomy'		=> $tax->name,
-	'hide_empty'	=> false,
-);
-
-// get main site
-$main_site_id = get_main_site_id();
-
-switch_to_blog( $main_site_id );
-
-$terms = get_terms( apply_filters( 'mstaxsync_taxonomy_terms', $terms_args, $tax->name ) );
-
-restore_current_blog();
-
 ?>
 
 <div class="mstaxsync-admin-box">
@@ -46,27 +31,28 @@ restore_current_blog();
 
 	<div class="content">
 
-		<?php if ( ! is_wp_error( $terms ) ) :
-
-			if ( $terms ) {
-
-				$terms_hierarchically = array();
-				mstaxsync_sort_terms_hierarchically( $terms, $terms_hierarchically );
-
-				$terms = $terms_hierarchically;
-
-			}
+		<?php
 
 			// load taxonomy terms selection view
 			mstaxsync_get_view( 'taxonomy-terms', array(
 				'tax'	=> $tax,
-				'terms'	=> $terms,
 			) );
 
-		endif; ?>
+		?>
 
 	</div>
 
 </div><!-- .mstaxsync-admin-box -->
 
-<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Settings"></p>
+<?php
+
+	$nonce = wp_create_nonce( 'taxonomy_terms_sync' );
+
+?>
+
+<p class="submit">
+	<input type="submit" name="submit" id="submit" class="button button-primary" value="Save Settings" data-nonce="<?php echo $nonce; ?>">
+	<span class="ajax-loading dashicons dashicons-update"></span>
+</p>
+
+<div class="result"></div>

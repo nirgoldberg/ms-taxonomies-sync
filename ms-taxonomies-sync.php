@@ -94,6 +94,7 @@ class MSTaxSync {
 
 		// api
 		include_once( MSTaxSync_PATH . 'includes/api/api-helpers.php' );
+		include_once( MSTaxSync_PATH . 'includes/api/api-taxonomy-terms.php' );
 
 		// core
 		mstaxsync_include( 'includes/classes/class-mstaxsync-core.php' );
@@ -245,8 +246,21 @@ class MSTaxSync {
 
 		// localize mstaxsync
 		$translation_arr = array(
-			'relationship_new_item_str'			=> __( 'New item',	'mstaxsync' ),
-			'relationship_changed_item_str'		=> __( 'Changed',	'mstaxsync' ),
+			'settings'	=> array(
+				'edit_terms'		=> get_option( 'mstaxsync_edit_taxonomy_terms' ),
+				'detach_terms'		=> get_option( 'mstaxsync_detach_taxonomy_terms' ),
+			),
+			'strings'	=> array(
+				'relationship_new_item_str'					=> __( 'New item',	'mstaxsync' ),
+				'relationship_changed_item_str'				=> __( 'Changed',	'mstaxsync' ),
+				'relationship_success_str'					=> __( 'All terms were updated successfully.', 'mstaxsync' ),
+				'relationship_main_terms_str'				=> __( 'new terms were synced.', 'mstaxsync' ),
+				'relationship_local_terms_str'				=> __( 'terms were updated.', 'mstaxsync' ),
+				'relationship_errors_str'					=> __( 'The following errors were found:', 'mstaxsync' ),
+				'relationship_error_str'					=> __( 'Error', 'mstaxsync' ),
+				'relationship_internal_server_error_str'	=> __( 'Internal server error', 'mstaxsync' ),
+			),
+			'ajaxurl'	=> admin_url( 'admin-ajax.php' ),
 		);
 		wp_localize_script( 'mstaxsync', '_mstaxsync', $translation_arr );
 

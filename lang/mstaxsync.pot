@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-09-29 12:38+0300\n"
+"POT-Creation-Date: 2019-10-03 15:47+0300\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3);\n"
@@ -65,26 +65,55 @@ msgid "Custom Taxonomies Settings"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:54
-msgid "Uninstall"
+msgid "Capabilities"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:57
+msgid "Edit Capabilities Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:63
+msgid "Uninstall"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:66
 msgid "Uninstall Settings"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:69
+#: includes/admin/class-admin-settings.php:78
 msgid "Sync categories?"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:80
+#: includes/admin/class-admin-settings.php:89
 msgid "Taxonomies to sync"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:89
+#: includes/admin/class-admin-settings.php:98
+msgid "Edit taxonomy term names"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:106
+msgid ""
+"Check this option to allow editing taxonomy term names directly from this "
+"plugin"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:110
+msgid "Detach taxonomy terms"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:118
+msgid ""
+"Check this option to allow detaching of already synced taxonomy terms. "
+"Detaching a taxonomy term will not remove or modify posts associated with "
+"this term"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:122
 msgid "Remove Data on Uninstall"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:97
+#: includes/admin/class-admin-settings.php:130
 msgid "Caution: all data will be removed without any option to restore"
 msgstr ""
 
@@ -120,44 +149,68 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:32
+#: includes/admin/views/taxonomy-terms.php:31
 msgid "Main site"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:33
-#: includes/admin/views/taxonomy.php:43
+#: includes/admin/views/taxonomy-terms.php:32
+#: includes/admin/views/taxonomy.php:28
 msgid "Select terms to sync"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:45
+#: includes/admin/views/taxonomy-terms.php:49
 #, php-format
 msgid "There are no %s defined in main site"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:55
+#: includes/admin/views/taxonomy-terms.php:61
 msgid "Local site"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:56
+#: includes/admin/views/taxonomy-terms.php:62
 msgid "Sort and edit terms"
 msgstr ""
 
-#: ms-taxonomies-sync.php:248
+#: ms-taxonomies-sync.php:254
 msgid "New item"
 msgstr ""
 
-#: ms-taxonomies-sync.php:249
+#: ms-taxonomies-sync.php:255
 msgid "Changed"
 msgstr ""
 
-#: ms-taxonomies-sync.php:500
+#: ms-taxonomies-sync.php:256
+msgid "All terms were updated successfully."
+msgstr ""
+
+#: ms-taxonomies-sync.php:257
+msgid "new terms were synced."
+msgstr ""
+
+#: ms-taxonomies-sync.php:258
+msgid "terms were updated."
+msgstr ""
+
+#: ms-taxonomies-sync.php:259
+msgid "The following errors were found:"
+msgstr ""
+
+#: ms-taxonomies-sync.php:260
+msgid "Error"
+msgstr ""
+
+#: ms-taxonomies-sync.php:261
+msgid "Internal server error"
+msgstr ""
+
+#: ms-taxonomies-sync.php:514
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:519
+#: ms-taxonomies-sync.php:533
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

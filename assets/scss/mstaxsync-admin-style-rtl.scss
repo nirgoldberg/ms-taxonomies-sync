@@ -42,6 +42,11 @@
 							li {
 								.mstaxsync-rel-item {
 									span {
+										&.synced {
+											margin-left: 5px;
+											margin-right: 0;
+										}
+
 										&.ind,
 										&.edit,
 										&.ok,
@@ -61,6 +66,13 @@
 					}
 				}
 			}
+		}
+	}
+
+	.submit {
+		.ajax-loading {
+			margin-left: 0;
+			margin-right: 5px;
 		}
 	}
 }

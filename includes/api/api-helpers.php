@@ -249,6 +249,70 @@ function mstaxsync_get_main_site_custom_taxonomies_names() {
 }
 
 /**
+ * mstaxsync_get_custom_taxonomy_terms
+ *
+ * This function will return array of custom taxonomies terms
+ *
+ * @since		1.0.0
+ * @param		$tax (object)
+ * @param		$main (boolean)
+ * @return		(mixed)
+ */
+function mstaxsync_get_custom_taxonomy_terms( $tax, $main = false ) {
+
+	// return
+	return mstaxsync_core()->get_custom_taxonomy_terms( $tax, $main );
+
+}
+
+/**
+ * mstaxsync_is_term_synced
+ *
+ * This function will check whether a term is synced in either direction.
+ * If term is synced, its ID will be returned
+ *
+ * @since		1.0.0
+ * @param		$term_id (int) Term ID
+ * @param		$direction (boolean) true - synced in local site (default) / false - synced in main site
+ * @return		(mixed)
+ */
+function mstaxsync_is_term_synced( $term_id, $direction = true ) {
+
+	if ( $direction ) {
+
+		// is synced in local site
+		$main_id = get_term_meta( $term_id, 'main_taxonomy_term', true );
+
+		// return
+		return $main_id ?: false;
+
+	}
+	else {
+
+		// is synced in main site
+		$blog_id = get_current_blog_id();
+
+		// get main site
+		$main_site_id = get_main_site_id();
+
+		switch_to_blog( $main_site_id );
+
+		$synced_taxonomy_terms = get_term_meta( $term_id, 'synced_taxonomy_terms', true );
+
+		if ( ! $synced_taxonomy_terms ) {
+			$synced_taxonomy_terms = array();
+		}
+
+		restore_current_blog();
+
+		// return
+		return array_key_exists( $blog_id, $synced_taxonomy_terms ) ? $synced_taxonomy_terms[ $blog_id ] : false;
+
+	}
+
+}
+
+/**
  * mstaxsync_sort_terms_hierarchically
  *
  * This function will recursively sort an array of taxonomy terms hierarchically.
@@ -284,7 +348,8 @@ function mstaxsync_sort_terms_hierarchically( &$terms = array(), &$output = arra
  * mstaxsync_display_terms_hierarchically
  *
  * This function will recursively display an array of taxonomy terms hierarchically.
- * Child categories are placed under a 'children' member of their parent term
+ * Child categories are placed under a 'children' member of their parent term.
+ * It will also check for synced terms and will mark them accordingly
  *
  * @since		1.0.0
  * @param		$terms (array) taxonomy term objects
@@ -293,14 +358,26 @@ function mstaxsync_sort_terms_hierarchically( &$terms = array(), &$output = arra
  */
 function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = null ) {
 
+	/**
+	 * Variables
+	 */
+	$edit_terms		= get_option( 'mstaxsync_edit_taxonomy_terms' );
+	$detach_terms	= get_option( 'mstaxsync_detach_taxonomy_terms' );
+	$nonce			= wp_create_nonce( 'detach_taxonomy_term' );
+	$synced_span	= '<span class="synced dashicons dashicons-update' . ( $detach_terms && in_array( 'can', $detach_terms ) ? ' can-detach' : '' ) . '" data-nonce="' . $nonce . '"></span>';
+
 	foreach ( $terms as $t ) {
+
+		// is term synced
+		$synced_term = mstaxsync_is_term_synced( $t->term_id, 'choice' != $li_class );
 
 		echo
 			'<li' . ( $li_class ? ' class="' . $li_class . '"' : '' ) . '>' .
 				'<div>' .
-					'<span class="mstaxsync-rel-item" data-id="' . $t->term_id . '">' .
+					'<span class="mstaxsync-rel-item' . ( 'choice' == $li_class && $synced_term ? ' disabled' : '' ) . '" data-id="' . $t->term_id . '" data-synced="' . $synced_term . '">' .
+						( 'choice' != $li_class && $synced_term ? $synced_span : '' ) .
 						'<span class="val">' . $t->name . '</span>' .
-						( 'choice' != $li_class ?
+						( 'choice' != $li_class && $edit_terms && in_array( 'can', $edit_terms ) ?
 							'<input type="text" placeholder="' . $t->name . '" />' .
 							'<span class="edit dashicons dashicons-edit"></span>' .
 							'<span class="ok dashicons dashicons-yes"></span>' .

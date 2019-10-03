@@ -60,7 +60,7 @@ class MSTaxSync_Admin {
 			'menu_title'	=> __( 'Taxonomies Sync', 'mstaxsync' ),
 
 			// icon
-			'icon_url'		=> 'dashicons-category',
+			'icon_url'		=> 'dashicons-update',
 
 			// position
 			'position'		=> 6,

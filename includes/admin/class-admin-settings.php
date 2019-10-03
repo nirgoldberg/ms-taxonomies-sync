@@ -50,6 +50,15 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						),
 					),
 				),
+				'capabilities'		=> array(
+					'title'				=> __( 'Capabilities', 'mstaxsync' ),
+					'sections'			=> array(
+						'edit'			=> array(
+							'title'			=> __( 'Edit Capabilities Settings', 'mstaxsync' ),
+							'description'	=> '',
+						),
+					),
+				),
 				'uninstall'			=> array(
 					'title'				=> __( 'Uninstall', 'mstaxsync' ),
 					'sections'			=> array(
@@ -83,6 +92,30 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'section'			=> 'taxonomies',
 					'type'				=> 'checkbox',
 					'options'			=> mstaxsync_get_main_site_custom_taxonomies_names(),
+				),
+				array(
+					'uid'				=> 'mstaxsync_edit_taxonomy_terms',
+					'label'				=> __( 'Edit taxonomy term names', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_edit_taxonomy_terms',
+					'tab'				=> 'capabilities',
+					'section'			=> 'edit',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'can'			=> '',
+					),
+					'helper'			=> __( 'Check this option to allow editing taxonomy term names directly from this plugin', 'mstaxsync' ),
+				),
+				array(
+					'uid'				=> 'mstaxsync_detach_taxonomy_terms',
+					'label'				=> __( 'Detach taxonomy terms', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_detach_taxonomy_terms',
+					'tab'				=> 'capabilities',
+					'section'			=> 'edit',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'can'			=> '',
+					),
+					'helper'			=> __( 'Check this option to allow detaching of already synced taxonomy terms. Detaching a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_uninstall_remove_data',

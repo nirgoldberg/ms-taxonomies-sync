@@ -12,12 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // extract args
 extract( $args );
 
+// get main site taxonomy terms
+$main_terms		= mstaxsync_get_custom_taxonomy_terms( $tax, true );
+
 // get local site taxonomy terms
-$local_terms_args = array(
-	'taxonomy'		=> $tax->name,
-	'hide_empty'	=> false,
-);
-$local_terms = get_terms( apply_filters( 'mstaxsync_local,taxonomy_terms', $local_terms_args, $tax->name ) );
+$local_terms	= mstaxsync_get_custom_taxonomy_terms( $tax );
 
 ?>
 
@@ -36,18 +35,25 @@ $local_terms = get_terms( apply_filters( 'mstaxsync_local,taxonomy_terms', $loca
 
 				<ul class="list choices-list">
 
-					<?php if ( $terms ) :
+					<?php if ( ! is_wp_error( $main_terms ) ) :
 
-						mstaxsync_display_terms_hierarchically( $terms, 'choice' );
+						if ( $main_terms ) {
 
-					else : ?>
+							$main_terms_hierarchically = array();
+							mstaxsync_sort_terms_hierarchically( $main_terms, $main_terms_hierarchically );
+							mstaxsync_display_terms_hierarchically( $main_terms_hierarchically, 'choice' );
 
-						<p class="no-terms"><?php printf( __( 'There are no %s defined in main site', 'mstaxsync' ), $tax->label ); ?></p>
+						}
+						else { ?>
 
-					<?php endif; ?>
+							<p class="no-terms"><?php printf( __( 'There are no %s defined in main site', 'mstaxsync' ), $tax->label ); ?></p>
+
+						<?php }
+
+					endif; ?>
 
 				</ul>
-			</div>
+			</div><!-- .choices -->
 
 			<div class="values">
 				<div class="title">
@@ -68,7 +74,7 @@ $local_terms = get_terms( apply_filters( 'mstaxsync_local,taxonomy_terms', $loca
 					endif; ?>
 
 				</ul>
-			</div>
+			</div><!-- .values -->
 
 		</div>
 	</div><!-- .mstaxsync-relationship -->
