@@ -354,9 +354,10 @@ function mstaxsync_sort_terms_hierarchically( &$terms = array(), &$output = arra
  * @since		1.0.0
  * @param		$terms (array) taxonomy term objects
  * @param		$li_class (string) taxonomy term li class
+ * @param		$echo (boolean) whether to echo or return terms
  * @return		(string)
  */
-function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = null ) {
+function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = null, $echo = true ) {
 
 	/**
 	 * Variables
@@ -365,13 +366,14 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 	$detach_terms	= get_option( 'mstaxsync_detach_taxonomy_terms' );
 	$nonce			= wp_create_nonce( 'detach_taxonomy_term' );
 	$synced_span	= '<span class="synced dashicons dashicons-update' . ( $detach_terms && in_array( 'can', $detach_terms ) ? ' can-detach' : '' ) . '" data-nonce="' . $nonce . '"></span>';
+	$output			= '';
 
 	foreach ( $terms as $t ) {
 
 		// is term synced
 		$synced_term = mstaxsync_is_term_synced( $t->term_id, 'choice' != $li_class );
 
-		echo
+		$output .=
 			'<li' . ( $li_class ? ' class="' . $li_class . '"' : '' ) . '>' .
 				'<div>' .
 					'<span class="mstaxsync-rel-item' . ( 'choice' == $li_class && $synced_term ? ' disabled' : '' ) . '" data-id="' . $t->term_id . '" data-synced="' . $synced_term . '">' .
@@ -388,16 +390,24 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 
 		if ( $t->children ) {
 
-			echo '<ul>';
+			$output .= '<ul>';
 
-				mstaxsync_display_terms_hierarchically( $t->children, $li_class );
+				$output .= mstaxsync_display_terms_hierarchically( $t->children, $li_class, false );
 
-			echo '</ul>';
+			$output .= '</ul>';
 
 		}
 
-		echo '</li>';
+		$output .= '</li>';
 
+	}
+
+	if ( $echo ) {
+		echo $output;
+	}
+	else {
+		// return
+		return $output;
 	}
 
 }

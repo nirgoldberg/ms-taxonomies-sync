@@ -110,7 +110,7 @@ var $ = jQuery,
 				return;
 
 			// add choice
-			$('.choices-list li .mstaxsync-rel-item').click(function() {
+			$('body').on('click', '.choices-list li .mstaxsync-rel-item', function() {
 				mstaxsync.rsOnClickAdd($(this));
 			});
 
@@ -469,7 +469,7 @@ var $ = jQuery,
 				},
 				success: function(response) {
 					// refresh relationship field lists
-					//mstaxsync.rsRefreshLists();
+					mstaxsync.rsRefreshLists(response);
 
 					// build result message
 					mstaxsync.rsBuildResultMsg(response, msg);
@@ -516,6 +516,38 @@ var $ = jQuery,
 
 				children.each(function() {
 					mstaxsync.rsBuildTaxonomyTerms(terms, $(this), parent_id);
+				});
+			}
+
+		},
+
+		/**
+		 * rsRefreshLists
+		 *
+		 * Refreshes relationship field lists
+		 *
+		 * @since		1.0.0
+		 * @param		response (json)
+		 * @return		N/A
+		 */
+		rsRefreshLists: function(response) {
+
+			if (Object.keys(response.rs_fields).length) {
+				$.each(response.rs_fields, function(taxonomy, lists) {
+					// vars
+					var rs_field = $('.mstaxsync-relationship[data-name="' + taxonomy + '"]'),
+						choices = lists.choices,
+						values = lists.values;
+
+					// refresh choices
+					if (choices.length) {
+						rs_field.find(mstaxsync.$list('choices')).html(choices);
+					}
+
+					// refresh values
+					if (values.length) {
+						rs_field.find(mstaxsync.$list('values')).html(values);
+					}
 				});
 			}
 

@@ -30,6 +30,7 @@ function mstaxsync_taxonomy_terms_sync() {
 		'errors'	=> array(),
 		'main'		=> array(),
 		'local'		=> array(),
+		'rs_fields'	=> array(),
 	);
 
 	// update taxonomy terms data
@@ -91,12 +92,17 @@ function mstaxsync_update_taxonomy_terms_data( &$result ) {
 		$parents	= array();	// array of main site term IDs and new generated local term IDs - used to update parent IDs for children terms
 
 		if ( $terms ) {
+
 			foreach ( $terms as $t ) {
 
 				// update taxonomy term
 				mstaxsync_update_taxonomy_term( $t, $taxonomy, $orders, $parents, $result );
 
 			}
+
+			// update relationship field lists
+			mstaxsync_update_rs_lists( $taxonomy, $result );
+
 		}
 
 	}
@@ -300,6 +306,62 @@ function mstaxsync_update_main_taxonomy_term_correlation( $main_id, $local_id, &
 	}
 
 	restore_current_blog();
+
+}
+
+/**
+ * mstaxsync_update_rs_lists
+ *
+ * This function will update relationship field lists after terms have been modified
+ *
+ * @since		1.0.0
+ * @param		$taxonomy (string) Taxonomy name
+ * @param		&$result (array)
+ * @return		N/A
+ */
+function mstaxsync_update_rs_lists( $taxonomy, &$result ) {
+
+	/**
+	 * Variables
+	 */
+	$tax = get_taxonomy( $taxonomy );
+	$result[ 'rs_fields' ][ $taxonomy ] = array();
+
+	if ( ! $tax )
+		return;
+
+	// get main site taxonomy terms
+	$main_terms		= mstaxsync_get_custom_taxonomy_terms( $tax, true );
+
+	// get local site taxonomy terms
+	$local_terms	= mstaxsync_get_custom_taxonomy_terms( $tax );
+
+	// store main site taxonomy terms
+	if ( ! is_wp_error( $main_terms ) ) :
+
+		if ( $main_terms ) {
+
+			$main_terms_hierarchically = array();
+			mstaxsync_sort_terms_hierarchically( $main_terms, $main_terms_hierarchically );
+			$result[ 'rs_fields' ][ $taxonomy ][ 'choices' ] = mstaxsync_display_terms_hierarchically( $main_terms_hierarchically, 'choice', false );
+
+		}
+		else {
+
+			$result[ 'rs_fields' ][ $taxonomy ][ 'choices' ] = '<p class="no-terms">' . sprintf( __( 'There are no %s defined in main site', 'mstaxsync' ), $tax->label ) . '</p>';
+
+		}
+
+	endif;
+
+	// store local site taxonomy terms
+	if ( ! is_wp_error( $local_terms ) && $local_terms ) :
+
+		$local_terms_hierarchically = array();
+		mstaxsync_sort_terms_hierarchically( $local_terms, $local_terms_hierarchically );
+		$result[ 'rs_fields' ][ $taxonomy ][ 'values' ] = mstaxsync_display_terms_hierarchically( $local_terms_hierarchically, 'value', false );
+
+	endif;
 
 }
 
