@@ -116,7 +116,7 @@ var $ = jQuery,
 
 			// remove value
 			$('body').on('click', '.values-list li .remove', function() {
-				mstaxsync.rsOnClickRemove($(this));
+				mstaxsync.rsOnClickRemove($(this).parent('.mstaxsync-rel-item'));
 			});
 
 			// edit value
@@ -142,6 +142,11 @@ var $ = jQuery,
 			// detach value
 			$('body').on('click', '.values-list li .synced', function() {
 				mstaxsync.rsOnClickDetach($(this));
+			});
+
+			// delete value
+			$('body').on('click', '.values-list li .trash', function() {
+				mstaxsync.rsOnClickDelete($(this));
 			});
 
 			// submit data
@@ -201,7 +206,7 @@ var $ = jQuery,
 
 			// vars
 			var field = el.closest(mstaxsync.params.relationship_fields),
-				id = el.parent().data('id'),
+				id = el.data('id'),
 				li = el.closest('li'),
 				ul = li.children('ul'),
 				siblings = li.siblings(),
@@ -350,7 +355,7 @@ var $ = jQuery,
 				detach_terms = _mstaxsync.settings.detach_terms;
 
 			// check if detach terms capability is on
-			if (!detach_terms)
+			if (!detach_terms || !confirm(_mstaxsync.strings.confirm_detach))
 				return;
 
 			// expose loader
@@ -383,37 +388,65 @@ var $ = jQuery,
 		},
 
 		/**
-		 * rsIndicateChanged
+		 * rsOnClickDelete
 		 *
-		 * Adds indication for changed item
+		 * Deletes item
 		 *
 		 * @since		1.0.0
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsIndicateChanged: function(el) {
+		rsOnClickDelete: function(el) {
 
 			// vars
-			var span = el.find('.mstaxsync-rel-item').first(),
-				val = span.children('span.val'),
-				ind = span.children('span.ind'),
-				edit = span.children('span.edit');
+			var field = el.closest(mstaxsync.params.relationship_fields),
+				nonce = el.data('nonce'),
+				span = el.closest('.mstaxsync-rel-item'),
+				taxonomy = field.data('name'),
+				localId = span.data('id'),
+				mainId = span.data('synced'),
+				delete_terms = _mstaxsync.settings.delete_terms,
+				synced = span.children('.synced');
 
-			el.addClass('changed');
+			// check if delete terms capability is on
+			if (!delete_terms || !confirm(_mstaxsync.strings.confirm_delete))
+				return;
 
-			if (!ind.length) {
+			// activate removing mode
+			span.addClass('removing');
 
-				ind = $( '<span class="ind">(' + _mstaxsync.strings.relationship_changed_item_str + ')</span>' );
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: _mstaxsync.ajaxurl,
+				data: {
+					action: 'delete_taxonomy_term',
+					nonce: nonce,
+					taxonomy: taxonomy,
+					main_id: mainId,
+					local_id: localId,
+				},
+				success: function(response) {
+					// enable choice
+					if (mainId) {
+						choice = field.find(mstaxsync.$list('choices')).find('li .mstaxsync-rel-item[data-id=' + mainId + ']');
+						choice.removeClass('disabled');
+						choice.data('synced', '');
+					}
 
-				// edit might be missing in case of edit terms capability is off
-				if (edit.length) {
-					ind.insertBefore(edit);
-				}
-				else {
-					ind.insertAfter(val);
-				}
+					// hide
+					span.css('opacity', '0');
 
-			}
+					// remove
+					setTimeout(function() {
+						mstaxsync.rsOnClickRemove(span);
+					}, 500);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					// deactivate removing mode
+					span.removeClass('removing');
+				},
+			});
 
 		},
 
@@ -486,6 +519,41 @@ var $ = jQuery,
 					result.show().html(msg.join('<br />'));
 				},
 			});
+
+		},
+
+		/**
+		 * rsIndicateChanged
+		 *
+		 * Adds indication for changed item
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @return		N/A
+		 */
+		rsIndicateChanged: function(el) {
+
+			// vars
+			var span = el.find('.mstaxsync-rel-item').first(),
+				val = span.children('span.val'),
+				ind = span.children('span.ind'),
+				edit = span.children('span.edit');
+
+			el.addClass('changed');
+
+			if (!ind.length) {
+
+				ind = $( '<span class="ind">(' + _mstaxsync.strings.relationship_changed_item_str + ')</span>' );
+
+				// edit might be missing in case of edit terms capability is off
+				if (edit.length) {
+					ind.insertBefore(edit);
+				}
+				else {
+					ind.insertAfter(val);
+				}
+
+			}
 
 		},
 

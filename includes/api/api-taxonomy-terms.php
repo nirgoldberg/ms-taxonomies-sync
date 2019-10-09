@@ -58,7 +58,7 @@ add_action( 'wp_ajax_taxonomy_terms_sync', 'mstaxsync_taxonomy_terms_sync' );
 /**
  * mstaxsync_update_taxonomy_terms_data
  *
- * This functions updates taxonomy terms data
+ * This functions will update taxonomy terms data
  *
  * @since		1.0.0
  * @param		&$result (array)
@@ -112,7 +112,7 @@ function mstaxsync_update_taxonomy_terms_data( &$result ) {
 /**
  * mstaxsync_update_taxonomy_term
  *
- * This function updates a single taxonomy term data
+ * This function will update a single taxonomy term data
  *
  * @since		1.0.0
  * @param		$term (array)
@@ -211,7 +211,7 @@ function mstaxsync_update_taxonomy_term( $term, $taxonomy, &$orders, &$parents, 
 /**
  * mstaxsync_update_taxonomy_term_correlation
  *
- * This function provide a taxonomy term correlation between main and local sites
+ * This function will provide a taxonomy term correlation between main and local sites
  *
  * @since		1.0.0
  * @param		$main_id (int) Main site term ID
@@ -235,7 +235,7 @@ function mstaxsync_update_taxonomy_term_correlation( $main_id, $local_id, &$resu
 /**
  * mstaxsync_update_local_taxonomy_term_correlation
  *
- * This function provide a taxonomy term local site correlation
+ * This function will provide a taxonomy term local site correlation
  *
  * @since		1.0.0
  * @param		$main_id (int) Main site term ID
@@ -263,7 +263,7 @@ function mstaxsync_update_local_taxonomy_term_correlation( $main_id, $local_id, 
 /**
  * mstaxsync_update_main_taxonomy_term_correlation
  *
- * This function provide a taxonomy term main site correlation
+ * This function will provide a taxonomy term main site correlation
  *
  * @since		1.0.0
  * @param		$main_id (int) Main site term ID
@@ -413,7 +413,7 @@ add_action( 'wp_ajax_detach_taxonomy_term', 'mstaxsync_detach_taxonomy_term' );
 /**
  * mstaxsync_detach_tt
  *
- * This functions detaches taxonomy term
+ * This function will detach a taxonomy term
  *
  * @since		1.0.0
  * @param		&$result (array)
@@ -447,7 +447,7 @@ function mstaxsync_detach_tt( &$result ) {
 /**
  * mstaxsync_detach_taxonomy_term_correlation
  *
- * This function detaches a taxonomy term correlation
+ * This function will detach a taxonomy term correlation
  *
  * @since		1.0.0
  * @param		$main_id (int) Main site term ID
@@ -471,7 +471,7 @@ function mstaxsync_detach_taxonomy_term_correlation( $main_id, $local_id, &$resu
 /**
  * mstaxsync_detach_local_taxonomy_term_correlation
  *
- * This function detaches a taxonomy term local site correlation
+ * This function will detach a taxonomy term local site correlation
  *
  * @since		1.0.0
  * @param		$main_id (int) Main site term ID
@@ -505,7 +505,7 @@ function mstaxsync_detach_local_taxonomy_term_correlation( $main_id, $local_id, 
 /**
  * mstaxsync_detach_main_taxonomy_term_correlation
  *
- * This function detaches a taxonomy term main site correlation
+ * This function will detach a taxonomy term main site correlation
  *
  * @since		1.0.0
  * @param		$main_id (int) Main site term ID
@@ -573,9 +573,104 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
 }
 
 /**
+ * mstaxsync_delete_taxonomy_term
+ *
+ * @since		1.0.0
+ * @param		N/A
+ * @return		N/A
+ */
+function mstaxsync_delete_taxonomy_term() {
+
+	// check nonce
+	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'delete_taxonomy_term' ) ) {
+		exit();
+	}
+
+	/**
+	 * Variables
+	 */
+	$result = array(
+		'errors'	=> array(),
+		'main_id'	=> '',
+		'local_id'	=> '',
+	);
+
+	// detach taxonomy term
+	if ( $_REQUEST[ 'main_id' ] ) {
+		mstaxsync_detach_tt( $result );
+	}
+
+	// delete taxonomy term
+	mstaxsync_delete_tt( $result );
+
+	// Check if action was fired via Ajax call. If yes, JS code will be triggered, else the user will be redirected to the post page
+	if ( ! empty( $_SERVER[ 'HTTP_X_REQUESTED_WITH' ] ) && 'xmlhttprequest' == strtolower( $_SERVER[ 'HTTP_X_REQUESTED_WITH' ] ) ) {
+
+		$result = json_encode( $result );
+		echo $result;
+
+	}
+	else {
+
+		header( "Location: " . $_SERVER[ "HTTP_REFERER" ] );
+
+	}
+
+	// die
+	die();
+
+}
+add_action( 'wp_ajax_delete_taxonomy_term', 'mstaxsync_delete_taxonomy_term' );
+
+/**
+ * mstaxsync_delete_tt
+ *
+ * This functions will delete a taxonomy term
+ *
+ * @since		1.0.0
+ * @param		&$result (array)
+ * @return		N/A
+ */
+function mstaxsync_delete_tt( &$result ) {
+
+	/**
+	 * Variables
+	 */
+	$taxonomy	= $_REQUEST[ 'taxonomy' ];
+	$local_id	= $_REQUEST[ 'local_id' ];
+
+	if ( ! $taxonomy || ! $local_id ) {
+
+		// log
+		mstaxsync_result_log( 'errors', array(
+			'code'			=> '11',
+			'description'	=> 'No taxonomy term to delete',
+		), $result );
+
+		// return
+		return;
+
+	}
+
+	// delete taxonomy term
+	$res = wp_delete_term( $local_id, $taxonomy );
+
+	if ( ! $res || is_wp_error( $res ) ) {
+
+		// log
+		mstaxsync_result_log( 'errors', array(
+			'code'			=> ! $res ? '12' : '13',
+			'description'	=> ! $res ? 'Failed to delete a taxonomy term' : $res->get_error_message(),
+		), $result );
+
+	}
+
+}
+
+/**
  * mstaxsync_result_log
  *
- * This function logs API activities
+ * This function will log API activity
  *
  * @since		1.0.0
  * @param		$type (string) Log type

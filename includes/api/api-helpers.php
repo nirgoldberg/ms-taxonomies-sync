@@ -364,8 +364,16 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 	 */
 	$edit_terms		= get_option( 'mstaxsync_edit_taxonomy_terms' );
 	$detach_terms	= get_option( 'mstaxsync_detach_taxonomy_terms' );
-	$nonce			= wp_create_nonce( 'detach_taxonomy_term' );
-	$synced_span	= '<span class="synced dashicons dashicons-update' . ( $detach_terms && in_array( 'can', $detach_terms ) ? ' can-detach' : '' ) . '" data-nonce="' . $nonce . '"></span>';
+	$delete_terms	= get_option( 'mstaxsync_delete_taxonomy_terms' );
+
+	$detach_nonce	= wp_create_nonce( 'detach_taxonomy_term' );
+	$delete_nonce	= wp_create_nonce( 'delete_taxonomy_term' );
+
+	$classes		= $li_class ?: '';
+	$synced_span	= '<span class="synced dashicons dashicons-update' . ( $detach_terms && in_array( 'can', $detach_terms ) ? ' can-detach' : '' ) . '" data-nonce="' . $detach_nonce . '"></span>';
+	$edit_span		= '<span class="edit dashicons dashicons-edit"></span><span class="ok dashicons dashicons-yes"></span><span class="cancel dashicons dashicons-no"></span>';
+	$delete_span	= 'choice' != $li_class && $delete_terms && in_array( 'can', $delete_terms ) ? '<span class="trash dashicons dashicons-trash" data-nonce="' . $delete_nonce . '"></span>' : '';
+
 	$output			= '';
 
 	foreach ( $terms as $t ) {
@@ -374,17 +382,16 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 		$synced_term = mstaxsync_is_term_synced( $t->term_id, 'choice' != $li_class );
 
 		$output .=
-			'<li' . ( $li_class ? ' class="' . $li_class . '"' : '' ) . '>' .
+			'<li class="' . $classes . '">' .
 				'<div>' .
 					'<span class="mstaxsync-rel-item' . ( 'choice' == $li_class && $synced_term ? ' disabled' : '' ) . '" data-id="' . $t->term_id . '" data-synced="' . $synced_term . '">' .
 						( 'choice' != $li_class && $synced_term ? $synced_span : '' ) .
 						'<span class="val">' . $t->name . '</span>' .
 						( 'choice' != $li_class && $edit_terms && in_array( 'can', $edit_terms ) ?
 							'<input type="text" placeholder="' . $t->name . '" />' .
-							'<span class="edit dashicons dashicons-edit"></span>' .
-							'<span class="ok dashicons dashicons-yes"></span>' .
-							'<span class="cancel dashicons dashicons-no"></span>'
+							$edit_span
 						: '' ) .
+						$delete_span .
 					'</span>' .
 				'</div>';
 

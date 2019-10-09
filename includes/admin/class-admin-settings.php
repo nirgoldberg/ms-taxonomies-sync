@@ -103,7 +103,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'options'			=> array(
 						'can'			=> '',
 					),
-					'helper'			=> __( 'Check this option to allow editing taxonomy term names directly from this plugin', 'mstaxsync' ),
+					'supplimental'		=> __( 'Check this option to allow editing taxonomy term names directly from this plugin', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_detach_taxonomy_terms',
@@ -115,7 +115,19 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'options'			=> array(
 						'can'			=> '',
 					),
-					'helper'			=> __( 'Check this option to allow detaching of already synced taxonomy terms. Detaching a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
+					'supplimental'		=> __( 'Check this option to allow detaching of already synced taxonomy terms.<br />Detaching a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
+				),
+				array(
+					'uid'				=> 'mstaxsync_delete_taxonomy_terms',
+					'label'				=> __( 'Delete taxonomy terms', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_delete_taxonomy_terms',
+					'tab'				=> 'capabilities',
+					'section'			=> 'edit',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'can'			=> '',
+					),
+					'supplimental'		=> __( 'Check this option to allow deleting of taxonomy terms.<br />Deleting a synced taxonomy term will first detach it.<br />Deleting a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_uninstall_remove_data',
@@ -127,7 +139,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'options'			=> array(
 						'remove'		=> '',
 					),
-					'helper'			=> __( 'Caution: all data will be removed without any option to restore', 'mstaxsync' ),
+					'supplimental'		=> __( 'Caution: all data will be removed without any option to restore', 'mstaxsync' ),
 				),
 			),
 

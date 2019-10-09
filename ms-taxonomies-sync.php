@@ -249,6 +249,7 @@ class MSTaxSync {
 			'settings'	=> array(
 				'edit_terms'		=> get_option( 'mstaxsync_edit_taxonomy_terms' ),
 				'detach_terms'		=> get_option( 'mstaxsync_detach_taxonomy_terms' ),
+				'delete_terms'		=> get_option( 'mstaxsync_delete_taxonomy_terms' ),
 			),
 			'strings'	=> array(
 				'relationship_new_item_str'					=> __( 'New item',	'mstaxsync' ),
@@ -259,6 +260,8 @@ class MSTaxSync {
 				'relationship_errors_str'					=> __( 'The following errors were found:', 'mstaxsync' ),
 				'relationship_error_str'					=> __( 'Error', 'mstaxsync' ),
 				'relationship_internal_server_error_str'	=> __( 'Internal server error', 'mstaxsync' ),
+				'confirm_detach'							=> __( 'You are about to permanently detach this taxonomy term.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to detach.", 'mstaxsync' ),
+				'confirm_delete'							=> __( 'You are about to permanently delete this taxonomy term.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to delete.", 'mstaxsync' ),
 			),
 			'ajaxurl'	=> admin_url( 'admin-ajax.php' ),
 		);

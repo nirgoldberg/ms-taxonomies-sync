@@ -26,6 +26,7 @@ if ( $sites ) {
 		'mstaxsync_synced_taxonomies',
 		'mstaxsync_edit_taxonomy_terms',
 		'mstaxsync_detach_taxonomy_terms',
+		'mstaxsync_delete_taxonomy_terms',
 		'mstaxsync_uninstall_remove_data',
 	);
 
