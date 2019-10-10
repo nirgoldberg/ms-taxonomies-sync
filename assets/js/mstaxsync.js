@@ -73,7 +73,7 @@ var $ = jQuery,
 							'<span class="ok dashicons dashicons-yes"></span>' +
 							'<span class="cancel dashicons dashicons-no"></span>'
 						: ''),
-						'<a href="#" class="remove dashicons dashicons-minus" data-name="remove_item"></a>',
+						'<span class="remove dashicons dashicons-minus"></span>',
 					'</span>',
 				'</div>',
 			'</li>'
@@ -463,7 +463,7 @@ var $ = jQuery,
 
 			// vars
 			var nonce = el.data('nonce'),
-				taxonomyTerms = [],
+				taxonomyTerms = mstaxsync.rsGroupTaxonomyTerms(),
 				loader = $('.submit .ajax-loading'),
 				result = $('.submit').next('.result'),
 				msg = [];
@@ -473,23 +473,6 @@ var $ = jQuery,
 
 			// hide result message
 			result.html('').hide();
-
-			// group terms by taxonomy
-			$.each(mstaxsync.params.relationship_fields, function() {
-				var values = $(this).find(mstaxsync.$list('values')).children('li'),
-					terms = [];
-
-				if (values.length) {
-					values.each(function() {
-						mstaxsync.rsBuildTaxonomyTerms(terms, $(this), 0);
-					});
-
-					taxonomyTerms.push({
-						taxonomy: $(this).data('name'),
-						terms: terms,
-					});
-				}
-			});
 
 			$.ajax({
 				type: 'post',
@@ -523,37 +506,37 @@ var $ = jQuery,
 		},
 
 		/**
-		 * rsIndicateChanged
+		 * rsGroupTaxonomyTerms
 		 *
-		 * Adds indication for changed item
+		 * Groups terms by taxonomy
 		 *
 		 * @since		1.0.0
-		 * @param		el (jQuery)
-		 * @return		N/A
+		 * @param		N/A
+		 * @return		(array)
 		 */
-		rsIndicateChanged: function(el) {
+		rsGroupTaxonomyTerms: function() {
 
 			// vars
-			var span = el.find('.mstaxsync-rel-item').first(),
-				val = span.children('span.val'),
-				ind = span.children('span.ind'),
-				edit = span.children('span.edit');
+			taxonomyTerms = [];
 
-			el.addClass('changed');
+			$.each(mstaxsync.params.relationship_fields, function() {
+				var values = $(this).find(mstaxsync.$list('values')).children('li'),
+					terms = [];
 
-			if (!ind.length) {
+				if (values.length) {
+					values.each(function() {
+						mstaxsync.rsBuildTaxonomyTerms(terms, $(this), 0);
+					});
 
-				ind = $( '<span class="ind">(' + _mstaxsync.strings.relationship_changed_item_str + ')</span>' );
-
-				// edit might be missing in case of edit terms capability is off
-				if (edit.length) {
-					ind.insertBefore(edit);
+					taxonomyTerms.push({
+						taxonomy: $(this).data('name'),
+						terms: terms,
+					});
 				}
-				else {
-					ind.insertAfter(val);
-				}
+			});
 
-			}
+			// return
+			return taxonomyTerms;
 
 		},
 
@@ -655,6 +638,41 @@ var $ = jQuery,
 				$.each(response.errors, function(key, value) {
 					msg.push(_mstaxsync.strings.relationship_error_str + ' #' + value.code + ': ' + value.description);
 				});
+			}
+
+		},
+
+		/**
+		 * rsIndicateChanged
+		 *
+		 * Adds indication for changed item
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @return		N/A
+		 */
+		rsIndicateChanged: function(el) {
+
+			// vars
+			var span = el.find('.mstaxsync-rel-item').first(),
+				val = span.children('span.val'),
+				ind = span.children('span.ind'),
+				edit = span.children('span.edit');
+
+			el.addClass('changed');
+
+			if (!ind.length) {
+
+				ind = $( '<span class="ind">(' + _mstaxsync.strings.relationship_changed_item_str + ')</span>' );
+
+				// edit might be missing in case of edit terms capability is off
+				if (edit.length) {
+					ind.insertBefore(edit);
+				}
+				else {
+					ind.insertAfter(val);
+				}
+
 			}
 
 		},

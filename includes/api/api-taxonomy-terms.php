@@ -76,7 +76,7 @@ function mstaxsync_update_taxonomy_terms_data( &$result ) {
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> '1',
-			'description'	=> 'No taxonomy terms to update',
+			'description'	=> __( 'No taxonomy terms to update', 'mstaxsync' ),
 		), $result );
 
 		// return
@@ -163,8 +163,19 @@ function mstaxsync_update_taxonomy_term( $term, $taxonomy, &$orders, &$parents, 
 	else {
 
 		// main site term
+		// get main site
+		$main_site_id = get_main_site_id();
+
+		switch_to_blog( $main_site_id );
+
+		// get main site taxonomy term description
+		$description = term_description( $id, $taxonomy );
+
+		restore_current_blog();
+
 		$term_arr = wp_insert_term( $name, $taxonomy, array(
-			'parent'	=> $parent,
+			'description'	=> $description,
+			'parent'		=> $parent,
 		) );
 
 	}
@@ -253,7 +264,7 @@ function mstaxsync_update_local_taxonomy_term_correlation( $main_id, $local_id, 
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> ! $meta_id ? '4' : '5',
-			'description'	=> ! $meta_id ? 'Failed to update a taxonomy term correlation (local site term)' : $meta_id->get_error_message(),
+			'description'	=> ! $meta_id ? __( 'Failed to update a taxonomy term correlation (local site term)', 'mstaxsync' ) : $meta_id->get_error_message(),
 		), $result );
 
 	}
@@ -300,7 +311,7 @@ function mstaxsync_update_main_taxonomy_term_correlation( $main_id, $local_id, &
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> ! $meta_id ? '6' : '7',
-			'description'	=> ! $meta_id ? 'Failed to update a taxonomy term correlation (main site term)' : $meta_id->get_error_message(),
+			'description'	=> ! $meta_id ? __( 'Failed to update a taxonomy term correlation (main site term)', 'mstaxsync' ) : $meta_id->get_error_message(),
 		), $result );
 
 	}
@@ -432,7 +443,7 @@ function mstaxsync_detach_tt( &$result ) {
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> '1',
-			'description'	=> 'No taxonomy term to update',
+			'description'	=> __( 'No taxonomy term to update', 'mstaxsync' ),
 		), $result );
 
 		// return
@@ -489,7 +500,7 @@ function mstaxsync_detach_local_taxonomy_term_correlation( $main_id, $local_id, 
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> '2',
-			'description'	=> 'Failed to delete a taxonomy term correlation (local site term)',
+			'description'	=> __( 'Failed to delete a taxonomy term correlation (local site term)', 'mstaxsync' ),
 		), $result );
 
 	}
@@ -557,7 +568,7 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> ! $res ? '3' : '4',
-			'description'	=> ! $res ? 'Failed to update a taxonomy term correlation (main site term)' : $res->get_error_message(),
+			'description'	=> ! $res ? __( 'Failed to delete a taxonomy term correlation (main site term)', 'mstaxsync' ) : $res->get_error_message(),
 		), $result );
 
 	}
@@ -644,7 +655,7 @@ function mstaxsync_delete_tt( &$result ) {
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> '11',
-			'description'	=> 'No taxonomy term to delete',
+			'description'	=> __( 'No taxonomy term to delete', 'mstaxsync' ),
 		), $result );
 
 		// return
@@ -660,7 +671,7 @@ function mstaxsync_delete_tt( &$result ) {
 		// log
 		mstaxsync_result_log( 'errors', array(
 			'code'			=> ! $res ? '12' : '13',
-			'description'	=> ! $res ? 'Failed to delete a taxonomy term' : $res->get_error_message(),
+			'description'	=> ! $res ? __( 'Failed to delete a taxonomy term', 'mstaxsync' ) : $res->get_error_message(),
 		), $result );
 
 	}

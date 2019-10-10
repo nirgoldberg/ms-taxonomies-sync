@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-10-09 23:04+0300\n"
+"POT-Creation-Date: 2019-10-10 22:43+0300\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -170,7 +170,7 @@ msgid "Select terms to sync"
 msgstr ""
 
 #: includes/admin/views/taxonomy-terms.php:49
-#: includes/api/api-taxonomy-terms.php:351
+#: includes/api/api-taxonomy-terms.php:362
 #, php-format
 msgid "There are no %s defined in main site"
 msgstr ""
@@ -181,6 +181,38 @@ msgstr ""
 
 #: includes/admin/views/taxonomy-terms.php:62
 msgid "Sort and edit terms"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:79
+msgid "No taxonomy terms to update"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:267
+msgid "Failed to update a taxonomy term correlation (local site term)"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:314
+msgid "Failed to update a taxonomy term correlation (main site term)"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:446
+msgid "No taxonomy term to update"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:503
+msgid "Failed to delete a taxonomy term correlation (local site term)"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:571
+msgid "Failed to delete a taxonomy term correlation (main site term)"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:658
+msgid "No taxonomy term to delete"
+msgstr ""
+
+#: includes/api/api-taxonomy-terms.php:674
+msgid "Failed to delete a taxonomy term"
 msgstr ""
 
 #: ms-taxonomies-sync.php:255

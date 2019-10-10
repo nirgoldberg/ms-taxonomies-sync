@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-10-09 23:04+0300\n"
-"PO-Revision-Date: 2019-10-09 23:06+0300\n"
+"POT-Creation-Date: 2019-10-10 22:43+0300\n"
+"PO-Revision-Date: 2019-10-10 22:48+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -176,7 +176,7 @@ msgid "Select terms to sync"
 msgstr "בחירת ערכים לסנכרון"
 
 #: includes/admin/views/taxonomy-terms.php:49
-#: includes/api/api-taxonomy-terms.php:351
+#: includes/api/api-taxonomy-terms.php:362
 #, php-format
 msgid "There are no %s defined in main site"
 msgstr "לא קיימים ערכי %s באתר הראשי"
@@ -188,6 +188,38 @@ msgstr "אתר מקומי"
 #: includes/admin/views/taxonomy-terms.php:62
 msgid "Sort and edit terms"
 msgstr "מיון ועריכת ערכים"
+
+#: includes/api/api-taxonomy-terms.php:79
+msgid "No taxonomy terms to update"
+msgstr "לא קיימים ערכי טקסונומיה לעדכון"
+
+#: includes/api/api-taxonomy-terms.php:267
+msgid "Failed to update a taxonomy term correlation (local site term)"
+msgstr "כשלון בעת ניסיון לסנכרן ערך טקסונומיה (אתר מקומי)"
+
+#: includes/api/api-taxonomy-terms.php:314
+msgid "Failed to update a taxonomy term correlation (main site term)"
+msgstr "כשלון בעת ניסיון לסנכרן ערך טקסונומיה (אתר ראשי)"
+
+#: includes/api/api-taxonomy-terms.php:446
+msgid "No taxonomy term to update"
+msgstr "לא קיים ערך טקסונומיה לעדכון"
+
+#: includes/api/api-taxonomy-terms.php:503
+msgid "Failed to delete a taxonomy term correlation (local site term)"
+msgstr "כשלון בעת ניסיון לנתק ערך טקסונומיה (אתר מקומי)"
+
+#: includes/api/api-taxonomy-terms.php:571
+msgid "Failed to delete a taxonomy term correlation (main site term)"
+msgstr "כשלון בעת ניסיון לנתק ערך טקסונומיה (אתר ראשי)"
+
+#: includes/api/api-taxonomy-terms.php:658
+msgid "No taxonomy term to delete"
+msgstr "לא קיים ערך טקסונומיה למחיקה"
+
+#: includes/api/api-taxonomy-terms.php:674
+msgid "Failed to delete a taxonomy term"
+msgstr "כשלון בעת ניסיון למחוק ערך טקסונומיה"
 
 #: ms-taxonomies-sync.php:255
 msgid "New item"

@@ -57,9 +57,10 @@
 
 			.mstaxsync-taxonomy-terms-box {
 				.mstaxsync-relationship {
+					border: 1px solid $gray-color3;
+
 					.selection {
 						font-size: 14px;
-						border: 1px solid #DFDFDF;
 
 						&:after {
 							content: "";
@@ -70,7 +71,7 @@
 						.title {
 							margin: 0;
 							padding: 5px 12px;
-							border-bottom: 1px solid #DFDFDF;
+							border-bottom: 1px solid $gray-color3;
 
 							h3 {
 								margin: 0.5em 0;
@@ -97,7 +98,7 @@
 
 								&:hover,
 								&.editing {
-									color: #FFF;
+									color: $white;
 									background: #3875D7;
 								}
 
@@ -121,17 +122,17 @@
 						.values {
 							float: left;
 							width: 50%;
-							background: #FFF;
+							background: $white;
 						}
 
 						.choices {
 							.title {
-								border-right: 1px solid #DFDFDF;
+								border-right: 1px solid $gray-color3;
 							}
 
 							.list {
-								border-right: 1px solid #DFDFDF;
-								background: #F9F9F9;
+								border-right: 1px solid $gray-color3;
+								background: $gray-color4;
 
 								.no-terms {
 									margin: 0;
@@ -152,7 +153,8 @@
 										&.edit,
 										&.ok,
 										&.cancel,
-										&.trash {
+										&.trash,
+										&.remove {
 											width: 18px;
 											height: 18px;
 											font-size: 18px;
@@ -201,13 +203,23 @@
 										&.edit,
 										&.ok,
 										&.cancel,
-										&.trash {
+										&.trash,
+										&.remove {
 											cursor: pointer;
 											display: none;
 
 											&:hover {
 												opacity: 1;
 											}
+										}
+
+										&.remove {
+											position: absolute;
+											top: 4px;
+											right: 7px;
+											border: 1px solid transparent;
+											border-radius: 100%;
+											background: #23282D;
 										}
 									}
 
@@ -220,44 +232,18 @@
 										display: none;
 									}
 
-									.remove {
-										position: absolute;
-										top: 4px;
-										right: 7px;
-										width: 18px;
-										height: 18px;
-										line-height: 18px;
-										font-size: 18px;
-										border: 1px solid transparent;
-										border-radius: 100%;
-										background: #23282D;
-										color: #eee;
-										overflow: hidden;
-										transition: none;
-										text-align: center;
-										text-decoration: none;
-										vertical-align: top;
-										display: none;
-
-										&:focus {
-											outline: none;
-											box-shadow: none;
-										}
-									}
-
 									&:hover {
 										span {
 											&.edit,
-											&.trash {
+											&.trash,
+											&.remove {
 												display: inline-block;
 											}
-										}
 
-										.remove {
-											display: block;
-
-											&:hover {
-												color: #D54E21;
+											&.remove {
+												&:hover {
+													color: #D54E21;
+												}
 											}
 										}
 									}
@@ -282,7 +268,7 @@
 									}
 
 									&.removing {
-										color: #FFF;
+										color: $white;
 										background-color: rgb(255, 51, 51);
 										opacity: 1;
 										-webkit-transition: opacity 500ms;

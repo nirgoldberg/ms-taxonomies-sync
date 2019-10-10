@@ -245,13 +245,13 @@ class MSTaxSync {
 		wp_enqueue_script( 'nestedSortable' );
 
 		// localize mstaxsync
-		$translation_arr = array(
-			'settings'	=> array(
-				'edit_terms'		=> get_option( 'mstaxsync_edit_taxonomy_terms' ),
-				'detach_terms'		=> get_option( 'mstaxsync_detach_taxonomy_terms' ),
-				'delete_terms'		=> get_option( 'mstaxsync_delete_taxonomy_terms' ),
+		$translation_arr	= array(
+			'settings'		=> array(
+				'edit_terms'								=> get_option( 'mstaxsync_edit_taxonomy_terms' ),
+				'detach_terms'								=> get_option( 'mstaxsync_detach_taxonomy_terms' ),
+				'delete_terms'								=> get_option( 'mstaxsync_delete_taxonomy_terms' ),
 			),
-			'strings'	=> array(
+			'strings'		=> array(
 				'relationship_new_item_str'					=> __( 'New item',	'mstaxsync' ),
 				'relationship_changed_item_str'				=> __( 'Changed',	'mstaxsync' ),
 				'relationship_success_str'					=> __( 'All terms were updated successfully.', 'mstaxsync' ),
@@ -263,7 +263,7 @@ class MSTaxSync {
 				'confirm_detach'							=> __( 'You are about to permanently detach this taxonomy term.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to detach.", 'mstaxsync' ),
 				'confirm_delete'							=> __( 'You are about to permanently delete this taxonomy term.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to delete.", 'mstaxsync' ),
 			),
-			'ajaxurl'	=> admin_url( 'admin-ajax.php' ),
+			'ajaxurl'										=> admin_url( 'admin-ajax.php' ),
 		);
 		wp_localize_script( 'mstaxsync', '_mstaxsync', $translation_arr );
 

@@ -49,6 +49,7 @@ class MSTaxSync_Core {
 
 		// actions
 		add_action( 'init',	array( $this, 'init' ), 99 );
+		add_action( 'init', array( $this, 'taxonomy_term_description_allow_html' ), 99 );
 
 	}
 
@@ -83,6 +84,33 @@ class MSTaxSync_Core {
 
 		// action for 3rd party
 		do_action( 'mstaxsync_core/init' );
+
+	}
+
+	/**
+	* taxonomy_term_description_allow_html
+	*
+	* This function will allow HTML in taxonomy term description
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		N/A
+	*/
+	function taxonomy_term_description_allow_html() {
+
+		foreach ( array( 'pre_term_description' ) as $filter ) {
+
+			remove_filter( $filter, 'wp_filter_kses' );
+
+			if ( ! current_user_can( 'unfiltered_html' ) ) {
+				add_filter( $filter, 'wp_filter_post_kses' );
+			}
+
+		}
+
+		foreach ( array( 'term_description' ) as $filter ) {
+			remove_filter( $filter, 'wp_kses_data' );
+		}
 
 	}
 

@@ -28,12 +28,12 @@
 
 						.choices {
 							.title {
-								border-left: 1px solid #DFDFDF;
+								border-left: 1px solid $gray-color3;
 								border-right: 0;
 							}
 
 							.list {
-								border-left: 1px solid #DFDFDF;
+								border-left: 1px solid $gray-color3;
 								border-right: 0;
 							}
 						}
@@ -55,11 +55,11 @@
 											margin-left: 0;
 											margin-right: 5px;
 										}
-									}
 
-									.remove {
-										left: 7px;
-										right: auto;
+										&.remove {
+											left: 7px;
+											right: auto;
+										}
 									}
 								}
 							}
