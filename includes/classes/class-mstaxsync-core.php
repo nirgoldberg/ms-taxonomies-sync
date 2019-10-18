@@ -71,7 +71,7 @@ class MSTaxSync_Core {
 		// admin
 		if ( is_admin() ) {
 
-			// get main site
+			// get main site ID
 			$main_site_id = get_main_site_id();
 
 			switch_to_blog( $main_site_id );
@@ -79,6 +79,9 @@ class MSTaxSync_Core {
 			$this->set_main_site_custom_taxonomies();
 
 			restore_current_blog();
+
+			// taxonomies custom columns
+			$this->set_taxonomies_columns();
 
 		}
 
@@ -144,6 +147,258 @@ class MSTaxSync_Core {
 	}
 
 	/**
+	* set_taxonomies_columns
+	*
+	* This function will set taxonomies custom columns
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		N/A
+	*/
+	function set_taxonomies_columns() {
+
+		// get taxonomies
+		$taxonomies	= $this->settings[ 'taxonomies' ];
+
+		foreach ( $taxonomies as $tax ) {
+
+			// add custom columns
+			add_filter( 'manage_edit-' . $tax->name . '_columns', array( $this, 'manage_edit_columns' ) );
+
+			// add custom columns content
+			add_action( 'manage_' . $tax->name . '_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
+
+			// make custom columns sortable
+			add_filter( 'manage_edit-' . $tax->name . '_sortable_columns', array( $this, 'manage_edit_sortable_columns' ) );
+
+			// set orderby clause for sortable custom columns
+			add_filter( 'terms_clauses', array( $this, 'manage_edit_sortable_columns_orderby' ), 10, 3 );
+
+		}
+
+	}
+
+	/**
+	* manage_edit_columns
+	*
+	* This function will add taxonomies custom columns
+	*
+	* @since		1.0.0
+	* @param		$columns (array)
+	* @return		(array)
+	*/
+	function manage_edit_columns( $columns ) {
+
+		// vars
+		$main_site = is_main_site();
+
+		$custom_columns = array(
+			'mstaxsync_synced'	=> $main_site ? __( 'Synced Sites', 'mstaxsync' ) : __( 'Main Site Term', 'mstaxsync' ),
+		);
+
+		// return
+		return array_merge( $columns, $custom_columns );
+
+	}
+
+	/**
+	* manage_custom_column
+	*
+	* This function will add taxonomies custom columns content
+	*
+	* @since		1.0.0
+	* @param		$content (mix)
+	* @param		$column_name (string)
+	* @param		$term_id (int)
+	* @return		(mix)
+	*/
+	function manage_custom_column( $content, $column_name, $term_id ) {
+
+		// vars
+		$main_site = is_main_site();
+
+		switch ( $column_name ) {
+
+			case 'mstaxsync_synced':
+				$content = $main_site ? $this->get_synced_sites( $term_id ) : $this->get_main_site_term( $term_id );
+				break;
+
+		}
+
+		// return
+		return $content;
+
+	}
+
+	/**
+	* get_synced_sites
+	*
+	* This function will return list of synced sites and term names for a main site term ID
+	*
+	* @since		1.0.0
+	* @param		$term_id (int)
+	* @return		(string)
+	*/
+	function get_synced_sites( $term_id ) {
+
+		// vars
+		$synced_taxonomy_terms	= get_term_meta( $term_id, 'synced_taxonomy_terms', true );
+		$sites					= array();		// stores sites data in order to prevent duplicated calls for same data
+		$output					= '';
+
+		if ( $synced_taxonomy_terms ) {
+
+			$output .= '<ul>';
+
+			foreach ( $synced_taxonomy_terms as $site_id => $site_term_id ) {
+
+				if ( ! array_key_exists( $site_id, $sites ) ) {
+
+					$sites[ $site_id ] = array();
+
+					$sites[ $site_id ][ 'site_details' ]	= get_blog_details( array( 'blog_id' => $site_id ) );
+					$sites[ $site_id ][ 'site_admin_url' ]	= get_admin_url( $site_id );
+
+				}
+
+				switch_to_blog( $site_id );
+
+				$term = get_term( $site_term_id );
+
+				restore_current_blog();
+
+				if ( $sites[ $site_id ][ 'site_details' ] && $sites[ $site_id ][ 'site_admin_url' ] && $term && ! is_wp_error( $term ) ) {
+					$output .= '<li><a href="' . $sites[ $site_id ][ 'site_admin_url' ] . '">' . $sites[ $site_id ][ 'site_details' ]->blogname . '</a>: ' . $term->name . '</li>';
+				}
+
+			}
+
+			$output .= '</ul>';
+
+		}
+		else {
+			$output .= '<span aria-hidden="true">—</span><span class="screen-reader-text">No Synced Sites Terms</span>';
+		}
+
+		// return
+		return $output;
+
+	}
+
+	/**
+	* get_main_site_term
+	*
+	* This function will return main site term name for a local site term ID
+	*
+	* @since		1.0.0
+	* @param		$term_id (int)
+	* @return		(string)
+	*/
+	function get_main_site_term( $term_id ) {
+
+		// vars
+		$main_taxonomy_term		= get_term_meta( $term_id, 'main_taxonomy_term', true );
+		$output					= '';
+
+		if ( $main_taxonomy_term ) {
+
+			// get main site ID
+			$main_site_id = get_main_site_id();
+
+			switch_to_blog( $main_site_id );
+
+			$term = get_term( $main_taxonomy_term );
+
+			restore_current_blog();
+
+			if ( $term && ! is_wp_error( $term ) ) {
+				$output .= $term->name;
+			}
+
+		}
+		else {
+			$output .= '<span aria-hidden="true">—</span><span class="screen-reader-text">No Synced Main Site Term</span>';
+		}
+
+		// return
+		return $output;
+
+	}
+
+	/**
+	* manage_edit_sortable_columns
+	*
+	* This function will make taxonomies custom columns sortable
+	*
+	* @since		1.0.0
+	* @param		$columns (array)
+	* @return		(array)
+	*/
+	function manage_edit_sortable_columns( $columns ) {
+
+		$columns[ 'mstaxsync_synced' ] = 'mstaxsync_synced';
+
+		// return
+		return $columns;
+
+	}
+
+	/**
+	* manage_edit_sortable_columns_orderby
+	*
+	* This function will set orderby clause for sortable taxonomies custom columns
+	*
+	* @since		1.0.0
+	* @param		$pieces (array) Array of query SQL clauses
+	* @param		$taxonomies (array) Array of taxonomy names
+	* @param		$args (array) Array of term query arguments
+	* @return		(array)
+	*/
+	function manage_edit_sortable_columns_orderby( $pieces, $taxonomies, $args ) {
+
+		if ( ! is_admin() )
+			return;
+
+		if ( 'mstaxsync_synced' == $args[ 'orderby' ] ) {
+
+			// globals
+			global $wpdb;
+
+			// vars
+			$main_site			= is_main_site();
+			$site_id			= get_current_blog_id();
+			$termmeta_table		= $wpdb->get_blog_prefix( $site_id ) . 'termmeta';
+
+			if ( $main_site ) {
+
+				// main site
+				$pieces[ 'join' ]		.= " LEFT JOIN " . $termmeta_table . " AS termmeta ON termmeta.meta_key = 'synced_taxonomy_terms' AND t.term_id = termmeta.term_id";
+				$pieces[ 'orderby' ]	= "ORDER BY termmeta.meta_value";
+				$pieces[ 'order' ]		= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'DESC';
+
+			}
+			else {
+
+				// local site
+				// vars
+				$main_site_id			= get_main_site_id();
+				$main_terms_table		= $wpdb->get_blog_prefix( $main_site_id ) . 'terms';
+
+				$pieces[ 'join' ]		.= " LEFT JOIN " . $termmeta_table . " AS termmeta ON termmeta.meta_key = 'main_taxonomy_term' AND t.term_id = termmeta.term_id";
+				$pieces[ 'join' ]		.= " LEFT JOIN " . $main_terms_table . " AS main_terms ON main_terms.term_id = termmeta.meta_value";
+				$pieces[ 'orderby' ]	= "ORDER BY main_terms.name";
+				$pieces[ 'order' ]		= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'DESC';
+
+			}
+
+		}
+
+		// return
+		return $pieces;
+
+	}
+
+	/**
 	* get_main_site_custom_taxonomies
 	*
 	* This function will get main site custom taxonomies
@@ -178,7 +433,7 @@ class MSTaxSync_Core {
 
 		if ( $main ) {
 
-			// get main site
+			// get main site ID
 			$main_site_id = get_main_site_id();
 
 			switch_to_blog( $main_site_id );

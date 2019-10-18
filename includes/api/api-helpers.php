@@ -290,9 +290,9 @@ function mstaxsync_is_term_synced( $term_id, $direction = true ) {
 	else {
 
 		// is synced in main site
-		$blog_id = get_current_blog_id();
+		$site_id = get_current_blog_id();
 
-		// get main site
+		// get main site ID
 		$main_site_id = get_main_site_id();
 
 		switch_to_blog( $main_site_id );
@@ -306,7 +306,7 @@ function mstaxsync_is_term_synced( $term_id, $direction = true ) {
 		restore_current_blog();
 
 		// return
-		return array_key_exists( $blog_id, $synced_taxonomy_terms ) ? $synced_taxonomy_terms[ $blog_id ] : false;
+		return array_key_exists( $site_id, $synced_taxonomy_terms ) ? $synced_taxonomy_terms[ $site_id ] : false;
 
 	}
 

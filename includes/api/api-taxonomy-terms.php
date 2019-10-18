@@ -130,10 +130,10 @@ function mstaxsync_update_taxonomy_term( $term, $taxonomy, &$orders, &$parents, 
 	/**
 	 * Variables
 	 */
-	$blog_id = get_current_blog_id();
+	$site_id = get_current_blog_id();
 
 	// get terms table
-	$terms_table = $wpdb->get_blog_prefix( $blog_id ) . 'terms';
+	$terms_table = $wpdb->get_blog_prefix( $site_id ) . 'terms';
 
 	// get term data
 	// check if term parent ID should be replaced by a new generated local parent term ID
@@ -163,7 +163,7 @@ function mstaxsync_update_taxonomy_term( $term, $taxonomy, &$orders, &$parents, 
 	else {
 
 		// main site term
-		// get main site
+		// get main site ID
 		$main_site_id = get_main_site_id();
 
 		switch_to_blog( $main_site_id );
@@ -287,9 +287,9 @@ function mstaxsync_update_main_taxonomy_term_correlation( $main_id, $local_id, &
 	/**
 	 * Variables
 	 */
-	$blog_id = get_current_blog_id();
+	$site_id = get_current_blog_id();
 
-	// get main site
+	// get main site ID
 	$main_site_id = get_main_site_id();
 
 	switch_to_blog( $main_site_id );
@@ -301,7 +301,7 @@ function mstaxsync_update_main_taxonomy_term_correlation( $main_id, $local_id, &
 		$synced_taxonomy_terms = array();
 	}
 
-	$synced_taxonomy_terms[ $blog_id ] = $local_id;
+	$synced_taxonomy_terms[ $site_id ] = $local_id;
 
 	// update main site term
 	$meta_id = update_term_meta( $main_id, 'synced_taxonomy_terms', $synced_taxonomy_terms );
@@ -529,9 +529,9 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
 	/**
 	 * Variables
 	 */
-	$blog_id = get_current_blog_id();
+	$site_id = get_current_blog_id();
 
-	// get main site
+	// get main site ID
 	$main_site_id = get_main_site_id();
 
 	switch_to_blog( $main_site_id );
@@ -543,10 +543,10 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
 		$synced_taxonomy_terms = array();
 	}
 
-	if ( array_key_exists( $blog_id, $synced_taxonomy_terms ) ) {
+	if ( array_key_exists( $site_id, $synced_taxonomy_terms ) ) {
 
 		// detach main site term
-		unset( $synced_taxonomy_terms[ $blog_id ] );
+		unset( $synced_taxonomy_terms[ $site_id ] );
 
 	}
 
