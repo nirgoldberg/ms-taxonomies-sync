@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 function mstaxsync_taxonomy_terms_sync() {
 
 	// check nonce
-	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'taxonomy_terms_sync' ) ) {
+	if ( ! wp_verify_nonce( $_REQUEST[ 'nonce' ], 'taxonomy_terms_sync' ) ) {
 		exit();
 	}
 
@@ -386,7 +386,7 @@ function mstaxsync_update_rs_lists( $taxonomy, &$result ) {
 function mstaxsync_detach_taxonomy_term() {
 
 	// check nonce
-	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'detach_taxonomy_term' ) ) {
+	if ( ! wp_verify_nonce( $_REQUEST[ 'nonce' ], 'detach_taxonomy_term' ) ) {
 		exit();
 	}
 
@@ -593,7 +593,7 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
 function mstaxsync_delete_taxonomy_term() {
 
 	// check nonce
-	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'delete_taxonomy_term' ) ) {
+	if ( ! wp_verify_nonce( $_REQUEST[ 'nonce' ], 'delete_taxonomy_term' ) ) {
 		exit();
 	}
 
@@ -677,6 +677,97 @@ function mstaxsync_delete_tt( &$result ) {
 	}
 
 }
+
+/**
+ * mstaxsync_pre_delete_term
+ *
+ * @since		1.0.0
+ * @param		$term (int) Term ID
+ * @param		$taxonomy (string) Taxonomy name
+ * @return		N/A
+ */
+function mstaxsync_pre_delete_term( $term, $taxonomy ) {
+
+	// check nonce - verify we are not in wp_ajax_delete_taxonomy_term running Ajax call
+	if ( isset( $_REQUEST[ 'nonce' ] ) && wp_verify_nonce( $_REQUEST[ 'nonce' ], 'delete_taxonomy_term' ) )
+		return;
+
+	/**
+	 * Variables
+	 */
+	$main_site = is_main_site();
+
+	if ( $main_site ) {
+
+		// main site
+		// get current term meta
+		$synced_taxonomy_terms = get_term_meta( $term, 'synced_taxonomy_terms', true );
+
+		if ( $synced_taxonomy_terms ) {
+			foreach ( $synced_taxonomy_terms as $site_id => $term_id ) {
+
+				switch_to_blog( $site_id );
+
+				// detach local site term
+				delete_term_meta( $term_id, 'main_taxonomy_term' );
+
+				restore_current_blog();
+
+			}
+		}
+
+	}
+	else {
+
+		// local site
+		// get current site ID
+		$site_id = get_current_blog_id();
+
+		// get current term meta
+		$main_taxonomy_term = get_term_meta( $term, 'main_taxonomy_term', true );
+
+		if ( $main_taxonomy_term ) {
+
+			// get main site ID
+			$main_site_id = get_main_site_id();
+
+			switch_to_blog( $main_site_id );
+
+			// get current term meta
+			$synced_taxonomy_terms = get_term_meta( $main_taxonomy_term, 'synced_taxonomy_terms', true );
+
+			if ( ! $synced_taxonomy_terms ) {
+				$synced_taxonomy_terms = array();
+			}
+
+			if ( array_key_exists( $site_id, $synced_taxonomy_terms ) ) {
+
+				// detach main site term
+				unset( $synced_taxonomy_terms[ $site_id ] );
+
+			}
+
+			if ( ! count( $synced_taxonomy_terms ) ) {
+
+				// detach main site term
+				delete_term_meta( $main_taxonomy_term, 'synced_taxonomy_terms' );
+
+			}
+			else {
+
+				// update main site term
+				update_term_meta( $main_taxonomy_term, 'synced_taxonomy_terms', $synced_taxonomy_terms );
+
+			}
+
+			restore_current_blog();
+
+		}
+
+	}
+
+}
+add_action( 'pre_delete_term', 'mstaxsync_pre_delete_term', 10, 2 );
 
 /**
  * mstaxsync_result_log

@@ -157,19 +157,61 @@ class MSTaxSync_Core {
 	*/
 	function set_taxonomies_columns() {
 
-		// get taxonomies
-		$taxonomies	= $this->settings[ 'taxonomies' ];
+		// vars
+		$main_site		= is_main_site();
+		$taxonomies_arr	= array();
 
-		foreach ( $taxonomies as $tax ) {
+		if ( $main_site ) {
 
-			// add custom columns
-			add_filter( 'manage_edit-' . $tax->name . '_columns', array( $this, 'manage_edit_columns' ) );
+			// main site
+			$taxonomies_arr[]	= 'category';
+			$taxonomies			= $this->settings[ 'taxonomies' ];
 
-			// add custom columns content
-			add_action( 'manage_' . $tax->name . '_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
+			if ( $taxonomies ) {
+				foreach ( $taxonomies as $tax ) {
 
-			// make custom columns sortable
-			add_filter( 'manage_edit-' . $tax->name . '_sortable_columns', array( $this, 'manage_edit_sortable_columns' ) );
+					$taxonomies_arr[] = $tax->name;
+
+				}
+			}
+
+		}
+		else {
+
+			// local site
+			$categories	= get_option( 'mstaxsync_sync_categories' );
+			$taxonomies	= get_option( 'mstaxsync_synced_taxonomies' );
+
+			if ( $categories && in_array( 'category', $categories ) ) {
+
+				$taxonomies_arr[] = 'category';
+
+			}
+
+			if ( $taxonomies ) {
+				foreach ( $taxonomies as $taxonomy ) {
+
+					$taxonomies_arr[] = $taxonomy;
+
+				}
+			}
+
+		}
+
+		if ( $taxonomies_arr ) {
+
+			foreach ( $taxonomies_arr as $taxonomy ) {
+
+				// add custom columns
+				add_filter( 'manage_edit-' . $taxonomy . '_columns', array( $this, 'manage_edit_columns' ) );
+
+				// add custom columns content
+				add_action( 'manage_' . $taxonomy . '_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
+
+				// make custom columns sortable
+				add_filter( 'manage_edit-' . $taxonomy . '_sortable_columns', array( $this, 'manage_edit_sortable_columns' ) );
+
+			}
 
 			// set orderby clause for sortable custom columns
 			add_filter( 'terms_clauses', array( $this, 'manage_edit_sortable_columns_orderby' ), 10, 3 );

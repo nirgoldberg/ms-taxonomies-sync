@@ -353,6 +353,18 @@
 	}
 }
 
+/************************/
+/* taxonomies edit page */
+/************************/
+
+body.edit-tags-php {
+	td.mstaxsync_synced {
+		ul {
+			margin: 0;
+		}
+	}
+}
+
 /**************/
 /* responsive */
 /**************/
