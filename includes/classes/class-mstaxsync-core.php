@@ -468,6 +468,10 @@ class MSTaxSync_Core {
 	*/
 	function get_custom_taxonomy_terms( $tax, $main = false ) {
 
+		// vars
+		$local_site_wpml_support	= is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' );
+		$locale						= get_locale();
+
 		$terms_args = array(
 			'taxonomy'		=> $tax->name,
 			'hide_empty'	=> false,
@@ -479,6 +483,51 @@ class MSTaxSync_Core {
 			$main_site_id = get_main_site_id();
 
 			switch_to_blog( $main_site_id );
+
+			$main_site_wpml_support = is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' );
+
+			// check whether main site supports WPML while local site doesn't.
+			// in such case - take into account only main terms associated with local site language
+			if ( $main_site_wpml_support && ! $local_site_wpml_support ) {
+
+				// globals
+				global $wpdb;
+
+				// get WPML tables
+				$main_site_table_prefix	= $wpdb->get_blog_prefix( $main_site_id );
+				$icl_locale_map_table	= $main_site_table_prefix . 'icl_locale_map';
+				$icl_translations_table	= $main_site_table_prefix . 'icl_translations';
+
+				// get main site language code according to local site locale
+				$language_code = $wpdb->get_row(
+					"SELECT code FROM $icl_locale_map_table
+					 WHERE locale = '$locale'", ARRAY_N
+				);
+
+				if ( is_array( $language_code ) && ! empty( $language_code ) ) {
+
+					// get term IDs NOT associated with language code
+					$ex_term_ids = $wpdb->get_results(
+						"SELECT element_id FROM $icl_translations_table
+						 WHERE element_type = 'tax_$tax->name'
+						 AND language_code != '$language_code[0]'", ARRAY_N
+					);
+
+				}
+
+				if ( is_array( $ex_term_ids ) && ! empty( $ex_term_ids ) ) {
+
+					$ex_term_ids_arr = array();
+
+					foreach ( $ex_term_ids as $term_id ) {
+						$ex_term_ids_arr[] = $term_id[0];
+					}
+
+					$terms_args[ 'exclude' ] = $ex_term_ids_arr;
+
+				}
+
+			}
 
 		}
 
