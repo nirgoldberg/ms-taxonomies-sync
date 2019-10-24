@@ -134,11 +134,11 @@ class MSTaxSync_Core {
 	function taxonomy_terms_orderby( $pieces, $taxonomies, $args ) {
 
 		if ( ! is_admin() )
-			return;
+			return $pieces;
 
 		if ( ! isset( $_GET[ 'orderby' ] ) || 'term_order' == $_GET[ 'orderby' ] ) {
 
-			$pieces['orderby'] = 'ORDER BY t.term_order';
+			$pieces[ 'orderby' ] = "ORDER BY t.term_order";
 
 		}
 
@@ -429,7 +429,7 @@ class MSTaxSync_Core {
 	function manage_edit_sortable_columns_orderby( $pieces, $taxonomies, $args ) {
 
 		if ( ! is_admin() )
-			return;
+			return $pieces;
 
 		if ( 'mstaxsync_synced' == $args[ 'orderby' ] ) {
 
