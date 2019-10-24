@@ -374,7 +374,12 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function mstaxsync_activate() {}
+	function mstaxsync_activate() {
+
+		// taxonomy terms core
+		mstaxsync_include( 'includes/classes/class-mstaxsync-tt-core.php' );
+
+	}
 
 	/**
 	* mstaxsync_deactivate

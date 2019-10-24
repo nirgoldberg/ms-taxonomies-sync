@@ -51,6 +51,9 @@ class MSTaxSync_Core {
 		add_action( 'init',	array( $this, 'init' ), 99 );
 		add_action( 'init', array( $this, 'taxonomy_term_description_allow_html' ), 99 );
 
+		// filters
+		add_filter( 'terms_clauses', array( $this, 'taxonomy_terms_orderby' ), 10, 3 );
+
 	}
 
 	/**
@@ -114,6 +117,33 @@ class MSTaxSync_Core {
 		foreach ( array( 'term_description' ) as $filter ) {
 			remove_filter( $filter, 'wp_kses_data' );
 		}
+
+	}
+
+	/**
+	* taxonomy_terms_orderby
+	*
+	* This function will set orderby clause for terms queries contain 'term_order' orderby argument
+	*
+	* @since		1.0.0
+	* @param		$pieces (array) Array of query SQL clauses
+	* @param		$taxonomies (array) Array of taxonomy names
+	* @param		$args (array) Array of term query arguments
+	* @return		(array)
+	*/
+	function taxonomy_terms_orderby( $pieces, $taxonomies, $args ) {
+
+		if ( ! is_admin() )
+			return;
+
+		if ( ! isset( $_GET[ 'orderby' ] ) || 'term_order' == $_GET[ 'orderby' ] ) {
+
+			$pieces['orderby'] = 'ORDER BY t.term_order';
+
+		}
+
+		// return
+		return $pieces;
 
 	}
 
