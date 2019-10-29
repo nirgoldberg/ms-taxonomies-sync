@@ -83,6 +83,8 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'options'			=> array(
 						'category'		=> '',
 					),
+					'default'			=> array( 'category' ),
+					'helper'			=> '(Default: sync categories)',
 				),
 				array(
 					'uid'				=> 'mstaxsync_synced_taxonomies',
@@ -103,7 +105,9 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'options'			=> array(
 						'can'			=> '',
 					),
+					'default'			=> array( 'can' ),
 					'supplimental'		=> __( 'Check this option to allow editing taxonomy term names directly from this plugin', 'mstaxsync' ),
+					'helper'			=> '(Default: true)',
 				),
 				array(
 					'uid'				=> 'mstaxsync_detach_taxonomy_terms',
@@ -116,6 +120,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'can'			=> '',
 					),
 					'supplimental'		=> __( 'Check this option to allow detaching of already synced taxonomy terms.<br />Detaching a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
+					'helper'			=> '(Default: false)',
 				),
 				array(
 					'uid'				=> 'mstaxsync_delete_taxonomy_terms',
@@ -128,6 +133,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'can'			=> '',
 					),
 					'supplimental'		=> __( 'Check this option to allow deleting of taxonomy terms.<br />Deleting a synced taxonomy term will first detach it.<br />Deleting a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
+					'helper'			=> '(Default: false)',
 				),
 				array(
 					'uid'				=> 'mstaxsync_uninstall_remove_data',
@@ -140,6 +146,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'remove'		=> '',
 					),
 					'supplimental'		=> __( 'Caution: all data will be removed without any option to restore', 'mstaxsync' ),
+					'helper'			=> '(Default: false)',
 				),
 			),
 

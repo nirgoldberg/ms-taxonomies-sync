@@ -128,9 +128,9 @@ class MSTaxSync_Admin_Settings_Page {
 			 *		'type'			=> [field type: text/password/number/textarea/select/multiselect/radio/checkbox],
 			 *		'placeholder'	=> [field placeholder],
 			 *		'options'		=> [array of field options: slugs and labels],
-			 *		'default'		=> [field default value],
-			 *		'helper'		=> [field helper text],
+			 *		'default'		=> [array of field option slug],
 			 *		'supplimental'	=> [field description text],
+			 *		'helper'		=> [field helper text],
 			 * ),
 			 * ...
 			 */

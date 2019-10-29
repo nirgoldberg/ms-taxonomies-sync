@@ -44,14 +44,14 @@ function mstaxsync_admin_display_form_element( $args ) {
 
 	}
 
-	// If there is helper text
-	if ( $helper = $args[ 'helper' ] ) {
-		printf( '<span class="helper"> %s</span>', $helper );
-	}
-
 	// If there is supplimental text
 	if ( $supplimental = $args[ 'supplimental' ] ) {
 		printf( '<p class="description">%s</p>', $supplimental );
+	}
+
+	// If there is helper text
+	if ( $helper = $args[ 'helper' ] ) {
+		printf( '<span class="helper"> %s</span>', $helper );
 	}
 
 }
@@ -155,7 +155,8 @@ function mstaxsync_admin_display_select_form_element( $args ) {
 function mstaxsync_admin_display_radio_form_element( $args ) {
 
 	// vars
-	$value = get_option( $args[ 'uid' ] );
+	$default	= $args[ 'default' ] ?: false;
+	$value		= get_option( $args[ 'uid' ], $default );
 
 	if ( ! empty ( $args[ 'options' ] ) && is_array( $args[ 'options' ] ) ) {
 

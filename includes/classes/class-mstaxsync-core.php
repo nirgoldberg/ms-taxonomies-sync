@@ -209,7 +209,7 @@ class MSTaxSync_Core {
 		else {
 
 			// local site
-			$categories	= get_option( 'mstaxsync_sync_categories' );
+			$categories	= get_option( 'mstaxsync_sync_categories', array( 'category' ) );
 			$taxonomies	= get_option( 'mstaxsync_synced_taxonomies' );
 
 			if ( $categories && in_array( 'category', $categories ) ) {

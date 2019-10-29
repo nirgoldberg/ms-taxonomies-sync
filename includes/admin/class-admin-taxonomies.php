@@ -57,7 +57,7 @@ class MSTaxSync_Admin_Taxonomies extends MSTaxSync_Admin_Page {
 	function append_taxonomies() {
 
 		// vars
-		$categories	= get_option( 'mstaxsync_sync_categories' );
+		$categories	= get_option( 'mstaxsync_sync_categories', array( 'category' ) );
 		$taxonomies	= get_option( 'mstaxsync_synced_taxonomies' );
 		$active_tab	= '';
 

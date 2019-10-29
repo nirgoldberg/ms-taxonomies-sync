@@ -247,7 +247,7 @@ class MSTaxSync {
 		// localize mstaxsync
 		$translation_arr	= array(
 			'settings'		=> array(
-				'edit_terms'								=> get_option( 'mstaxsync_edit_taxonomy_terms' ),
+				'edit_terms'								=> get_option( 'mstaxsync_edit_taxonomy_terms', array( 'can' ) ),
 				'detach_terms'								=> get_option( 'mstaxsync_detach_taxonomy_terms' ),
 				'delete_terms'								=> get_option( 'mstaxsync_delete_taxonomy_terms' ),
 			),
