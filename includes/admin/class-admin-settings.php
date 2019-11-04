@@ -53,8 +53,12 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 				'capabilities'		=> array(
 					'title'				=> __( 'Capabilities', 'mstaxsync' ),
 					'sections'			=> array(
+						'ui'			=> array(
+							'title'			=> __( 'User Interface Settings', 'mstaxsync' ),
+							'description'	=> '',
+						),
 						'edit'			=> array(
-							'title'			=> __( 'Edit Capabilities Settings', 'mstaxsync' ),
+							'title'			=> __( 'Edit Settings', 'mstaxsync' ),
 							'description'	=> '',
 						),
 					),
@@ -84,7 +88,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'category'		=> '',
 					),
 					'default'			=> array( 'category' ),
-					'helper'			=> '(Default: sync categories)',
+					'helper'			=> __( '(Default: sync categories)', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_synced_taxonomies',
@@ -94,6 +98,20 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'section'			=> 'taxonomies',
 					'type'				=> 'checkbox',
 					'options'			=> mstaxsync_get_main_site_custom_taxonomies_names(),
+				),
+				array(
+					'uid'				=> 'mstaxsync_advanced_treeview',
+					'label'				=> __( 'Advanced tree view', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_advanced_treeview',
+					'tab'				=> 'capabilities',
+					'section'			=> 'ui',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'can'			=> '',
+					),
+					'default'			=> array( 'can' ),
+					'supplimental'		=> __( 'Check this option to allow advanced treeview enabling multiselect taxonomy terms to sync', 'mstaxsync' ),
+					'helper'			=> __( '(Default: true)', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_edit_taxonomy_terms',
@@ -107,7 +125,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					),
 					'default'			=> array( 'can' ),
 					'supplimental'		=> __( 'Check this option to allow editing taxonomy term names directly from this plugin', 'mstaxsync' ),
-					'helper'			=> '(Default: true)',
+					'helper'			=> __( '(Default: true)', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_detach_taxonomy_terms',
@@ -120,7 +138,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'can'			=> '',
 					),
 					'supplimental'		=> __( 'Check this option to allow detaching of already synced taxonomy terms.<br />Detaching a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
-					'helper'			=> '(Default: false)',
+					'helper'			=> __( '(Default: false)', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_delete_taxonomy_terms',
@@ -133,11 +151,11 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'can'			=> '',
 					),
 					'supplimental'		=> __( 'Check this option to allow deleting of taxonomy terms.<br />Deleting a synced taxonomy term will first detach it.<br />Deleting a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
-					'helper'			=> '(Default: false)',
+					'helper'			=> __( '(Default: false)', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_uninstall_remove_data',
-					'label'				=> __( 'Remove Data on Uninstall', 'mstaxsync' ),
+					'label'				=> __( 'Remove data on uninstall', 'mstaxsync' ),
 					'label_for'			=> 'mstaxsync_uninstall_remove_data',
 					'tab'				=> 'uninstall',
 					'section'			=> 'uninstall',
@@ -146,7 +164,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'remove'		=> '',
 					),
 					'supplimental'		=> __( 'Caution: all data will be removed without any option to restore', 'mstaxsync' ),
-					'helper'			=> '(Default: false)',
+					'helper'			=> __( '(Default: false)', 'mstaxsync' ),
 				),
 			),
 

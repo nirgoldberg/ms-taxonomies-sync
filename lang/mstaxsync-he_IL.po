@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-10-10 22:43+0300\n"
-"PO-Revision-Date: 2019-10-10 22:48+0300\n"
+"POT-Creation-Date: 2019-11-04 12:02+0200\n"
+"PO-Revision-Date: 2019-11-04 12:04+0200\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -68,40 +68,65 @@ msgid "Capabilities"
 msgstr "אפשרויות עריכה"
 
 #: includes/admin/class-admin-settings.php:57
-msgid "Edit Capabilities Settings"
-msgstr "הגדרות אפשרויות עריכה"
+msgid "User Interface Settings"
+msgstr "הגדרות ממשק משתמש"
 
-#: includes/admin/class-admin-settings.php:63
+#: includes/admin/class-admin-settings.php:61
+msgid "Edit Settings"
+msgstr "הגדרות עריכה"
+
+#: includes/admin/class-admin-settings.php:67
 msgid "Uninstall"
 msgstr "הסרת תוסף"
 
-#: includes/admin/class-admin-settings.php:66
+#: includes/admin/class-admin-settings.php:70
 msgid "Uninstall Settings"
 msgstr "הגדרות הסרת תוסף"
 
-#: includes/admin/class-admin-settings.php:78
+#: includes/admin/class-admin-settings.php:82
 msgid "Sync categories?"
 msgstr "לסנכרן קטגוריות?"
 
-#: includes/admin/class-admin-settings.php:89
+#: includes/admin/class-admin-settings.php:91
+msgid "(Default: sync categories)"
+msgstr "(ברירת מחדל: לסנכרן קטגוריות)"
+
+#: includes/admin/class-admin-settings.php:95
 msgid "Taxonomies to sync"
 msgstr "טקסונומיות לסנכרון"
 
-#: includes/admin/class-admin-settings.php:98
+#: includes/admin/class-admin-settings.php:104
+msgid "Advanced tree view"
+msgstr "תצוגת עץ משופרת"
+
+#: includes/admin/class-admin-settings.php:113
+msgid ""
+"Check this option to allow advanced treeview enabling multiselect taxonomy "
+"terms to sync"
+msgstr ""
+"סימון אפשרות זו יאפשר תצוגה משופרת של עץ ערכי טקסונומיה המאפשר בחירה מרובה "
+"של ערכים לסנכרון"
+
+#: includes/admin/class-admin-settings.php:114
+#: includes/admin/class-admin-settings.php:128
+msgid "(Default: true)"
+msgstr "(ברירת מחדל: כן)"
+
+#: includes/admin/class-admin-settings.php:118
 msgid "Edit taxonomy term names"
 msgstr "עריכת שמות ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:106
+#: includes/admin/class-admin-settings.php:127
 msgid ""
 "Check this option to allow editing taxonomy term names directly from this "
 "plugin"
 msgstr "סימון אפשרות זו יאפשר עריכת שמות ערכי טקסונומיה ישירות מתוך תוסף זה"
 
-#: includes/admin/class-admin-settings.php:110
+#: includes/admin/class-admin-settings.php:132
 msgid "Detach taxonomy terms"
 msgstr "ניתוק סנכרון ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:118
+#: includes/admin/class-admin-settings.php:140
 msgid ""
 "Check this option to allow detaching of already synced taxonomy terms.<br /"
 ">Detaching a taxonomy term will not remove or modify posts associated with "
@@ -110,11 +135,17 @@ msgstr ""
 "סימון אפשרות זו יאפשר ניתוק סנכרון ערכי טקסונומיה.<br />ניתוק ערך טקסונומיה "
 "לא יגרור הסרה או שינוי של פוסטים המשויכים לערך זה"
 
-#: includes/admin/class-admin-settings.php:122
+#: includes/admin/class-admin-settings.php:141
+#: includes/admin/class-admin-settings.php:154
+#: includes/admin/class-admin-settings.php:167
+msgid "(Default: false)"
+msgstr "(ברירת מחדל: לא)"
+
+#: includes/admin/class-admin-settings.php:145
 msgid "Delete taxonomy terms"
 msgstr "מחיקת ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:130
+#: includes/admin/class-admin-settings.php:153
 msgid ""
 "Check this option to allow deleting of taxonomy terms.<br />Deleting a "
 "synced taxonomy term will first detach it.<br />Deleting a taxonomy term "
@@ -124,11 +155,11 @@ msgstr ""
 "אותו תחילה מסנכרון.<br />מחיקת ערך טקסונומיה לא תגרור הסרה או שינוי של "
 "פוסטים המשויכים לערך זה"
 
-#: includes/admin/class-admin-settings.php:134
-msgid "Remove Data on Uninstall"
+#: includes/admin/class-admin-settings.php:158
+msgid "Remove data on uninstall"
 msgstr "מחיקת כלל נתוני התוסף עם הסרתו"
 
-#: includes/admin/class-admin-settings.php:142
+#: includes/admin/class-admin-settings.php:166
 msgid "Caution: all data will be removed without any option to restore"
 msgstr "אזהרה: כל המידע יימחק ללא אפשרות שחזור"
 
@@ -166,28 +197,36 @@ msgstr ""
 msgid "Settings saved."
 msgstr "הגדרות נשמרו."
 
-#: includes/admin/views/taxonomy-terms.php:31
+#: includes/admin/views/taxonomy-terms.php:34
 msgid "Main site"
 msgstr "אתר ראשי"
 
-#: includes/admin/views/taxonomy-terms.php:32
+#: includes/admin/views/taxonomy-terms.php:35
 #: includes/admin/views/taxonomy.php:28
 msgid "Select terms to sync"
 msgstr "בחירת ערכים לסנכרון"
 
-#: includes/admin/views/taxonomy-terms.php:49
+#: includes/admin/views/taxonomy-terms.php:52
 #: includes/api/api-taxonomy-terms.php:362
 #, php-format
 msgid "There are no %s defined in main site"
 msgstr "לא קיימים ערכי %s באתר הראשי"
 
-#: includes/admin/views/taxonomy-terms.php:61
+#: includes/admin/views/taxonomy-terms.php:64
 msgid "Local site"
 msgstr "אתר מקומי"
 
-#: includes/admin/views/taxonomy-terms.php:62
+#: includes/admin/views/taxonomy-terms.php:65
 msgid "Sort and edit terms"
 msgstr "מיון ועריכת ערכים"
+
+#: includes/admin/views/taxonomy-terms.php:89 includes/api/api-helpers.php:375
+msgid "Select All"
+msgstr "בחר הכל"
+
+#: includes/admin/views/taxonomy-terms.php:89 includes/api/api-helpers.php:375
+msgid "Remove All"
+msgstr "הסר הכל"
 
 #: includes/api/api-taxonomy-terms.php:79
 msgid "No taxonomy terms to update"
@@ -221,59 +260,67 @@ msgstr "לא קיים ערך טקסונומיה למחיקה"
 msgid "Failed to delete a taxonomy term"
 msgstr "כשלון בעת ניסיון למחוק ערך טקסונומיה"
 
-#: ms-taxonomies-sync.php:255
+#: includes/classes/class-mstaxsync-core.php:268
+msgid "Synced Sites"
+msgstr "אתרים מסונכרנים"
+
+#: includes/classes/class-mstaxsync-core.php:268
+msgid "Main Site Term"
+msgstr "ערך האתר הראשי"
+
+#: ms-taxonomies-sync.php:256
 msgid "New item"
 msgstr "ערך חדש"
 
-#: ms-taxonomies-sync.php:256
+#: ms-taxonomies-sync.php:257
 msgid "Changed"
 msgstr "השתנה"
 
-#: ms-taxonomies-sync.php:257
+#: ms-taxonomies-sync.php:258
 msgid "All terms were updated successfully."
 msgstr "כל הערכים עודכנו בהצלחה."
 
-#: ms-taxonomies-sync.php:258
+#: ms-taxonomies-sync.php:259
 msgid "new terms were synced."
 msgstr "ערכים חדשים סונכרנו."
 
-#: ms-taxonomies-sync.php:259
+#: ms-taxonomies-sync.php:260
 msgid "terms were updated."
 msgstr "ערכים עודכנו."
 
-#: ms-taxonomies-sync.php:260
+#: ms-taxonomies-sync.php:261
 msgid "The following errors were found:"
 msgstr "נמצאו השגיאות הבאות:"
 
-#: ms-taxonomies-sync.php:261
+#: ms-taxonomies-sync.php:262
 msgid "Error"
 msgstr "שגיאה"
 
-#: ms-taxonomies-sync.php:262
+#: ms-taxonomies-sync.php:263
 msgid "Internal server error"
 msgstr "שגיאת שרת כללית"
 
-#: ms-taxonomies-sync.php:263
+#: ms-taxonomies-sync.php:264
 msgid "You are about to permanently detach this taxonomy term."
 msgstr "הנכם עומדים לנתק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:263 ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:264 ms-taxonomies-sync.php:265
 msgid "This action cannot be undone."
 msgstr "פעולה זו אינה ניתנת לביטול."
 
-#: ms-taxonomies-sync.php:263
+#: ms-taxonomies-sync.php:264
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr "לחצו 'Cancel' לביטול, 'OK' לניתוק."
 
-#: ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:265
 msgid "You are about to permanently delete this taxonomy term."
 msgstr "הנכם עומדים למחוק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:265
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr "לחצו 'Cancel' לביטול, 'OK' למחיקה."
 
-#: ms-taxonomies-sync.php:517
+#: ms-taxonomies-sync.php:523
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
@@ -281,7 +328,7 @@ msgid ""
 msgstr ""
 "הפעלת התוסף <strong>%s</strong> נכשלה.<br />נדרשת התקנת מערכת Multisite."
 
-#: ms-taxonomies-sync.php:536
+#: ms-taxonomies-sync.php:542
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

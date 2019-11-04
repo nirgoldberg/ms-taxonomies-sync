@@ -24,6 +24,7 @@ if ( $sites ) {
 	$options	= array(
 		'mstaxsync_sync_categories',
 		'mstaxsync_synced_taxonomies',
+		'mstaxsync_advanced_treeview',
 		'mstaxsync_edit_taxonomy_terms',
 		'mstaxsync_detach_taxonomy_terms',
 		'mstaxsync_delete_taxonomy_terms',

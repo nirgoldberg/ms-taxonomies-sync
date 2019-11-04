@@ -12,17 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // extract args
 extract( $args );
 
+// vars
+$advanced_treeview	= get_option( 'mstaxsync_advanced_treeview', array( 'can' ) );
+
 // get main site taxonomy terms
-$main_terms		= mstaxsync_get_custom_taxonomy_terms( $tax, true );
+$main_terms			= mstaxsync_get_custom_taxonomy_terms( $tax, true );
 
 // get local site taxonomy terms
-$local_terms	= mstaxsync_get_custom_taxonomy_terms( $tax );
+$local_terms		= mstaxsync_get_custom_taxonomy_terms( $tax );
 
 ?>
 
 <div class="mstaxsync-taxonomy-terms-box">
 
-	<div class="mstaxsync-relationship" data-name="<?php echo $tax->name; ?>">
+	<div class="mstaxsync-relationship<?php echo $advanced_treeview ? ' advanced-treeview' : ''; ?>" data-name="<?php echo $tax->name; ?>">
 		<div class="selection">
 
 			<div class="choices">
@@ -78,5 +81,16 @@ $local_terms	= mstaxsync_get_custom_taxonomy_terms( $tax );
 
 		</div>
 	</div><!-- .mstaxsync-relationship -->
+
+	<?php if ( $advanced_treeview ) { ?>
+
+		<div class="advanced-treeview-controls">
+
+			<span class="multiselect"><span class="check-all"><?php _e( 'Select All', 'mstaxsync' ); ?></span> / <span class="uncheck-all"><?php _e( 'Remove All', 'mstaxsync' ); ?></span></span>
+			<span class="add-items dashicons dashicons-migrate"></span>
+
+		</div><!-- .advanced-treeview-controls -->
+
+	<?php } ?>
 
 </div><!-- .mstaxsync-taxonomy-terms-box -->

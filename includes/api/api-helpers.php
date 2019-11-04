@@ -362,19 +362,22 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 	/**
 	 * Variables
 	 */
-	$edit_terms		= get_option( 'mstaxsync_edit_taxonomy_terms', array( 'can' ) );
-	$detach_terms	= get_option( 'mstaxsync_detach_taxonomy_terms' );
-	$delete_terms	= get_option( 'mstaxsync_delete_taxonomy_terms' );
+	$advanced_treeview	= get_option( 'mstaxsync_advanced_treeview', array( 'can' ) );
+	$edit_terms			= get_option( 'mstaxsync_edit_taxonomy_terms', array( 'can' ) );
+	$detach_terms		= get_option( 'mstaxsync_detach_taxonomy_terms' );
+	$delete_terms		= get_option( 'mstaxsync_delete_taxonomy_terms' );
 
-	$detach_nonce	= wp_create_nonce( 'detach_taxonomy_term' );
-	$delete_nonce	= wp_create_nonce( 'delete_taxonomy_term' );
+	$detach_nonce		= wp_create_nonce( 'detach_taxonomy_term' );
+	$delete_nonce		= wp_create_nonce( 'delete_taxonomy_term' );
 
-	$classes		= $li_class ?: '';
-	$synced_span	= '<span class="synced dashicons dashicons-update' . ( $detach_terms && in_array( 'can', $detach_terms ) ? ' can-detach' : '' ) . '" data-nonce="' . $detach_nonce . '"></span>';
-	$edit_span		= '<span class="edit dashicons dashicons-edit"></span><span class="ok dashicons dashicons-yes"></span><span class="cancel dashicons dashicons-no"></span>';
-	$delete_span	= 'choice' != $li_class && $delete_terms && in_array( 'can', $delete_terms ) ? '<span class="trash dashicons dashicons-trash" data-nonce="' . $delete_nonce . '"></span>' : '';
+	$classes			= $li_class ?: '';
+	$cb_input			= $advanced_treeview && 'choice' == $li_class ? '<input type="checkbox">' : '';
+	$multiselect		= '<span class="multiselect"><span class="check-all">' . __( 'Select All', 'mstaxsync' ) . '</span> / <span class="uncheck-all">' . __( 'Remove All', 'mstaxsync' ) . '</span></span>';
+	$synced_span		= '<span class="synced dashicons dashicons-update' . ( $detach_terms && in_array( 'can', $detach_terms ) ? ' can-detach' : '' ) . '" data-nonce="' . $detach_nonce . '"></span>';
+	$edit_span			= '<span class="edit dashicons dashicons-edit"></span><span class="ok dashicons dashicons-yes"></span><span class="cancel dashicons dashicons-no"></span>';
+	$delete_span		= 'choice' != $li_class && $delete_terms && in_array( 'can', $delete_terms ) ? '<span class="trash dashicons dashicons-trash" data-nonce="' . $delete_nonce . '"></span>' : '';
 
-	$output			= '';
+	$output				= '';
 
 	foreach ( $terms as $t ) {
 
@@ -386,7 +389,9 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 				'<div>' .
 					'<span class="mstaxsync-rel-item' . ( 'choice' == $li_class && $synced_term ? ' disabled' : '' ) . '" data-id="' . $t->term_id . '" data-synced="' . $synced_term . '">' .
 						( 'choice' != $li_class && $synced_term ? $synced_span : '' ) .
+						$cb_input .
 						'<span class="val">' . $t->name . '</span>' .
+						( $t->children && $advanced_treeview && 'choice' == $li_class ? $multiselect : '' ) .
 						( 'choice' != $li_class && $edit_terms && in_array( 'can', $edit_terms ) ?
 							'<input type="text" placeholder="' . $t->name . '" />' .
 							$edit_span

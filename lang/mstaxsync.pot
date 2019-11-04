@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-10-10 22:43+0300\n"
+"POT-Creation-Date: 2019-11-04 12:02+0200\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -69,62 +69,91 @@ msgid "Capabilities"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:57
-msgid "Edit Capabilities Settings"
+msgid "User Interface Settings"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:63
+#: includes/admin/class-admin-settings.php:61
+msgid "Edit Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:67
 msgid "Uninstall"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:66
+#: includes/admin/class-admin-settings.php:70
 msgid "Uninstall Settings"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:78
+#: includes/admin/class-admin-settings.php:82
 msgid "Sync categories?"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:89
+#: includes/admin/class-admin-settings.php:91
+msgid "(Default: sync categories)"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:95
 msgid "Taxonomies to sync"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:98
+#: includes/admin/class-admin-settings.php:104
+msgid "Advanced tree view"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:113
+msgid ""
+"Check this option to allow advanced treeview enabling multiselect "
+"taxonomy terms to sync"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:114
+#: includes/admin/class-admin-settings.php:128
+msgid "(Default: true)"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:118
 msgid "Edit taxonomy term names"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:106
+#: includes/admin/class-admin-settings.php:127
 msgid ""
 "Check this option to allow editing taxonomy term names directly from this "
 "plugin"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:110
+#: includes/admin/class-admin-settings.php:132
 msgid "Detach taxonomy terms"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:118
+#: includes/admin/class-admin-settings.php:140
 msgid ""
 "Check this option to allow detaching of already synced taxonomy terms."
 "<br />Detaching a taxonomy term will not remove or modify posts "
 "associated with this term"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:122
+#: includes/admin/class-admin-settings.php:141
+#: includes/admin/class-admin-settings.php:154
+#: includes/admin/class-admin-settings.php:167
+msgid "(Default: false)"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:145
 msgid "Delete taxonomy terms"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:130
+#: includes/admin/class-admin-settings.php:153
 msgid ""
 "Check this option to allow deleting of taxonomy terms.<br />Deleting a "
 "synced taxonomy term will first detach it.<br />Deleting a taxonomy term "
 "will not remove or modify posts associated with this term"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:134
-msgid "Remove Data on Uninstall"
+#: includes/admin/class-admin-settings.php:158
+msgid "Remove data on uninstall"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:142
+#: includes/admin/class-admin-settings.php:166
 msgid "Caution: all data will be removed without any option to restore"
 msgstr ""
 
@@ -160,27 +189,37 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:31
+#: includes/admin/views/taxonomy-terms.php:34
 msgid "Main site"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:32
+#: includes/admin/views/taxonomy-terms.php:35
 #: includes/admin/views/taxonomy.php:28
 msgid "Select terms to sync"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:49
+#: includes/admin/views/taxonomy-terms.php:52
 #: includes/api/api-taxonomy-terms.php:362
 #, php-format
 msgid "There are no %s defined in main site"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:61
+#: includes/admin/views/taxonomy-terms.php:64
 msgid "Local site"
 msgstr ""
 
-#: includes/admin/views/taxonomy-terms.php:62
+#: includes/admin/views/taxonomy-terms.php:65
 msgid "Sort and edit terms"
+msgstr ""
+
+#: includes/admin/views/taxonomy-terms.php:89
+#: includes/api/api-helpers.php:375
+msgid "Select All"
+msgstr ""
+
+#: includes/admin/views/taxonomy-terms.php:89
+#: includes/api/api-helpers.php:375
+msgid "Remove All"
 msgstr ""
 
 #: includes/api/api-taxonomy-terms.php:79
@@ -215,66 +254,74 @@ msgstr ""
 msgid "Failed to delete a taxonomy term"
 msgstr ""
 
-#: ms-taxonomies-sync.php:255
-msgid "New item"
+#: includes/classes/class-mstaxsync-core.php:268
+msgid "Synced Sites"
+msgstr ""
+
+#: includes/classes/class-mstaxsync-core.php:268
+msgid "Main Site Term"
 msgstr ""
 
 #: ms-taxonomies-sync.php:256
-msgid "Changed"
+msgid "New item"
 msgstr ""
 
 #: ms-taxonomies-sync.php:257
-msgid "All terms were updated successfully."
+msgid "Changed"
 msgstr ""
 
 #: ms-taxonomies-sync.php:258
-msgid "new terms were synced."
+msgid "All terms were updated successfully."
 msgstr ""
 
 #: ms-taxonomies-sync.php:259
-msgid "terms were updated."
+msgid "new terms were synced."
 msgstr ""
 
 #: ms-taxonomies-sync.php:260
-msgid "The following errors were found:"
+msgid "terms were updated."
 msgstr ""
 
 #: ms-taxonomies-sync.php:261
-msgid "Error"
+msgid "The following errors were found:"
 msgstr ""
 
 #: ms-taxonomies-sync.php:262
+msgid "Error"
+msgstr ""
+
+#: ms-taxonomies-sync.php:263
 msgid "Internal server error"
 msgstr ""
 
-#: ms-taxonomies-sync.php:263
+#: ms-taxonomies-sync.php:264
 msgid "You are about to permanently detach this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:263 ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:264 ms-taxonomies-sync.php:265
 msgid "This action cannot be undone."
 msgstr ""
 
-#: ms-taxonomies-sync.php:263
+#: ms-taxonomies-sync.php:264
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr ""
 
-#: ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:265
 msgid "You are about to permanently delete this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:265
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
-#: ms-taxonomies-sync.php:517
+#: ms-taxonomies-sync.php:523
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:536
+#: ms-taxonomies-sync.php:542
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

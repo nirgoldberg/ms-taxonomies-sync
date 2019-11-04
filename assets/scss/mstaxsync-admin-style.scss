@@ -103,10 +103,7 @@
 								}
 
 								&.disabled {
-									opacity: 0.5;
-
 									&:hover {
-										color: #333;
 										background: transparent;
 										cursor: default;
 									}
@@ -139,6 +136,54 @@
 									padding: 5px 7px;
 									line-height: 1.4em;
 									font-size: 14px;
+								}
+
+								li {
+									.mstaxsync-rel-item {
+										input[type="checkbox"] {
+											position: relative;
+											margin: 0 6px 0 0;
+											top: 2px;
+											min-width: 13px;
+											width: 13px;
+											height: 13px;
+											vertical-align: top;
+											cursor: auto;
+
+											&:checked:before {
+												font: normal 18px/1 dashicons;
+											}
+										}
+
+										span {
+											&.multiselect {
+												float: right;
+												font-size: 12px;
+												color: $blue-color1;
+
+												span {
+													text-decoration: underline;
+													cursor: pointer;
+												}
+											}
+										}
+
+										&:not(.disabled):hover {
+											span {
+												&.multiselect {
+													color: $white;
+												}
+											}
+										}
+
+										&.disabled {
+											span {
+												&.val {
+													color: rgba(68,68,68,.5);
+												}
+											}
+										}
+									}
 								}
 							}
 						}
@@ -299,6 +344,41 @@
 						}
 					}
 				}
+
+				.advanced-treeview-controls {
+					padding-top: 15px;
+
+					& > span {
+						margin-right: 10px;
+						vertical-align: middle;
+
+						&.multiselect {
+							color: $blue-color1;
+
+							span {
+								text-decoration: underline;
+								cursor: pointer;
+							}
+						}
+
+						&.add-items {
+							width: 28px;
+							height: 28px;
+							font-size: 28px;
+							color: $blue-color1;
+							opacity: .6;
+
+							&.enabled {
+								opacity: 1;
+								cursor: pointer;
+
+								&:hover {
+									color: $blue-color2;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -338,16 +418,16 @@
 
 @keyframes rotating {
 	from {
-		-ms-transform:		rotate(0deg);
-		-moz-transform:		rotate(0deg);
 		-webkit-transform:	rotate(0deg);
+		-moz-transform:		rotate(0deg);
+		-ms-transform:		rotate(0deg);
 		-o-transform:		rotate(0deg);
 		transform:			rotate(0deg);
 	}
 	to {
-		-ms-transform:		rotate(360deg);
-		-moz-transform:		rotate(360deg);
 		-webkit-transform:	rotate(360deg);
+		-moz-transform:		rotate(360deg);
+		-ms-transform:		rotate(360deg);
 		-o-transform:		rotate(360deg);
 		transform:			rotate(360deg);
 	}

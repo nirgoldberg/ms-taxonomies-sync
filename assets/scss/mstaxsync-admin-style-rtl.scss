@@ -35,6 +35,24 @@
 							.list {
 								border-left: 1px solid $gray-color3;
 								border-right: 0;
+
+								li {
+									.mstaxsync-rel-item {
+										input[type="checkbox"] {
+											margin: 0 0 0 6px;
+
+											&:checked:before {
+												margin: -3px -3px 0 0;
+											}
+										}
+
+										span {
+											&.multiselect {
+												float: left;
+											}
+										}
+									}
+								}
 							}
 						}
 
@@ -63,6 +81,21 @@
 									}
 								}
 							}
+						}
+					}
+				}
+
+				.advanced-treeview-controls {
+					& > span {
+						margin-left: 10px;
+						margin-right: 0;
+
+						&.add-items {
+							-webkit-transform: scale(-1, 1);
+							-moz-transform:    scale(-1, 1);
+							-ms-transform:     scale(-1, 1);
+							-o-transform:      scale(-1, 1);
+							transform:         scale(-1, 1);
 						}
 					}
 				}
