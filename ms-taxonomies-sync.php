@@ -23,8 +23,8 @@ class MSTaxSync {
 	 * @var $version (string) plugin version number
 	 * @var required_plugins (array) required plugins must be active for MSTaxSync
 	 */
-	public $version;
-	public $required_plugins;
+	private $version;
+	private $required_plugins;
 
 	/**
 	* __construct
@@ -35,7 +35,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function __construct() {
+	public function __construct() {
 
 		$this->version				= '1.0.0';
 		$this->required_plugins		= array();
@@ -53,7 +53,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function initialize() {
+	public function initialize() {
 
 		// vars
 		$basename	= plugin_basename( __FILE__ );
@@ -98,6 +98,7 @@ class MSTaxSync {
 
 		// core
 		mstaxsync_include( 'includes/classes/class-mstaxsync-core.php' );
+		mstaxsync_include( 'includes/classes/class-mstaxsync-broadcast.php' );
 
 		// actions
 		add_action( 'init',	array( $this, 'init' ), 99 );
@@ -126,7 +127,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function init() {
+	public function init() {
 
 		// exit if called too early
 		if ( ! did_action( 'plugins_loaded' ) )
@@ -172,7 +173,7 @@ class MSTaxSync {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function register_assets() {
+	public function register_assets() {
 
 		// append styles
 		$styles = array(
@@ -227,7 +228,7 @@ class MSTaxSync {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function admin_enqueue_scripts() {
+	public function admin_enqueue_scripts() {
 
 		// enqueue styles
 		wp_enqueue_style( 'mstaxsync-admin' );
@@ -283,7 +284,7 @@ class MSTaxSync {
 	* @param		$value (string)
 	* @return		N/A
 	*/
-	function define( $name, $value = true ) {
+	public function define( $name, $value = true ) {
 
 		if ( ! defined( $name ) ) {
 			define( $name, $value );
@@ -300,7 +301,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function load_plugin_textdomain() {
+	private function load_plugin_textdomain() {
 
 		// vars
 		$domain = 'mstaxsync';
@@ -324,7 +325,7 @@ class MSTaxSync {
 	* @param		$name (string)
 	* @return		(boolean)
 	*/
-	function has_setting( $name ) {
+	public function has_setting( $name ) {
 
 		// return
 		return isset( $this->settings[ $name ] );
@@ -340,7 +341,7 @@ class MSTaxSync {
 	* @param		$name (string)
 	* @return		(mixed)
 	*/
-	function get_setting( $name ) {
+	public function get_setting( $name ) {
 
 		// return
 		return isset( $this->settings[ $name ] ) ? $this->settings[ $name ] : null;
@@ -357,7 +358,7 @@ class MSTaxSync {
 	* @param		$value (mixed)
 	* @return		N/A
 	*/
-	function update_setting( $name, $value ) {
+	public function update_setting( $name, $value ) {
 
 		$this->settings[ $name ] = $value;
 
@@ -375,7 +376,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function mstaxsync_activate() {
+	public function mstaxsync_activate() {
 
 		// taxonomy terms core
 		mstaxsync_include( 'includes/classes/class-mstaxsync-tt-core.php' );
@@ -391,7 +392,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function mstaxsync_deactivate() {}
+	public function mstaxsync_deactivate() {}
 
 	/**
 	* check_multisite
@@ -402,7 +403,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		(boolean)
 	*/
-	function check_multisite() {
+	private function check_multisite() {
 
 		// vars
 		$basename = $this->settings[ 'basename' ];
@@ -441,7 +442,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		(boolean)
 	*/
-	function check_required_plugins() {
+	private function check_required_plugins() {
 
 		// vars
 		$basename = $this->settings[ 'basename' ];
@@ -478,7 +479,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		(boolean)
 	*/
-	function has_required_plugins() {
+	private function has_required_plugins() {
 
 		// vars
 		$required = $this->required_plugins;
@@ -517,7 +518,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function admin_multisite_notices_error() {
+	private function admin_multisite_notices_error() {
 
 		// vars
 		$msg = sprintf( __( "<strong>%s</strong> plugin can't be activated.<br />Multisite support must be enabled.", 'mstaxsync' ), $this->settings[ 'name' ] );
@@ -535,7 +536,7 @@ class MSTaxSync {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function admin_required_plugins_notices_error() {
+	private function admin_required_plugins_notices_error() {
 
 		// vars
 		$required	= $this->required_plugins;
@@ -547,7 +548,8 @@ class MSTaxSync {
 
 			if ( file_exists( plugin_dir_path( __DIR__ ) . $path ) ) {
 				$name = get_plugin_data( plugin_dir_path( __DIR__ ) . $path )[ 'Name' ];
-			} else {
+			}
+			else {
 				$name = $plugin;
 			}
 
@@ -568,7 +570,7 @@ class MSTaxSync {
 	* @param		$msg (string)
 	* @return		N/A
 	*/
-	function admin_notices_error( $msg ) {
+	private function admin_notices_error( $msg ) {
 
 		// vars
 		$class = 'notice notice-error is-dismissible';

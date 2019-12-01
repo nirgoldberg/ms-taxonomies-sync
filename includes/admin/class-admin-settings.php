@@ -22,7 +22,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function initialize() {
+	protected function initialize() {
 
 		// settings
 		$this->settings = array(
@@ -73,10 +73,13 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					),
 				),
 			),
-			'active_tab'				=> 'taxonomies',
+			'active_tab'			=> 'taxonomies',
+
+			// sections
+			'sections'				=> array(),
 
 			// fields
-			'fields'					=> array(
+			'fields'				=> array(
 				array(
 					'uid'				=> 'mstaxsync_sync_categories',
 					'label'				=> __( 'Sync categories?', 'mstaxsync' ),
@@ -110,7 +113,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						'can'			=> '',
 					),
 					'default'			=> array( 'can' ),
-					'supplimental'		=> __( 'Check this option to allow advanced treeview enabling multiselect taxonomy terms to sync', 'mstaxsync' ),
+					'supplimental'		=> __( 'Check this option to allow advanced tree view enabling multiselect taxonomy terms to sync', 'mstaxsync' ),
 					'helper'			=> __( '(Default: true)', 'mstaxsync' ),
 				),
 				array(

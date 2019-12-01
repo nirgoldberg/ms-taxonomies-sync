@@ -110,3 +110,21 @@
 		}
 	}
 }
+
+/**********************************/
+/* single post broadcast meta box */
+/**********************************/
+
+#mstaxsync_single_post_broadcast {
+	.synced-sites {
+		li {
+			margin-left: auto;
+			margin-right: 21px;
+
+			label {
+				margin-left: auto;
+				margin-right: -21px;
+			}
+		}
+	}
+}

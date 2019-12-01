@@ -251,7 +251,7 @@ function mstaxsync_get_main_site_custom_taxonomies_names() {
 /**
  * mstaxsync_get_custom_taxonomy_terms
  *
- * This function will return array of custom taxonomies terms
+ * This function will return array of custom taxonomy terms
  *
  * @since		1.0.0
  * @param		$tax (object)

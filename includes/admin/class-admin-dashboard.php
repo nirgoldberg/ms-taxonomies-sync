@@ -22,7 +22,7 @@ class MSTaxSync_Admin_Dashboard extends MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function initialize() {
+	protected function initialize() {
 
 		$this->settings = array(
 

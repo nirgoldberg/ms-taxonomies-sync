@@ -437,10 +437,36 @@
 /* taxonomies edit page */
 /************************/
 
-body.edit-tags-php {
+.widefat {
 	td.mstaxsync_synced {
 		ul {
 			margin: 0;
+		}
+	}
+}
+
+/**********************************/
+/* single post broadcast meta box */
+/**********************************/
+
+#mstaxsync_single_post_broadcast {
+	.multiselect {
+		font-size: 12px;
+		color: $blue-color1;
+
+		span {
+			text-decoration: underline;
+			cursor: pointer;
+		}
+	}
+
+	.synced-sites {
+		li {
+			margin-left: 21px;
+
+			label {
+				margin-left: -21px;
+			}
 		}
 	}
 }

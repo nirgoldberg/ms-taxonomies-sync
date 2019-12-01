@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  */
 function mstaxsync_taxonomy_terms_sync() {
 
-	// check nonce
+	// verify nonce
 	if ( ! wp_verify_nonce( $_REQUEST[ 'nonce' ], 'taxonomy_terms_sync' ) ) {
 		exit();
 	}
@@ -385,7 +385,7 @@ function mstaxsync_update_rs_lists( $taxonomy, &$result ) {
  */
 function mstaxsync_detach_taxonomy_term() {
 
-	// check nonce
+	// verify nonce
 	if ( ! wp_verify_nonce( $_REQUEST[ 'nonce' ], 'detach_taxonomy_term' ) ) {
 		exit();
 	}
@@ -592,7 +592,7 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
  */
 function mstaxsync_delete_taxonomy_term() {
 
-	// check nonce
+	// verify nonce
 	if ( ! wp_verify_nonce( $_REQUEST[ 'nonce' ], 'delete_taxonomy_term' ) ) {
 		exit();
 	}
@@ -688,7 +688,7 @@ function mstaxsync_delete_tt( &$result ) {
  */
 function mstaxsync_pre_delete_term( $term, $taxonomy ) {
 
-	// check nonce - verify we are not in wp_ajax_delete_taxonomy_term running Ajax call
+	// verify nonce - verify we are not in wp_ajax_delete_taxonomy_term running Ajax call
 	if ( isset( $_REQUEST[ 'nonce' ] ) && wp_verify_nonce( $_REQUEST[ 'nonce' ], 'delete_taxonomy_term' ) )
 		return;
 

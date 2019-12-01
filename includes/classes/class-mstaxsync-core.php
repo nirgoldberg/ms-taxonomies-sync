@@ -3,7 +3,7 @@
  * MSTaxSync_Core
  *
  * @author		Nir Goldberg
- * @package		includes
+ * @package		includes/classes
  * @version		1.0.0
  */
 
@@ -22,7 +22,7 @@ class MSTaxSync_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function __construct() {
+	public function __construct() {
 
 		/* Do nothing here */
 
@@ -37,7 +37,7 @@ class MSTaxSync_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function initialize() {
+	public function initialize() {
 
 		// settings
 		$this->settings = array(
@@ -65,7 +65,7 @@ class MSTaxSync_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function init() {
+	public function init() {
 
 		// exit if called too early
 		if ( ! did_action( 'plugins_loaded' ) )
@@ -102,7 +102,7 @@ class MSTaxSync_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function taxonomy_term_description_allow_html() {
+	public function taxonomy_term_description_allow_html() {
 
 		foreach ( array( 'pre_term_description' ) as $filter ) {
 
@@ -131,7 +131,7 @@ class MSTaxSync_Core {
 	* @param		$args (array) Array of term query arguments
 	* @return		(array)
 	*/
-	function taxonomy_terms_orderby( $pieces, $taxonomies, $args ) {
+	public function taxonomy_terms_orderby( $pieces, $taxonomies, $args ) {
 
 		if ( ! is_admin() )
 			return $pieces;
@@ -156,7 +156,7 @@ class MSTaxSync_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function set_main_site_custom_taxonomies() {
+	private function set_main_site_custom_taxonomies() {
 
 		// vars
 		$args = array(
@@ -185,7 +185,7 @@ class MSTaxSync_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function set_taxonomies_columns() {
+	private function set_taxonomies_columns() {
 
 		// vars
 		$main_site		= is_main_site();
@@ -259,7 +259,7 @@ class MSTaxSync_Core {
 	* @param		$columns (array)
 	* @return		(array)
 	*/
-	function manage_edit_columns( $columns ) {
+	public function manage_edit_columns( $columns ) {
 
 		// vars
 		$main_site = is_main_site();
@@ -284,7 +284,7 @@ class MSTaxSync_Core {
 	* @param		$term_id (int)
 	* @return		(mix)
 	*/
-	function manage_custom_column( $content, $column_name, $term_id ) {
+	public function manage_custom_column( $content, $column_name, $term_id ) {
 
 		// vars
 		$main_site = is_main_site();
@@ -311,7 +311,7 @@ class MSTaxSync_Core {
 	* @param		$term_id (int)
 	* @return		(string)
 	*/
-	function get_synced_sites( $term_id ) {
+	private function get_synced_sites( $term_id ) {
 
 		// vars
 		$synced_taxonomy_terms	= get_term_meta( $term_id, 'synced_taxonomy_terms', true );
@@ -366,7 +366,7 @@ class MSTaxSync_Core {
 	* @param		$term_id (int)
 	* @return		(string)
 	*/
-	function get_main_site_term( $term_id ) {
+	private function get_main_site_term( $term_id ) {
 
 		// vars
 		$main_taxonomy_term		= get_term_meta( $term_id, 'main_taxonomy_term', true );
@@ -406,7 +406,7 @@ class MSTaxSync_Core {
 	* @param		$columns (array)
 	* @return		(array)
 	*/
-	function manage_edit_sortable_columns( $columns ) {
+	public function manage_edit_sortable_columns( $columns ) {
 
 		$columns[ 'mstaxsync_synced' ] = 'mstaxsync_synced';
 
@@ -426,7 +426,7 @@ class MSTaxSync_Core {
 	* @param		$args (array) Array of term query arguments
 	* @return		(array)
 	*/
-	function manage_edit_sortable_columns_orderby( $pieces, $taxonomies, $args ) {
+	public function manage_edit_sortable_columns_orderby( $pieces, $taxonomies, $args ) {
 
 		if ( ! is_admin() )
 			return $pieces;
@@ -479,7 +479,7 @@ class MSTaxSync_Core {
 	* @param		N/A
 	* @return		(array)
 	*/
-	function get_main_site_custom_taxonomies() {
+	public function get_main_site_custom_taxonomies() {
 
 		// return
 		return $this->settings[ 'taxonomies' ];
@@ -496,7 +496,7 @@ class MSTaxSync_Core {
 	* @param		$main (boolean)
 	* @return		(mixed)
 	*/
-	function get_custom_taxonomy_terms( $tax, $main = false ) {
+	public function get_custom_taxonomy_terms( $tax, $main = false ) {
 
 		// vars
 		$local_site_wpml_support	= is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' );

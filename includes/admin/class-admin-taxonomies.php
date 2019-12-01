@@ -22,7 +22,7 @@ class MSTaxSync_Admin_Taxonomies extends MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function initialize() {
+	protected function initialize() {
 
 		$this->settings = array(
 
@@ -54,7 +54,7 @@ class MSTaxSync_Admin_Taxonomies extends MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function append_taxonomies() {
+	private function append_taxonomies() {
 
 		// vars
 		$categories	= get_option( 'mstaxsync_sync_categories', array( 'category' ) );

@@ -20,7 +20,7 @@ class MSTaxSync_Admin_Page {
 	 * @var $settings (array) settings array
 	 */
 	protected static $_instances = array();
-	public $settings = array();
+	protected $settings = array();
 
 	/**
 	 * __construct
@@ -31,7 +31,7 @@ class MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function __construct() {
+	public function __construct() {
 
 		// initialize
 		$this->initialize();
@@ -53,7 +53,7 @@ class MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function __destruct() {
+	public function __destruct() {
 
 		// unset stored instance
 		unset( self::$_instances[ array_search( $this, self::$_instances, true ) ] );
@@ -69,7 +69,7 @@ class MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function initialize() {
+	protected function initialize() {
 
 		$this->settings = array(
 
@@ -107,7 +107,7 @@ class MSTaxSync_Admin_Page {
 	 * @param		$accepted_args (int)
 	 * @return		N/A
 	 */
-	function add_action( $tag = '', $function_to_add = '', $priority = 10, $accepted_args = 1 ) {
+	protected function add_action( $tag = '', $function_to_add = '', $priority = 10, $accepted_args = 1 ) {
 
 		if ( empty( $this->settings[ 'parent_slug' ] ) || empty( $this->settings[ 'menu_slug' ] ) || empty( $this->settings[ 'page_title' ] ) || empty( $this->settings[ 'menu_title' ] ) )
 			return;
@@ -126,8 +126,8 @@ class MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function admin_menu() {
-		
+	public function admin_menu() {
+
 		// exit if no show_admin
 		if ( ! mstaxsync_get_setting( 'show_admin' ) )
 			return;
@@ -156,7 +156,7 @@ class MSTaxSync_Admin_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function html() {
+	public function html() {
 
 		// vars
 		$view = array(
@@ -188,7 +188,7 @@ class MSTaxSync_Admin_Page {
 	 * @param		$include_subclasses (boolean) Optionally include subclasses in returned set
 	 * @return		(array)
 	 */
-	static function get_instances( $include_subclasses = false ) {
+	protected static function get_instances( $include_subclasses = false ) {
 
 		// vars
 		$instances = array();

@@ -20,7 +20,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @var $settings (array) settings array
 	 */
 	protected static $_instances = array();
-	public $settings = array();
+	protected $settings = array();
 
 	/**
 	 * __construct
@@ -31,7 +31,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function __construct() {
+	public function __construct() {
 
 		// initialize
 		$this->initialize();
@@ -55,7 +55,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function __destruct() {
+	public function __destruct() {
 
 		// unset stored instance
 		unset( self::$_instances[ array_search( $this, self::$_instances, true ) ] );
@@ -71,7 +71,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function initialize() {
+	protected function initialize() {
 
 		// settings
 		$this->$settings = array(
@@ -152,7 +152,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		$accepted_args (int)
 	 * @return		N/A
 	 */
-	function add_action( $tag = '', $function_to_add = '', $priority = 10, $accepted_args = 1 ) {
+	protected function add_action( $tag = '', $function_to_add = '', $priority = 10, $accepted_args = 1 ) {
 
 		if ( empty( $this->settings[ 'fields' ] ) )
 			return;
@@ -171,7 +171,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function admin_menu() {
+	public function admin_menu() {
 
 		// exit if no show_admin
 		if ( ! mstaxsync_get_setting( 'show_admin' ) )
@@ -201,7 +201,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function html() {
+	public function html() {
 
 		// vars
 		$view = array(
@@ -234,7 +234,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function setup_sections() {
+	public function setup_sections() {
 
 		// vars
 		$menu_slug	= $this->settings[ 'menu_slug' ];
@@ -282,7 +282,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		$options_group_id (string)
 	 * @return		N/A
 	 */
-	function setup_section( $section_id, $options_group_id ) {
+	protected function setup_section( $section_id, $options_group_id ) {
 
 		// add settings section
 		add_settings_section(
@@ -303,7 +303,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function setup_fields() {
+	public function setup_fields() {
 
 		// vars
 		$menu_slug	= $this->settings[ 'menu_slug' ];
@@ -312,26 +312,28 @@ class MSTaxSync_Admin_Settings_Page {
 		$fields		= $this->settings[ 'fields' ];
 
 		// setup fields
-		foreach ( $fields as $field ) {
+		if ( ! empty( $fields ) ) {
+			foreach ( $fields as $field ) {
 
-			// vars
-			if ( ! empty( $tabs ) ) {
+				// vars
+				if ( ! empty( $tabs ) ) {
 
-				// tabs
-				$options_group_id	= $menu_slug . '-' . $field[ 'tab' ];
-				$section_id			= $field[ 'tab' ] . '-' . $field[ 'section' ];
+					// tabs
+					$options_group_id	= $menu_slug . '-' . $field[ 'tab' ];
+					$section_id			= $field[ 'tab' ] . '-' . $field[ 'section' ];
 
-			} elseif ( ! empty( $sections ) ) {
+				} elseif ( ! empty( $sections ) ) {
 
-				// no tabs, only sections
-				$options_group_id	= $menu_slug;
-				$section_id			= $field[ 'section' ];
+					// no tabs, only sections
+					$options_group_id	= $menu_slug;
+					$section_id			= $field[ 'section' ];
+
+				}
+
+				// add settings field
+				$this->setup_field( $field[ 'uid' ], $field[ 'label' ], $options_group_id, $section_id, $field );
 
 			}
-
-			// add settings field
-			$this->setup_field( $field[ 'uid' ], $field[ 'label' ], $options_group_id, $section_id, $field );
-
 		}
 
 	}
@@ -349,7 +351,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		$field_args (array)
 	 * @return		N/A
 	 */
-	function setup_field( $field_id, $field_label, $options_group_id, $section_id, $field_args ) {
+	protected function setup_field( $field_id, $field_label, $options_group_id, $section_id, $field_args ) {
 
 		// add settings field
 		add_settings_field(
@@ -375,7 +377,7 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @param		$include_subclasses (boolean) Optionally include subclasses in returned set
 	 * @return		(array)
 	 */
-	static function get_instances( $include_subclasses = false ) {
+	protected static function get_instances( $include_subclasses = false ) {
 
 		// vars
 		$instances = array();

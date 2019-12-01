@@ -6,17 +6,20 @@
  * @version		1.0.0
  */
 var $ = jQuery,
-	mstaxsync = {
+	mstaxsync = (function() {
+
+		var self = {};
 
 		/**
 		 * params
 		 */
-		params: {
+		var params = {
 
 			relationship_fields:	$('.mstaxsync-relationship'),
+			single_post_meta_box:	$('#mstaxsync_single_post_broadcast'),
 			rtl:					$('html').attr('dir') && 'rtl' == $('html').attr('dir'),
 
-		},
+		};
 
 		/**
 		 * $list
@@ -27,12 +30,12 @@ var $ = jQuery,
 		 * @param		list (string)
 		 * @return		(jQuery)
 		 */
-		$list: function(list) {
+		var $list = function(list) {
 
 			// return
 			return $('.' + list + '-list');
 
-		},
+		};
 
 		/**
 		 * rsGetInputName
@@ -41,12 +44,12 @@ var $ = jQuery,
 		 * @param		field (jQuery)
 		 * @return		(string)
 		 */
-		rsGetInputName: function(field) {
+		var rsGetInputName = function(field) {
 
 			// return
 			return field.data('name');
 
-		},
+		};
 
 		/**
 		 * rsNewValue
@@ -55,7 +58,7 @@ var $ = jQuery,
 		 * @param		props (array)
 		 * @return		(string)
 		 */
-		rsNewValue: function(props) {
+		var rsNewValue = function(props) {
 
 			// vars
 			var edit_terms = _mstaxsync.settings.edit_terms,
@@ -64,7 +67,7 @@ var $ = jQuery,
 			if (props.children && props.children.length) {
 				$.each(props.children, function(key, value) {
 					children.push(
-						mstaxsync.rsNewValue({
+						rsNewValue({
 							id: value.id,
 							text: value.text,
 							children: value.children,
@@ -95,7 +98,7 @@ var $ = jQuery,
 			'</li>'
 			].join('');
 
-		},
+		};
 
 		/**
 		 * init
@@ -104,12 +107,15 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		N/A
 		 */
-		init: function() {
+		self.init = function() {
 
 			// relationship fields
-			mstaxsync.relationship();
+			relationship();
 
-		},
+			// broadcast
+			broadcast();
+
+		};
 
 		/**
 		 * relationship
@@ -120,9 +126,9 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		N/A
 		 */
-		relationship: function() {
+		var relationship = function() {
 
-			if (!mstaxsync.params.relationship_fields.length)
+			if (!params.relationship_fields.length)
 				return;
 
 			// vars
@@ -130,26 +136,26 @@ var $ = jQuery,
 
 			if (advanced_treeview.length) {
 				// advanced treeview
-				mstaxsync.relationshipAdvancedTreeview();
+				relationshipAdvancedTreeview();
 			}
 			else {
 				// simple treeview
-				mstaxsync.relationshipSimpleTreeview();
+				relationshipSimpleTreeview();
 			}
 
 			// values list operations
-			mstaxsync.relationshipValues();
+			relationshipValues();
 
 			// submit data
 			$('#mstaxsync-taxonomies input[name="submit"]').click(function(event) {
 				event.preventDefault();
-				mstaxsync.rsOnSubmit($(this));
+				rsOnSubmit($(this));
 			});
 
 			// nestedSortable list
-			mstaxsync.relationshipNestedSortable();
+			relationshipNestedSortable();
 
-		},
+		};
 
 		/**
 		 * relationshipAdvancedTreeview
@@ -160,14 +166,14 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		N/A
 		 */
-		relationshipAdvancedTreeview: function() {
+		var relationshipAdvancedTreeview = function() {
 
 			// init treeview
-			mstaxsync.rsInitAdvancedTreeview();
+			rsInitAdvancedTreeview();
 
 			// toggle choice
 			$('body').on('click', '.choices-list li .mstaxsync-rel-item', function() {
-				mstaxsync.rsOnClickToggle($(this));
+				rsOnClickToggle($(this));
 			});
 
 			// prevent propagation on checkbox click event
@@ -175,37 +181,37 @@ var $ = jQuery,
 				event.stopPropagation();
 
 				// check tree state
-				mstaxsync.rsCheckTreeState($(this).closest(mstaxsync.params.relationship_fields));
+				rsCheckTreeState($(this).closest(params.relationship_fields));
 			});
 
 			// check all children
 			$('body').on('click', '.choices-list li .mstaxsync-rel-item .check-all', function(event) {
 				event.stopPropagation();
-				mstaxsync.rsOnClickCheckAllChildren($(this));
+				rsOnClickCheckAllChildren($(this));
 			});
 
 			// uncheck all children
 			$('body').on('click', '.choices-list li .mstaxsync-rel-item .uncheck-all', function(event) {
 				event.stopPropagation();
-				mstaxsync.rsOnClickUncheckAllChildren($(this));
+				rsOnClickUncheckAllChildren($(this));
 			});
 
 			// check all tree
 			$('body').on('click', '.advanced-treeview-controls .check-all', function(event) {
-				mstaxsync.rsOnClickCheckAllTree($(this));
+				rsOnClickCheckAllTree($(this));
 			});
 
 			// uncheck all tree
 			$('body').on('click', '.advanced-treeview-controls .uncheck-all', function(event) {
-				mstaxsync.rsOnClickUncheckAllTree($(this));
+				rsOnClickUncheckAllTree($(this));
 			});
 
 			// add items
 			$('body').on('click', '.advanced-treeview-controls .add-items', function() {
-				mstaxsync.rsOnClickAddItems($(this));
+				rsOnClickAddItems($(this));
 			});
 
-		},
+		};
 
 		/**
 		 * relationshipSimpleTreeview
@@ -216,14 +222,14 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		N/A
 		 */
-		relationshipSimpleTreeview: function() {
+		var relationshipSimpleTreeview = function() {
 
 			// add choice
 			$('body').on('click', '.choices-list li .mstaxsync-rel-item', function() {
-				mstaxsync.rsOnClickAdd($(this));
+				rsOnClickAdd($(this));
 			});
 
-		},
+		};
 
 		/**
 		 * relationshipValues
@@ -234,44 +240,44 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		N/A
 		 */
-		relationshipValues: function() {
+		var relationshipValues = function() {
 
 			// remove value
 			$('body').on('click', '.values-list li .remove', function() {
-				mstaxsync.rsOnClickRemove($(this).parent('.mstaxsync-rel-item'));
+				rsOnClickRemove($(this).parent('.mstaxsync-rel-item'));
 			});
 
 			// edit value
 			$('body').on('click', '.values-list li .edit', function() {
-				mstaxsync.rsOnClickEdit($(this));
+				rsOnClickEdit($(this));
 			});
 
 			// submit edit value
 			$('body').on('click', '.values-list li .ok', function() {
-				mstaxsync.rsOnClickSubmitEdit($(this));
+				rsOnClickSubmitEdit($(this));
 			});
 
 			// Enter keypress as submit edit value
 			$('body').on('keypress', '.values-list li input', function(event) {
-				mstaxsync.rsOnKeypressSubmitEdit(event);
+				rsOnKeypressSubmitEdit(event);
 			});
 
 			// cancel edit value
 			$('body').on('click', '.values-list li .cancel', function() {
-				mstaxsync.rsOnClickCancelEdit($(this));
+				rsOnClickCancelEdit($(this));
 			});
 
 			// detach value
 			$('body').on('click', '.values-list li .synced', function() {
-				mstaxsync.rsOnClickDetach($(this));
+				rsOnClickDetach($(this));
 			});
 
 			// delete value
 			$('body').on('click', '.values-list li .trash', function() {
-				mstaxsync.rsOnClickDelete($(this));
+				rsOnClickDelete($(this));
 			});
 
-		},
+		};
 
 		/**
 		 * rsInitAdvancedTreeview
@@ -282,7 +288,7 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		N/A
 		 */
-		rsInitAdvancedTreeview: function() {
+		var rsInitAdvancedTreeview = function() {
 
 			// vars
 			var cbs = $('.mstaxsync-rel-item.disabled input[type="checkbox"]');
@@ -291,7 +297,7 @@ var $ = jQuery,
 				cbs.prop({'checked': true, 'disabled': true});
 			}
 
-		},
+		};
 
 		/**
 		 * rsOnClickToggle
@@ -302,10 +308,10 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickToggle: function(el) {
+		var rsOnClickToggle = function(el) {
 
 			// vars
-			var field = el.closest(mstaxsync.params.relationship_fields),
+			var field = el.closest(params.relationship_fields),
 				cb = el.children('input[type="checkbox"]');
 
 			// can be added?
@@ -317,9 +323,9 @@ var $ = jQuery,
 			cb.prop('checked', !cb.prop('checked'));
 
 			// check tree state
-			mstaxsync.rsCheckTreeState(field);
+			rsCheckTreeState(field);
 
-		},
+		};
 
 		/**
 		 * rsOnClickCheckAllChildren
@@ -330,19 +336,19 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickCheckAllChildren: function(el) {
+		var rsOnClickCheckAllChildren = function(el) {
 
 			// vars
-			var field = el.closest(mstaxsync.params.relationship_fields),
+			var field = el.closest(params.relationship_fields),
 				cbs = el.closest('li').find('input[type="checkbox"]');
 
 			// check
 			cbs.prop('checked', true);
 
 			// check tree state
-			mstaxsync.rsCheckTreeState(field);
+			rsCheckTreeState(field);
 
-		},
+		};
 
 		/**
 		 * rsOnClickUncheckAllChildren
@@ -353,10 +359,10 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickUncheckAllChildren: function(el) {
+		var rsOnClickUncheckAllChildren = function(el) {
 
 			// vars
-			var field = el.closest(mstaxsync.params.relationship_fields),
+			var field = el.closest(params.relationship_fields),
 				cbs = el.closest('li').find('input[type="checkbox"]');
 
 			cbs.each(function() {
@@ -370,9 +376,9 @@ var $ = jQuery,
 			});
 
 			// check tree state
-			mstaxsync.rsCheckTreeState(field);
+			rsCheckTreeState(field);
 
-		},
+		};
 
 		/**
 		 * rsOnClickCheckAllTree
@@ -383,11 +389,11 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickCheckAllTree: function(el) {
+		var rsOnClickCheckAllTree = function(el) {
 
 			// vars
-			var field = el.closest('.mstaxsync-taxonomy-terms-box').children(mstaxsync.params.relationship_fields),
-				cbs = field.find(mstaxsync.$list('choices')).find('input[type="checkbox"]');
+			var field = el.closest('.mstaxsync-taxonomy-terms-box').children(params.relationship_fields),
+				cbs = field.find($list('choices')).find('input[type="checkbox"]');
 
 			// check
 			if (cbs.length) {
@@ -395,9 +401,9 @@ var $ = jQuery,
 			}
 
 			// check tree state
-			mstaxsync.rsCheckTreeState(field);
+			rsCheckTreeState(field);
 
-		},
+		};
 
 		/**
 		 * rsOnClickUncheckAllTree
@@ -408,11 +414,11 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickUncheckAllTree: function(el) {
+		var rsOnClickUncheckAllTree = function(el) {
 
 			// vars
-			var field = el.closest('.mstaxsync-taxonomy-terms-box').children(mstaxsync.params.relationship_fields),
-				cbs = field.find(mstaxsync.$list('choices')).find('input[type="checkbox"]');
+			var field = el.closest('.mstaxsync-taxonomy-terms-box').children(params.relationship_fields),
+				cbs = field.find($list('choices')).find('input[type="checkbox"]');
 
 			if (!cbs.length)
 				return;
@@ -428,9 +434,9 @@ var $ = jQuery,
 			});
 
 			// check tree state
-			mstaxsync.rsCheckTreeState(field);
+			rsCheckTreeState(field);
 
-		},
+		};
 
 		/**
 		 * rsCheckTreeState
@@ -441,10 +447,10 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsCheckTreeState: function(el) {
+		var rsCheckTreeState = function(el) {
 
 			// vars
-			var cbs = el.find(mstaxsync.$list('choices')).find('input[type="checkbox"]'),
+			var cbs = el.find($list('choices')).find('input[type="checkbox"]'),
 				addItemsBtn = el.next('.advanced-treeview-controls').children('.add-items'),
 				enable = false;
 
@@ -469,7 +475,7 @@ var $ = jQuery,
 				addItemsBtn.removeClass('enabled');
 			}
 
-		},
+		};
 
 		/**
 		 * rsOnClickAddItems
@@ -480,28 +486,28 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickAddItems: function(el) {
+		var rsOnClickAddItems = function(el) {
 
 			if (!el.hasClass('enabled'))
 				return;
 
 			// vars
-			var field = el.closest('.mstaxsync-taxonomy-terms-box').children(mstaxsync.params.relationship_fields),
-				choices = field.find(mstaxsync.$list('choices')).children('li'),
+			var field = el.closest('.mstaxsync-taxonomy-terms-box').children(params.relationship_fields),
+				choices = field.find($list('choices')).children('li'),
 				parents = [],
 				items = [];
 
 			// build values items
 			if (choices.length) {
 				choices.each(function() {
-					mstaxsync.rsBuildValuesItems(parents, items, $(this), 0);
+					rsBuildValuesItems(parents, items, $(this), 0);
 				});
 			}
 
 			// add
-			mstaxsync.rsAddItems(field, items);
+			rsAddItems(field, items);
 
-		},
+		};
 
 		/**
 		 * rsBuildValuesItems
@@ -515,7 +521,7 @@ var $ = jQuery,
 		 * @param		parent_id (int)
 		 * @return		N/A
 		 */
-		rsBuildValuesItems: function(parents, items, el, parent_id) {
+		var rsBuildValuesItems = function(parents, items, el, parent_id) {
 
 			// vars
 			var span = el.find('.mstaxsync-rel-item').first(),
@@ -523,7 +529,7 @@ var $ = jQuery,
 				cb = span.children('input[type="checkbox"]'),
 				text = span.children('.val').text(),
 				children = el.children('ul').children('li'),
-				valid_parent = mstaxsync.rsGetValidParent(parents, parent_id),
+				valid_parent = rsGetValidParent(parents, parent_id),
 				selected_choice = !span.hasClass('disabled') && cb.prop('checked');
 
 			// append to parents
@@ -538,11 +544,11 @@ var $ = jQuery,
 				parent_id = id;
 
 				children.each(function() {
-					mstaxsync.rsBuildValuesItems(parents, items, $(this), parent_id);
+					rsBuildValuesItems(parents, items, $(this), parent_id);
 				});
 			}
 
-		},
+		};
 
 		/**
 		 * rsGetValidParent
@@ -554,7 +560,7 @@ var $ = jQuery,
 		 * @param		id (int)
 		 * @return		(int)
 		 */
-		rsGetValidParent: function(parents, id) {
+		var rsGetValidParent = function(parents, id) {
 
 			if (0 == id)
 				// return
@@ -574,14 +580,14 @@ var $ = jQuery,
 				}
 				else {
 					// recursive call to find a valid parent ancestor
-					return mstaxsync.rsGetValidParent(parents, parent_id);
+					return rsGetValidParent(parents, parent_id);
 				}
 			}
 
 			// return
 			return 0;
 
-		},
+		};
 
 		/**
 		 * rsAddItems
@@ -593,10 +599,10 @@ var $ = jQuery,
 		 * @param		items (array)
 		 * @return		N/A
 		 */
-		rsAddItems: function(field, items) {
+		var rsAddItems = function(field, items) {
 
 			// vars
-			var choicesList = field.find(mstaxsync.$list('choices')),
+			var choicesList = field.find($list('choices')),
 				addItemsBtn = field.next('.advanced-treeview-controls').children('.add-items'),
 				html = [];
 
@@ -619,13 +625,13 @@ var $ = jQuery,
 				cb.prop({'disabled': true});
 
 				// add
-				mstaxsync.rsAddItem(html, item);
+				rsAddItem(html, item);
 			});
 
 			// append
-			mstaxsync.rsAppendItems(field, html);
+			rsAppendItems(field, html);
 
-		},
+		};
 
 		/**
 		 * rsAddItem
@@ -637,7 +643,7 @@ var $ = jQuery,
 		 * @param		item (object)
 		 * @return		N/A
 		 */
-		rsAddItem: function(html, item) {
+		var rsAddItem = function(html, item) {
 
 			// vars
 			var id = item.id,
@@ -665,13 +671,13 @@ var $ = jQuery,
 					}
 					else {
 						if (value.children && value.children.length) {
-							mstaxsync.rsAddItem(value.children, item);
+							rsAddItem(value.children, item);
 						}
 					}
 				});
 			}
 
-		},
+		};
 
 		/**
 		 * rsAppendItems
@@ -683,23 +689,23 @@ var $ = jQuery,
 		 * @param		html (array)
 		 * @return		N/A
 		 */
-		rsAppendItems: function(field, html) {
+		var rsAppendItems = function(field, html) {
 
 			if (!html.length)
 				return;
 
 			$.each(html, function(key, value) {
 				// vars
-				var item = mstaxsync.rsNewValue({
+				var item = rsNewValue({
 					id: value.id,
 					text: value.text,
 					children: value.children,
 				});
 
-				field.find(mstaxsync.$list('values')).append(item);
+				field.find($list('values')).append(item);
 			});
 
-		},
+		};
 
 		/**
 		 * rsOnClickAdd
@@ -710,10 +716,10 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickAdd: function(el) {
+		var rsOnClickAdd = function(el) {
 
 			// vars
-			var field = el.closest(mstaxsync.params.relationship_fields);
+			var field = el.closest(params.relationship_fields);
 
 			// can be added?
 			if (el.hasClass('disabled')) {
@@ -724,14 +730,14 @@ var $ = jQuery,
 			el.addClass('disabled');
 
 			// add
-			var html = mstaxsync.rsNewValue({
+			var html = rsNewValue({
 				id: el.data('id'),
 				text: el.children('.val').text(),
 			});
 
-			field.find(mstaxsync.$list('values')).append(html);
+			field.find($list('values')).append(html);
 
-		},
+		};
 
 		/**
 		 * rsOnClickRemove
@@ -742,15 +748,15 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickRemove: function(el) {
+		var rsOnClickRemove = function(el) {
 
 			// vars
-			var field = el.closest(mstaxsync.params.relationship_fields),
+			var field = el.closest(params.relationship_fields),
 				id = el.data('id'),
 				li = el.closest('li'),
 				ul = li.children('ul'),
 				siblings = li.siblings(),
-				choice = field.find(mstaxsync.$list('choices')).find('li .mstaxsync-rel-item[data-id=' + id + ']'),
+				choice = field.find($list('choices')).find('li .mstaxsync-rel-item[data-id=' + id + ']'),
 				advanced_treeview = _mstaxsync.settings.advanced_treeview;
 
 			// unwrap li parent ul if does not have siblings and does not have children
@@ -776,7 +782,7 @@ var $ = jQuery,
 				choice.children('input[type="checkbox"]').prop({'checked': false, 'disabled': false});
 			}
 
-		},
+		};
 
 		/**
 		 * rsOnClickEdit
@@ -787,7 +793,7 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickEdit: function(el) {
+		var rsOnClickEdit = function(el) {
 
 			// vars
 			var span = el.closest('.mstaxsync-rel-item'),
@@ -799,7 +805,7 @@ var $ = jQuery,
 			// focus input
 			input.focus();
 
-		},
+		};
 
 		/**
 		 * rsOnClickSubmitEdit
@@ -810,7 +816,7 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickSubmitEdit: function(el) {
+		var rsOnClickSubmitEdit = function(el) {
 
 			// vars
 			var span = el.closest('.mstaxsync-rel-item'),
@@ -826,13 +832,13 @@ var $ = jQuery,
 				input.val('');
 
 				// indicate changed
-				mstaxsync.rsIndicateChanged(span.closest('li'));
+				rsIndicateChanged(span.closest('li'));
 			}
 
 			// deactivate editing mode
 			span.removeClass('editing');
 
-		},
+		};
 
 		/**
 		 * rsOnKeypressSubmitEdit
@@ -843,18 +849,18 @@ var $ = jQuery,
 		 * @param		event
 		 * @return		N/A
 		 */
-		rsOnKeypressSubmitEdit: function(event) {
+		var rsOnKeypressSubmitEdit = function(event) {
 
 			// vars
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 
 			if ('13' == keycode) {
-				mstaxsync.rsOnClickSubmitEdit($(event.target));
+				rsOnClickSubmitEdit($(event.target));
 			}
 
 			event.stopPropagation();
 
-		},
+		};
 
 		/**
 		 * rsOnClickCancelEdit
@@ -865,7 +871,7 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickCancelEdit: function(el) {
+		var rsOnClickCancelEdit = function(el) {
 
 			// vars
 			var span = el.closest('.mstaxsync-rel-item'),
@@ -877,7 +883,7 @@ var $ = jQuery,
 			// deactivate editing mode
 			span.removeClass('editing');
 
-		},
+		};
 
 		/**
 		 * rsOnClickDetach
@@ -888,15 +894,15 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickDetach: function(el) {
+		var rsOnClickDetach = function(el) {
 
 			// vars
-			var field = el.closest(mstaxsync.params.relationship_fields),
+			var field = el.closest(params.relationship_fields),
 				nonce = el.data('nonce'),
 				span = el.closest('.mstaxsync-rel-item'),
 				localId = span.data('id'),
 				mainId = span.data('synced'),
-				choice = field.find(mstaxsync.$list('choices')).find('li .mstaxsync-rel-item[data-id=' + mainId + ']'),
+				choice = field.find($list('choices')).find('li .mstaxsync-rel-item[data-id=' + mainId + ']'),
 				advanced_treeview = _mstaxsync.settings.advanced_treeview,
 				detach_terms = _mstaxsync.settings.detach_terms;
 
@@ -935,7 +941,7 @@ var $ = jQuery,
 				},
 			});
 
-		},
+		};
 
 		/**
 		 * rsOnClickDelete
@@ -946,10 +952,10 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnClickDelete: function(el) {
+		var rsOnClickDelete = function(el) {
 
 			// vars
-			var field = el.closest(mstaxsync.params.relationship_fields),
+			var field = el.closest(params.relationship_fields),
 				nonce = el.data('nonce'),
 				span = el.closest('.mstaxsync-rel-item'),
 				taxonomy = field.data('name'),
@@ -980,7 +986,7 @@ var $ = jQuery,
 				success: function(response) {
 					// enable choice
 					if (mainId) {
-						choice = field.find(mstaxsync.$list('choices')).find('li .mstaxsync-rel-item[data-id=' + mainId + ']');
+						choice = field.find($list('choices')).find('li .mstaxsync-rel-item[data-id=' + mainId + ']');
 						choice.removeClass('disabled');
 						choice.data('synced', '');
 
@@ -994,7 +1000,7 @@ var $ = jQuery,
 
 					// remove
 					setTimeout(function() {
-						mstaxsync.rsOnClickRemove(span);
+						rsOnClickRemove(span);
 					}, 500);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
@@ -1003,7 +1009,7 @@ var $ = jQuery,
 				},
 			});
 
-		},
+		};
 
 		/**
 		 * rsOnSubmit
@@ -1014,11 +1020,11 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsOnSubmit: function(el) {
+		var rsOnSubmit = function(el) {
 
 			// vars
 			var nonce = el.data('nonce'),
-				taxonomyTerms = mstaxsync.rsGroupTaxonomyTerms(),
+				taxonomyTerms = rsGroupTaxonomyTerms(),
 				loader = $('.submit .ajax-loading'),
 				result = $('.submit').next('.result'),
 				msg = [];
@@ -1040,10 +1046,10 @@ var $ = jQuery,
 				},
 				success: function(response) {
 					// refresh relationship field lists
-					mstaxsync.rsRefreshLists(response);
+					rsRefreshLists(response);
 
 					// build result message
-					mstaxsync.rsBuildResultMsg(response, msg);
+					rsBuildResultMsg(response, msg);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					// result message
@@ -1058,7 +1064,7 @@ var $ = jQuery,
 				},
 			});
 
-		},
+		};
 
 		/**
 		 * rsGroupTaxonomyTerms
@@ -1069,18 +1075,18 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		(array)
 		 */
-		rsGroupTaxonomyTerms: function() {
+		var rsGroupTaxonomyTerms = function() {
 
 			// vars
 			taxonomyTerms = [];
 
-			$.each(mstaxsync.params.relationship_fields, function() {
-				var values = $(this).find(mstaxsync.$list('values')).children('li'),
+			$.each(params.relationship_fields, function() {
+				var values = $(this).find($list('values')).children('li'),
 					terms = [];
 
 				if (values.length) {
 					values.each(function() {
-						mstaxsync.rsBuildTaxonomyTerms(terms, $(this), 0);
+						rsBuildTaxonomyTerms(terms, $(this), 0);
 					});
 
 					taxonomyTerms.push({
@@ -1093,7 +1099,7 @@ var $ = jQuery,
 			// return
 			return taxonomyTerms;
 
-		},
+		};
 
 		/**
 		 * rsBuildTaxonomyTerms
@@ -1106,7 +1112,7 @@ var $ = jQuery,
 		 * @param		parent_id (int)
 		 * @return		N/A
 		 */
-		rsBuildTaxonomyTerms: function(terms, el, parent_id) {
+		var rsBuildTaxonomyTerms = function(terms, el, parent_id) {
 
 			// vars
 			var span = el.find('.mstaxsync-rel-item').first(),
@@ -1121,11 +1127,11 @@ var $ = jQuery,
 				parent_id = id;
 
 				children.each(function() {
-					mstaxsync.rsBuildTaxonomyTerms(terms, $(this), parent_id);
+					rsBuildTaxonomyTerms(terms, $(this), parent_id);
 				});
 			}
 
-		},
+		};
 
 		/**
 		 * rsRefreshLists
@@ -1136,7 +1142,7 @@ var $ = jQuery,
 		 * @param		response (json)
 		 * @return		N/A
 		 */
-		rsRefreshLists: function(response) {
+		var rsRefreshLists = function(response) {
 
 			// vars
 			var advanced_treeview = _mstaxsync.settings.advanced_treeview;
@@ -1150,21 +1156,21 @@ var $ = jQuery,
 
 					// refresh choices
 					if (choices.length) {
-						rs_field.find(mstaxsync.$list('choices')).html(choices);
+						rs_field.find($list('choices')).html(choices);
 
 						if (advanced_treeview.length) {
-							mstaxsync.rsInitAdvancedTreeview();
+							rsInitAdvancedTreeview();
 						}
 					}
 
 					// refresh values
 					if (values.length) {
-						rs_field.find(mstaxsync.$list('values')).html(values);
+						rs_field.find($list('values')).html(values);
 					}
 				});
 			}
 
-		},
+		};
 
 		/**
 		 * rsBuildResultMsg
@@ -1176,7 +1182,7 @@ var $ = jQuery,
 		 * @param		msg (array)
 		 * @return		N/A
 		 */
-		rsBuildResultMsg: function(response, msg) {
+		var rsBuildResultMsg = function(response, msg) {
 
 			// no errors found
 			if (!response.errors.length) {
@@ -1202,7 +1208,7 @@ var $ = jQuery,
 				});
 			}
 
-		},
+		};
 
 		/**
 		 * rsIndicateChanged
@@ -1213,7 +1219,7 @@ var $ = jQuery,
 		 * @param		el (jQuery)
 		 * @return		N/A
 		 */
-		rsIndicateChanged: function(el) {
+		var rsIndicateChanged = function(el) {
 
 			// vars
 			var span = el.find('.mstaxsync-rel-item').first(),
@@ -1237,7 +1243,7 @@ var $ = jQuery,
 
 			}
 
-		},
+		};
 
 		/**
 		 * relationshipNestedSortable
@@ -1248,23 +1254,111 @@ var $ = jQuery,
 		 * @param		N/A
 		 * @return		N/A
 		 */
-		relationshipNestedSortable: function() {
+		var relationshipNestedSortable = function() {
 
-			mstaxsync.$list('values').nestedSortable({
+			$list('values').nestedSortable({
 				listType: 'ul',
 				items: 'li',
 				handle: 'div',
 				toleranceElement: '> div',
 				opacity: .6,
 				revert: 250,
-				rtl: mstaxsync.params.rtl,
+				rtl: params.rtl,
 				relocate: function(event, ui){
-					mstaxsync.rsIndicateChanged(ui.item);
+					rsIndicateChanged(ui.item);
 				},
 			});
 
-		},
+		};
 
-	};
+		/**
+		 * broadcast
+		 *
+		 * @since		1.0.0
+		 * @param		N/A
+		 * @return		N/A
+		 */
+		var broadcast = function() {
 
-$(mstaxsync.init);
+			// single post broadcast
+			broadcastSinglePost();
+
+		};
+
+		/**
+		 * broadcastSinglePost
+		 *
+		 * Single post broadcast operations
+		 *
+		 * @since		1.0.0
+		 * @param		N/A
+		 * @return		N/A
+		 */
+		var broadcastSinglePost = function() {
+
+			if (!params.single_post_meta_box.length)
+				return;
+
+			// vars
+			cbs = params.single_post_meta_box.find('.synced-sites li');
+
+			// check all
+			params.single_post_meta_box.find('.check-all').click(function() {
+				broadcastOnClickCheckAllSites($(this));
+			});
+
+			// uncheck all
+			params.single_post_meta_box.find('.uncheck-all').click(function() {
+				broadcastOnClickUncheckAllSites($(this));
+			});
+
+		};
+
+		/**
+		 * broadcastOnClickCheckAllSites
+		 *
+		 * Checks all sites
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @return		N/A
+		 */
+		var broadcastOnClickCheckAllSites = function(el) {
+
+			// vars
+			var meta_box = el.closest(params.single_post_meta_box),
+				cbs = meta_box.find('.synced-sites input[type="checkbox"]');
+
+			// check
+			cbs.prop('checked', true);
+
+		};
+
+		/**
+		 * broadcastOnClickUncheckAllSites
+		 *
+		 * Unchecks all sites
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @return		N/A
+		 */
+		var broadcastOnClickUncheckAllSites = function(el) {
+
+			// vars
+			var meta_box = el.closest(params.single_post_meta_box),
+				cbs = meta_box.find('.synced-sites input[type="checkbox"]');
+
+			// check
+			cbs.prop('checked', false);
+
+		};
+
+		// return
+		return self;
+
+	}
+
+());
+
+mstaxsync.init();

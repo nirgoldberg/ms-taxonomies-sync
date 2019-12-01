@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-11-04 12:02+0200\n"
+"POT-Creation-Date: 2019-11-28 12:29+0200\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: .git\n"
 "X-Poedit-SearchPathExcluded-1: .sass-cache\n"
@@ -102,7 +102,7 @@ msgstr ""
 
 #: includes/admin/class-admin-settings.php:113
 msgid ""
-"Check this option to allow advanced treeview enabling multiselect "
+"Check this option to allow advanced tree view enabling multiselect "
 "taxonomy terms to sync"
 msgstr ""
 
@@ -214,11 +214,13 @@ msgstr ""
 
 #: includes/admin/views/taxonomy-terms.php:89
 #: includes/api/api-helpers.php:375
+#: includes/classes/class-mstaxsync-broadcast.php:258
 msgid "Select All"
 msgstr ""
 
 #: includes/admin/views/taxonomy-terms.php:89
 #: includes/api/api-helpers.php:375
+#: includes/classes/class-mstaxsync-broadcast.php:258
 msgid "Remove All"
 msgstr ""
 
@@ -254,6 +256,30 @@ msgstr ""
 msgid "Failed to delete a taxonomy term"
 msgstr ""
 
+#: includes/classes/class-mstaxsync-broadcast.php:90
+msgid "Broadcast"
+msgstr ""
+
+#: includes/classes/class-mstaxsync-broadcast.php:143
+#: includes/classes/class-mstaxsync-broadcast.php:152
+msgid "Post is not available for broadcasting."
+msgstr ""
+
+#: includes/classes/class-mstaxsync-broadcast.php:144
+msgid ""
+"Make sure post's category and taxonomy terms are synced to local sites."
+msgstr ""
+
+#: includes/classes/class-mstaxsync-broadcast.php:153
+msgid ""
+"Make sure post is assigned to category and/or taxonomy terms.<br />If "
+"this is a new post, you have to publish it before broadcast."
+msgstr ""
+
+#: includes/classes/class-mstaxsync-broadcast.php:257
+msgid "Broadcast to:"
+msgstr ""
+
 #: includes/classes/class-mstaxsync-core.php:268
 msgid "Synced Sites"
 msgstr ""
@@ -262,66 +288,66 @@ msgstr ""
 msgid "Main Site Term"
 msgstr ""
 
-#: ms-taxonomies-sync.php:256
+#: ms-taxonomies-sync.php:257
 msgid "New item"
 msgstr ""
 
-#: ms-taxonomies-sync.php:257
+#: ms-taxonomies-sync.php:258
 msgid "Changed"
 msgstr ""
 
-#: ms-taxonomies-sync.php:258
+#: ms-taxonomies-sync.php:259
 msgid "All terms were updated successfully."
 msgstr ""
 
-#: ms-taxonomies-sync.php:259
+#: ms-taxonomies-sync.php:260
 msgid "new terms were synced."
 msgstr ""
 
-#: ms-taxonomies-sync.php:260
+#: ms-taxonomies-sync.php:261
 msgid "terms were updated."
 msgstr ""
 
-#: ms-taxonomies-sync.php:261
+#: ms-taxonomies-sync.php:262
 msgid "The following errors were found:"
 msgstr ""
 
-#: ms-taxonomies-sync.php:262
+#: ms-taxonomies-sync.php:263
 msgid "Error"
 msgstr ""
 
-#: ms-taxonomies-sync.php:263
+#: ms-taxonomies-sync.php:264
 msgid "Internal server error"
 msgstr ""
 
-#: ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:265
 msgid "You are about to permanently detach this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:264 ms-taxonomies-sync.php:265
+#: ms-taxonomies-sync.php:265 ms-taxonomies-sync.php:266
 msgid "This action cannot be undone."
 msgstr ""
 
-#: ms-taxonomies-sync.php:264
+#: ms-taxonomies-sync.php:265
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr ""
 
-#: ms-taxonomies-sync.php:265
+#: ms-taxonomies-sync.php:266
 msgid "You are about to permanently delete this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:265
+#: ms-taxonomies-sync.php:266
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
-#: ms-taxonomies-sync.php:523
+#: ms-taxonomies-sync.php:524
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:542
+#: ms-taxonomies-sync.php:543
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

@@ -3,7 +3,7 @@
  * MSTaxSync_TT_Core
  *
  * @author		Nir Goldberg
- * @package		includes
+ * @package		includes/classes
  * @version		1.0.0
  */
 
@@ -22,7 +22,7 @@ class MSTaxSync_TT_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function __construct() {
+	public function __construct() {
 
 		/* Do nothing here */
 
@@ -37,7 +37,7 @@ class MSTaxSync_TT_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function initialize() {
+	public function initialize() {
 
 		$this->prepare_tt_core();
 
@@ -52,7 +52,7 @@ class MSTaxSync_TT_Core {
 	* @param		N/A
 	* @return		N/A
 	*/
-	function prepare_tt_core() {
+	private function prepare_tt_core() {
 
 		// globals
 		global $wpdb;

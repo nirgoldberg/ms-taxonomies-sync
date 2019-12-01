@@ -18,7 +18,7 @@ class MSTaxSync_Admin {
 	 *
 	 * @var $settings (array) settings array
 	 */
-	public $settings = array();
+	private $settings = array();
 
 	/**
 	 * __construct
@@ -29,7 +29,7 @@ class MSTaxSync_Admin {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function __construct() {
+	public function __construct() {
 
 		// initialize
 		$this->initialize();
@@ -48,7 +48,7 @@ class MSTaxSync_Admin {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function initialize() {
+	private function initialize() {
 
 		$this->settings = array(
 
@@ -78,8 +78,8 @@ class MSTaxSync_Admin {
 	 * @param		N/A
 	 * @return		N/A
 	 */
-	function admin_menu() {
-		
+	public function admin_menu() {
+
 		// exit if no show_admin
 		if ( ! mstaxsync_get_setting( 'show_admin' ) )
 			return;
