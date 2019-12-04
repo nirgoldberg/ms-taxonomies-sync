@@ -266,6 +266,54 @@ function mstaxsync_get_custom_taxonomy_terms( $tax, $main = false ) {
 }
 
 /**
+ * mstaxsync_get_main_site_id
+ *
+ * This function will return main site id
+ *
+ * @since		1.0.0
+ * @param		N/A
+ * @return		(int)
+ */
+function mstaxsync_get_main_site_id() {
+
+	// return
+	return mstaxsync_core()->get_main_site_id();
+
+}
+
+/**
+ * mstaxsync_is_main_site_wpml_active
+ *
+ * This function will return true if WPML is active for main site
+ *
+ * @since		1.0.0
+ * @param		N/A
+ * @return		(bool)
+ */
+function mstaxsync_is_main_site_wpml_active() {
+
+	// return
+	return mstaxsync_core()->is_main_site_wpml_active();
+
+}
+
+/**
+ * mstaxsync_is_local_site_wpml_active
+ *
+ * This function will return true if WPML is active for current site
+ *
+ * @since		1.0.0
+ * @param		N/A
+ * @return		(bool)
+ */
+function mstaxsync_is_local_site_wpml_active() {
+
+	// return
+	return mstaxsync_core()->is_local_site_wpml_active();
+
+}
+
+/**
  * mstaxsync_is_term_synced
  *
  * This function will check whether a term is synced in either direction.
@@ -293,7 +341,7 @@ function mstaxsync_is_term_synced( $term_id, $direction = true ) {
 		$site_id = get_current_blog_id();
 
 		// get main site ID
-		$main_site_id = get_main_site_id();
+		$main_site_id = mstaxsync_get_main_site_id();
 
 		switch_to_blog( $main_site_id );
 

@@ -354,6 +354,9 @@ class MSTaxSync_Broadcast {
 		if ( empty( $synced_terms ) )
 			return;
 
+		// remove WPML actions in order to prevent attachment duplication
+		$this->remove_wpml_save_attachment_actions();
+
 		foreach ( $sites as $site_id ) {
 
 			// broadcast post to a single local site
@@ -480,6 +483,42 @@ class MSTaxSync_Broadcast {
 	}
 
 	/**
+	* remove_wpml_save_attachment_actions
+	*
+	* This function will remove WPML actions in order to prevent attachment duplication
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		N/A
+	*/
+	private function remove_wpml_save_attachment_actions() {
+
+		// globals
+		global $wp_filter;
+
+		// vars
+		$actions = array( 'add_attachment', 'edit_attachment' );
+
+		foreach ( $wp_filter as $key => $value ) {
+			if ( in_array( $key, $actions ) ) {
+				foreach ( $value->callbacks as $callback ) {
+					foreach ( $callback as $action ) {
+
+						$className = get_class( $action[ 'function' ][0] );
+						$functionName = $action[ 'function' ][1];
+
+						if ( $className == 'WPML_Media_Attachments_Duplication' && $functionName == 'save_attachment_actions' ) {
+							remove_action( $key, array( $action['function'][0], $functionName ) );
+						}
+
+					}
+				}
+			}
+		}
+
+	}
+
+	/**
 	* broadcast
 	*
 	* This function will broadcast a single post to a specified local site ID
@@ -601,12 +640,12 @@ class MSTaxSync_Broadcast {
 			return false;
 
 		// insert the image as a new attachment
-		$this->insert_attachment( $file_attributes[ 'file' ], $file_attributes[ 'type' ] );
+		$this->insert_attachment( $file_attributes[ 'file' ], $file_attributes[ 'type' ], $post_id );
 
 		if ( ! $this->attachment_id )
 			return false;
 
-		$this->update_metadata();
+		$this->update_metadata( $post_id );
 		$this->update_post_data();
 		$this->update_alt_text();
 		$this->assign_post_thumbnail( $post_id );
@@ -733,9 +772,10 @@ class MSTaxSync_Broadcast {
 	* @since		1.0.0
 	* @param		$file_path (string)
 	* @param		$mime_type (string)
+	* @param		$post_id (int)
 	* @return		N/A
 	*/
-	private function insert_attachment( $file_path, $mime_type ) {
+	private function insert_attachment( $file_path, $mime_type, $post_id ) {
 
 		// get the path to the uploads directory
 		$wp_upload_dir = wp_upload_dir();
@@ -749,7 +789,7 @@ class MSTaxSync_Broadcast {
 			'post_status'		=> 'inherit',
 		);
 
-		$attachment_id = wp_insert_attachment( $attachment_data, $file_path );
+		$attachment_id = wp_insert_attachment( $attachment_data, $file_path, $post_id );
 
 		if ( ! $attachment_id )
 			return;
@@ -764,10 +804,10 @@ class MSTaxSync_Broadcast {
 	* This function will update attachment meta
 	*
 	* @since		1.0.0
-	* @param		N/A
+	* @param		$post_id (int)
 	* @return		N/A
 	*/
-	private function update_metadata() {
+	private function update_metadata( $post_id ) {
 
 		$file_path = get_attached_file( $this->attachment_id );
 
@@ -780,6 +820,17 @@ class MSTaxSync_Broadcast {
 		// generate metadata for the attachment and update the database record
 		$attach_data = wp_generate_attachment_metadata( $this->attachment_id, $file_path );
 		wp_update_attachment_metadata( $this->attachment_id, $attach_data );
+
+		// wpml
+		if ( mstaxsync_is_local_site_wpml_active() ) {
+
+			// globals
+			global $sitepress;
+
+			$post_language_details = apply_filters( 'wpml_post_language_details', NULL, $post_id ) ;
+			$sitepress->set_element_language_details( $this->attachment_id, 'post_attachment', false, $post_language_details[ 'language_code' ] );
+
+		}
 
 	}
 

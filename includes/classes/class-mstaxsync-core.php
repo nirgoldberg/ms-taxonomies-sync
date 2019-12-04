@@ -14,6 +14,27 @@ if ( ! class_exists( 'MSTaxSync_Core' ) ) :
 class MSTaxSync_Core {
 
 	/**
+	 * main site ID
+	 *
+	 * @var (int)
+	 */
+	private $main_site_id = '';
+
+	/**
+	 * main site wpml active
+	 *
+	 * @var (bool)
+	 */
+	private $main_site_wpml_active = false;
+
+	/**
+	 * local site wpml active
+	 *
+	 * @var (bool)
+	 */
+	private $local_site_wpml_active = false;
+
+	/**
 	* __construct
 	*
 	* A dummy constructor to ensure is only initialized once
@@ -47,6 +68,12 @@ class MSTaxSync_Core {
 
 		);
 
+		$this->main_site_id = get_main_site_id();
+
+		// wpml
+		$this->main_site_wpml_active = $this->is_wpml_active( $this->main_site_id );
+		$this->local_site_wpml_active = $this->is_wpml_active();
+
 		// actions
 		add_action( 'init',	array( $this, 'init' ), 99 );
 		add_action( 'init', array( $this, 'taxonomy_term_description_allow_html' ), 99 );
@@ -74,10 +101,8 @@ class MSTaxSync_Core {
 		// admin
 		if ( is_admin() ) {
 
-			// get main site ID
-			$main_site_id = get_main_site_id();
-
-			switch_to_blog( $main_site_id );
+			// switch to main site
+			switch_to_blog( $this->main_site_id );
 
 			$this->set_main_site_custom_taxonomies();
 
@@ -374,10 +399,8 @@ class MSTaxSync_Core {
 
 		if ( $main_taxonomy_term ) {
 
-			// get main site ID
-			$main_site_id = get_main_site_id();
-
-			switch_to_blog( $main_site_id );
+			// switch to main site
+			switch_to_blog( $this->main_site_id );
 
 			$term = get_term( $main_taxonomy_term );
 
@@ -453,8 +476,7 @@ class MSTaxSync_Core {
 
 				// local site
 				// vars
-				$main_site_id			= get_main_site_id();
-				$main_terms_table		= $wpdb->get_blog_prefix( $main_site_id ) . 'terms';
+				$main_terms_table		= $wpdb->get_blog_prefix( $this->main_site_id ) . 'terms';
 
 				$pieces[ 'join' ]		.= " LEFT JOIN " . $termmeta_table . " AS termmeta ON termmeta.meta_key = 'main_taxonomy_term' AND t.term_id = termmeta.term_id";
 				$pieces[ 'join' ]		.= " LEFT JOIN " . $main_terms_table . " AS main_terms ON main_terms.term_id = termmeta.meta_value";
@@ -487,6 +509,36 @@ class MSTaxSync_Core {
 	}
 
 	/**
+	* is_wpml_active
+	*
+	* This function will return true if WPML is active for specified site ID
+	* If site ID is not set, current site will be checked
+	*
+	* @since		1.0.0
+	* @param		$site_id (int)
+	* @return		(bool)
+	*/
+	private function is_wpml_active( $site_id = false ) {
+
+		// vars
+		$wpml = false;
+
+		if ( $site_id ) {
+			switch_to_blog ( $site_id );
+		}
+
+		$wpml = is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' );
+
+		if ( $site_id ) {
+			restore_current_blog();
+		}
+
+		// return
+		return $wpml;
+
+	}
+
+	/**
 	* get_custom_taxonomy_terms
 	*
 	* This function will get custom taxonomy terms
@@ -499,8 +551,8 @@ class MSTaxSync_Core {
 	public function get_custom_taxonomy_terms( $tax, $main = false ) {
 
 		// vars
-		$local_site_wpml_support	= is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' );
-		$locale						= get_locale();
+		$locale			= get_locale();
+		$main_site_id	= $this->main_site_id;
 
 		$terms_args = array(
 			'taxonomy'		=> $tax->name,
@@ -509,16 +561,12 @@ class MSTaxSync_Core {
 
 		if ( $main ) {
 
-			// get main site ID
-			$main_site_id = get_main_site_id();
-
+			// switch to main site
 			switch_to_blog( $main_site_id );
-
-			$main_site_wpml_support = is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' );
 
 			// check whether main site supports WPML while local site doesn't.
 			// in such case - take into account only main terms associated with local site language
-			if ( $main_site_wpml_support && ! $local_site_wpml_support ) {
+			if ( $this->main_site_wpml_active && ! $this->local_site_wpml_active ) {
 
 				// globals
 				global $wpdb;
@@ -571,6 +619,54 @@ class MSTaxSync_Core {
 
 		// return
 		return $terms;
+
+	}
+
+	/**
+	* get_main_site_id
+	*
+	* This function will return main site id
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		(int)
+	*/
+	public function get_main_site_id() {
+
+		// return
+		return $this->main_site_id;
+
+	}
+
+	/**
+	* is_main_site_wpml_active
+	*
+	* This function will return true if WPML is active for main site
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		(bool)
+	*/
+	public function is_main_site_wpml_active() {
+
+		// return
+		return $this->main_site_wpml_active;
+
+	}
+
+	/**
+	* is_local_site_wpml_active
+	*
+	* This function will return true if WPML is active for current site
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		(bool)
+	*/
+	public function is_local_site_wpml_active() {
+
+		// return
+		return $this->local_site_wpml_active;
 
 	}
 

@@ -164,7 +164,7 @@ function mstaxsync_update_taxonomy_term( $term, $taxonomy, &$orders, &$parents, 
 
 		// main site term
 		// get main site ID
-		$main_site_id = get_main_site_id();
+		$main_site_id = mstaxsync_get_main_site_id();
 
 		switch_to_blog( $main_site_id );
 
@@ -290,7 +290,7 @@ function mstaxsync_update_main_taxonomy_term_correlation( $main_id, $local_id, &
 	$site_id = get_current_blog_id();
 
 	// get main site ID
-	$main_site_id = get_main_site_id();
+	$main_site_id = mstaxsync_get_main_site_id();
 
 	switch_to_blog( $main_site_id );
 
@@ -532,7 +532,7 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
 	$site_id = get_current_blog_id();
 
 	// get main site ID
-	$main_site_id = get_main_site_id();
+	$main_site_id = mstaxsync_get_main_site_id();
 
 	switch_to_blog( $main_site_id );
 
@@ -729,7 +729,7 @@ function mstaxsync_pre_delete_term( $term, $taxonomy ) {
 		if ( $main_taxonomy_term ) {
 
 			// get main site ID
-			$main_site_id = get_main_site_id();
+			$main_site_id = mstaxsync_get_main_site_id();
 
 			switch_to_blog( $main_site_id );
 
