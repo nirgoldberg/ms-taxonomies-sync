@@ -471,3 +471,50 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
 	}
 
 }
+
+/**
+ * mstaxsync_is_post_synced
+ *
+ * This function will check whether a post is synced in either direction.
+ * If term is synced, its ID will be returned
+ *
+ * @since		1.0.0
+ * @param		$post_id (int) post ID
+ * @param		$direction (boolean) true - synced in local site (default) / false - synced in main site
+ * @return		(mixed)
+ */
+function mstaxsync_is_post_synced( $post_id, $direction = true ) {
+
+	if ( $direction ) {
+
+		// is synced in local site
+		$main_id = get_post_meta( $post_id, 'main_post', true );
+
+		// return
+		return $main_id ?: false;
+
+	}
+	else {
+
+		// is synced in main site
+		$site_id = get_current_blog_id();
+
+		// get main site ID
+		$main_site_id = mstaxsync_get_main_site_id();
+
+		switch_to_blog( $main_site_id );
+
+		$synced_posts = get_post_meta( $post_id, 'synced_posts', true );
+
+		if ( ! $synced_posts ) {
+			$synced_posts = array();
+		}
+
+		restore_current_blog();
+
+		// return
+		return array_key_exists( $site_id, $synced_posts ) ? $synced_posts[ $site_id ] : false;
+
+	}
+
+}

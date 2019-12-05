@@ -442,7 +442,7 @@ function mstaxsync_detach_tt( &$result ) {
 
 		// log
 		mstaxsync_result_log( 'errors', array(
-			'code'			=> '1',
+			'code'			=> '11',
 			'description'	=> __( 'No taxonomy term to update', 'mstaxsync' ),
 		), $result );
 
@@ -499,7 +499,7 @@ function mstaxsync_detach_local_taxonomy_term_correlation( $main_id, $local_id, 
 
 		// log
 		mstaxsync_result_log( 'errors', array(
-			'code'			=> '2',
+			'code'			=> '12',
 			'description'	=> __( 'Failed to delete a taxonomy term correlation (local site term)', 'mstaxsync' ),
 		), $result );
 
@@ -567,7 +567,7 @@ function mstaxsync_detach_main_taxonomy_term_correlation( $main_id, $local_id, &
 
 		// log
 		mstaxsync_result_log( 'errors', array(
-			'code'			=> ! $res ? '3' : '4',
+			'code'			=> ! $res ? '13' : '14',
 			'description'	=> ! $res ? __( 'Failed to delete a taxonomy term correlation (main site term)', 'mstaxsync' ) : $res->get_error_message(),
 		), $result );
 
@@ -654,7 +654,7 @@ function mstaxsync_delete_tt( &$result ) {
 
 		// log
 		mstaxsync_result_log( 'errors', array(
-			'code'			=> '11',
+			'code'			=> '21',
 			'description'	=> __( 'No taxonomy term to delete', 'mstaxsync' ),
 		), $result );
 
@@ -670,7 +670,7 @@ function mstaxsync_delete_tt( &$result ) {
 
 		// log
 		mstaxsync_result_log( 'errors', array(
-			'code'			=> ! $res ? '12' : '13',
+			'code'			=> ! $res ? '22' : '23',
 			'description'	=> ! $res ? __( 'Failed to delete a taxonomy term', 'mstaxsync' ) : $res->get_error_message(),
 		), $result );
 

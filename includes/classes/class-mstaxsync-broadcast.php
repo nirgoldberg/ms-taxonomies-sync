@@ -121,7 +121,7 @@ class MSTaxSync_Broadcast {
 		if ( $post_terms ) {
 
 			// get synced sites
-			$synced_sites = $this->get_synced_sites( $post_terms );
+			$synced_sites = $this->get_synced_sites( $post->ID, $post_terms );
 
 			if ( $synced_sites ) {
 
@@ -204,15 +204,20 @@ class MSTaxSync_Broadcast {
 	* This function will return array of synced sites according to a single post category and taxonomy terms
 	*
 	* @since		1.0.0
+	* @param		$post_id (int)
 	* @param		$post_terms (array)
 	* @return		(array)
 	*/
-	private function get_synced_sites( $post_terms ) {
+	private function get_synced_sites( $post_id, $post_terms ) {
 
 		// vars
 		$synced_sites = array();
 
-		if ( is_array( $post_terms ) || ! empty( $post_terms ) ) {
+		if ( is_array( $post_terms ) && ! empty( $post_terms ) ) {
+
+			// get synced posts
+			$synced_posts = get_post_meta( $post_id, 'synced_posts', true );
+
 			foreach ( $post_terms as $term_id ) {
 
 				$synced_taxonomy_terms = get_term_meta( $term_id, 'synced_taxonomy_terms', true );
@@ -222,7 +227,13 @@ class MSTaxSync_Broadcast {
 
 						if ( ! array_key_exists( $site_id, $synced_sites ) ) {
 
-							$synced_sites[ $site_id ] = get_blog_details( array( 'blog_id' => $site_id ) );
+							$synced_sites[ $site_id ] = array();
+							$synced_sites[ $site_id ][ 'blog_details' ] = get_blog_details( array( 'blog_id' => $site_id ) );
+
+							// check if post is already synced
+							if ( is_array( $synced_posts ) && array_key_exists( $site_id, $synced_posts ) ) {
+								$synced_sites[ $site_id ][ 'post_id' ] = $synced_posts[ $site_id ];
+							}
 
 						}
 
@@ -230,6 +241,7 @@ class MSTaxSync_Broadcast {
 				}
 
 			}
+
 		}
 
 		// return
@@ -258,13 +270,40 @@ class MSTaxSync_Broadcast {
 
 		<ul class="synced-sites">
 
-			<?php foreach ( $synced_sites as $site_id => $details ) { ?>
+			<?php foreach ( $synced_sites as $site_id => $details ) {
 
-				<li id="site-<?php echo $site_id; ?>">
-					<label><input value="<?php echo $site_id; ?>" type="checkbox" name="mstaxsync_dest_sites[]" id="site-cb-<?php echo $site_id; ?>"><?php echo $details->blogname; ?></label>
-				</li>
+				if ( is_array( $details ) ) {
 
-			<?php } ?>
+					$blog_details	= $details[ 'blog_details' ];
+					$synced_post_id	= $details[ 'post_id' ];
+
+					if ( $synced_post_id ) {
+
+						$input_name		= 'mstaxsync_synced_sites[]';
+						$input_classes	= 'synced-post';
+						$input_data		= 'data-synced-post="' . $synced_post_id . '" checked disabled';
+
+					}
+					else {
+
+						$input_name		= 'mstaxsync_dest_sites[]';
+						$input_classes	= 'unsynced-post';
+						$input_data		= '';
+
+					}
+
+					?>
+
+					<li id="site-<?php echo $site_id; ?>">
+						<label>
+							<input value="<?php echo $site_id; ?>" type="checkbox" name="<?php echo $input_name; ?>" id="site-cb-<?php echo $site_id; ?>" class="<?php echo $input_classes; ?>" <?php echo $input_data; ?> />
+							<?php echo $blog_details->blogname . ( $synced_post_id ? ' <span>(Synced: ' . $synced_post_id . ')</span>' : '' ); ?>
+						</label>
+					</li>
+
+				<?php }
+
+			} ?>
 
 		</ul>
 
@@ -354,6 +393,9 @@ class MSTaxSync_Broadcast {
 
 		if ( ! $post )
 			return $post_data;
+
+		// get main post ID
+		$post_data[ 'ID' ] = $post->ID;
 
 		// get post attributes
 		$post_data[ 'args' ] = array(
@@ -473,6 +515,17 @@ class MSTaxSync_Broadcast {
 		if ( ! is_array( $post_data ) || empty( $post_data ) || ! is_array( $synced_terms ) || empty( $synced_terms ) || ! $site_id )
 			return false;
 
+		// check if already synced
+		// get synced posts
+		$synced_posts = get_post_meta( $post_data[ 'ID' ], 'synced_posts', true );
+
+		if ( is_array( $synced_posts ) && array_key_exists( $site_id, $synced_posts ) ) {
+
+			// post is already synced to this site ID
+			return false;
+
+		}
+
 		// vars
 		$post_id = 0;
 
@@ -552,6 +605,10 @@ class MSTaxSync_Broadcast {
 		if ( isset( $post_data[ 'thumbnail' ] ) && isset( $post_data[ 'thumbnail' ][ 'url' ] ) && is_array( $post_data[ 'thumbnail' ][ 'attachment_data' ] ) ) {
 			mstaxsync_set_post_attachment( $post_data[ 'thumbnail' ][ 'url' ], $post_id, $post_data[ 'thumbnail' ][ 'attachment_data' ] );
 		}
+
+		// update post correlation with main site
+		$result = array();
+		mstaxsync_update_post_correlation( $post_data[ 'ID' ], $post_id, $result );
 
 		// return
 		return $post_id;

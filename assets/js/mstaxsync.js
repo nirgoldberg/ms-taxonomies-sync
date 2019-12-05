@@ -1299,9 +1299,6 @@ var $ = jQuery,
 			if (!params.single_post_meta_box.length)
 				return;
 
-			// vars
-			cbs = params.single_post_meta_box.find('.synced-sites li');
-
 			// check all
 			params.single_post_meta_box.find('.check-all').click(function() {
 				broadcastOnClickCheckAllSites($(this));
@@ -1327,7 +1324,7 @@ var $ = jQuery,
 
 			// vars
 			var meta_box = el.closest(params.single_post_meta_box),
-				cbs = meta_box.find('.synced-sites input[type="checkbox"]');
+				cbs = meta_box.find('.synced-sites input.unsynced-post');
 
 			// check
 			cbs.prop('checked', true);
@@ -1347,7 +1344,7 @@ var $ = jQuery,
 
 			// vars
 			var meta_box = el.closest(params.single_post_meta_box),
-				cbs = meta_box.find('.synced-sites input[type="checkbox"]');
+				cbs = meta_box.find('.synced-sites input.unsynced-post');
 
 			// check
 			cbs.prop('checked', false);
