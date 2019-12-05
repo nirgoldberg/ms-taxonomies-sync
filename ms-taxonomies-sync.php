@@ -96,8 +96,9 @@ class MSTaxSync {
 		include_once( MSTaxSync_PATH . 'includes/api/api-helpers.php' );
 		include_once( MSTaxSync_PATH . 'includes/api/api-taxonomy-terms.php' );
 
-		// core
+		// classes
 		mstaxsync_include( 'includes/classes/class-mstaxsync-core.php' );
+		mstaxsync_include( 'includes/classes/class-mstaxsync-attachment.php' );
 		mstaxsync_include( 'includes/classes/class-mstaxsync-broadcast.php' );
 
 		// actions
