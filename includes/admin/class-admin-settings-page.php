@@ -14,13 +14,25 @@ if ( ! class_exists( 'MSTaxSync_Admin_Settings_Page' ) ) :
 class MSTaxSync_Admin_Settings_Page {
 
 	/**
-	 * vars
+	 * Instances array
 	 *
-	 * @var $_instances (array) instances array
-	 * @var $settings (array) settings array
+	 * @var (array)
 	 */
 	protected static $_instances = array();
+
+	/**
+	 * Settings array
+	 *
+	 * @var (array)
+	 */
 	protected $settings = array();
+
+	/**
+	 * Main site indicator
+	 *
+	 * @var (boolean)
+	 */
+	protected $is_main_site = false;
 
 	/**
 	 * __construct
@@ -32,6 +44,9 @@ class MSTaxSync_Admin_Settings_Page {
 	 * @return		N/A
 	 */
 	public function __construct() {
+
+		// main site indicator
+		$this->is_main_site = is_main_site();
 
 		// initialize
 		$this->initialize();
@@ -89,9 +104,11 @@ class MSTaxSync_Admin_Settings_Page {
 			 * tabs structure:
 			 *
 			 * '[tab slug]'	=> array(
+			 *		'target'	=> [main/local],
 			 * 		'title'		=> [tab title],
 			 * 		'sections'	=> array(
 			 * 			'[section slug]'	=> array(
+			 *				'target'		=> [main/local],
 			 * 				'title'			=> [section title],
 			 * 				'description'	=> [section description],
 			 * 			),
@@ -108,6 +125,7 @@ class MSTaxSync_Admin_Settings_Page {
 			 * sections structure:
 			 *
 			 * '[section slug]'	=> array(
+			 *		'target'		=> [main/local],
 			 * 		'title'			=> [section title],
 			 * 		'description'	=> [section description],
 			 * ),
@@ -120,6 +138,7 @@ class MSTaxSync_Admin_Settings_Page {
 			 * fields structure:
 			 *
 			 * array(
+			 *		'target'		=> [main/local],
 			 *		'uid'			=> [field slug],
 			 *		'label'			=> [field label],
 			 *		'label_for'		=> [field label_for],
@@ -212,6 +231,7 @@ class MSTaxSync_Admin_Settings_Page {
 			'tabs'			=> $this->settings[ 'tabs' ],
 			'active_tab'	=> $this->settings[ 'active_tab' ],
 			'sections'		=> $this->settings[ 'sections' ],
+			'is_main_site'	=> $this->is_main_site,
 
 		);
 
@@ -245,7 +265,8 @@ class MSTaxSync_Admin_Settings_Page {
 		if ( ! empty( $tabs ) ) {
 			// tabs
 			foreach ( $tabs as $tab_slug => $tab ) {
-				foreach ( $tab[ 'sections' ] as $section_slug => $section_title ) {
+
+				foreach ( $tab[ 'sections' ] as $section_slug => $section ) {
 
 					// vars
 					$options_group_id	= $menu_slug . '-' . $tab_slug;
@@ -255,8 +276,10 @@ class MSTaxSync_Admin_Settings_Page {
 					$this->setup_section( $section_id, $options_group_id );
 
 				}
+
 			}
-		} elseif ( ! empty( $sections ) ) {
+		}
+		elseif ( ! empty( $sections ) ) {
 			// no tabs, only sections
 			foreach ( $sections as $section_slug => $section ) {
 
@@ -314,6 +337,10 @@ class MSTaxSync_Admin_Settings_Page {
 		// setup fields
 		if ( ! empty( $fields ) ) {
 			foreach ( $fields as $field ) {
+
+				// verify field target
+				if ( isset( $field[ 'target' ] ) && ( ( $this->is_main_site && 'local' == $field[ 'target' ] ) || ( ! $this->is_main_site && 'main' == $field[ 'target' ] ) ) )
+					continue;
 
 				// vars
 				if ( ! empty( $tabs ) ) {

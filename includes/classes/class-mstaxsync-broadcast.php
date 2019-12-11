@@ -40,9 +40,15 @@ class MSTaxSync_Broadcast {
 	public function initialize() {
 
 		// actions
-		add_action( 'init',				array( $this, 'init' ), 99 );
-		add_action( 'add_meta_boxes',	array( $this, 'add_meta_boxes' ), 99 );
-		add_action( 'save_post_post',	array( $this, 'save_post' ), 10, 3 );
+		add_action( 'init',							array( $this, 'init' ), 99 );
+		add_action( 'add_meta_boxes',				array( $this, 'add_meta_boxes' ), 99 );
+		add_action( 'save_post_post',				array( $this, 'save_post' ), 10, 3 );
+		add_action( 'manage_posts_custom_column',	array( $this, 'broadcast_manage_custom_column' ), 10, 2);
+//		add_action( 'quick_edit_custom_box',		array( $this, 'broadcast_quick_edit_custom_box' ), 10, 2 );
+//		add_action( 'bulk_edit_custom_box',			array( $this, 'broadcast_quick_edit_custom_box' ), 10, 2 );
+
+		// filters
+		add_filter( 'manage_post_posts_columns',	array( $this, 'broadcast_manage_posts_columns' ) );
 
 	}
 
@@ -156,7 +162,7 @@ class MSTaxSync_Broadcast {
 	*
 	* @since		1.0.0
 	* @param		$post_id (int)
-	* @return		(mix) array of post term IDs, or false on failure
+	* @return		(mix) Array of post term IDs, or false on failure
 	*/
 	private function get_post_terms( $post_id ) {
 
@@ -228,7 +234,10 @@ class MSTaxSync_Broadcast {
 						if ( ! array_key_exists( $site_id, $synced_sites ) ) {
 
 							$synced_sites[ $site_id ] = array();
-							$synced_sites[ $site_id ][ 'blog_details' ] = get_blog_details( array( 'blog_id' => $site_id ) );
+
+							$site_details = get_blog_details( array( 'blog_id' => $site_id ) );
+
+							$synced_sites[ $site_id ][ 'site_name' ] = $site_details ? $site_details->blogname : '';
 
 							// check if post is already synced
 							if ( is_array( $synced_posts ) && array_key_exists( $site_id, $synced_posts ) ) {
@@ -239,6 +248,15 @@ class MSTaxSync_Broadcast {
 
 					}
 				}
+
+			}
+
+			if ( ! empty( $synced_sites ) ) {
+
+				// sort $synced_sites array by site name
+				uasort( $synced_sites, function( $a, $b ) {
+					return strtolower( $a[ 'site_name' ] ) <=> strtolower( $b[ 'site_name' ] );
+				});
 
 			}
 
@@ -270,12 +288,11 @@ class MSTaxSync_Broadcast {
 
 		<ul class="synced-sites">
 
-			<?php foreach ( $synced_sites as $site_id => $details ) {
+			<?php foreach ( $synced_sites as $site_id => $site ) {
 
-				if ( is_array( $details ) ) {
+				if ( is_array( $site ) ) {
 
-					$blog_details	= $details[ 'blog_details' ];
-					$synced_post_id	= $details[ 'post_id' ];
+					$synced_post_id	= isset( $site[ 'post_id' ] ) ? $site[ 'post_id' ] : '';
 
 					if ( $synced_post_id ) {
 
@@ -297,7 +314,7 @@ class MSTaxSync_Broadcast {
 					<li id="site-<?php echo $site_id; ?>">
 						<label>
 							<input value="<?php echo $site_id; ?>" type="checkbox" name="<?php echo $input_name; ?>" id="site-cb-<?php echo $site_id; ?>" class="<?php echo $input_classes; ?>" <?php echo $input_data; ?> />
-							<?php echo $blog_details->blogname . ( $synced_post_id ? ' <span>(Synced: ' . $synced_post_id . ')</span>' : '' ); ?>
+							<?php echo $site[ 'site_name' ] . ( $synced_post_id ? ' <span>(Synced: ' . $synced_post_id . ')</span>' : '' ); ?>
 						</label>
 					</li>
 
@@ -508,7 +525,7 @@ class MSTaxSync_Broadcast {
 	* @param		$post_data (array)
 	* @param		$synced_terms (array)
 	* @param		$site_id (int)
-	* @return		(mix) new created post ID, or 0 in case of not found synced terms, or false in case of error
+	* @return		(mix) New created post ID, or 0 in case of not found synced terms, or false in case of error
 	*/
 	private function broadcast( $post_data, $synced_terms, $site_id ) {
 
@@ -569,7 +586,7 @@ class MSTaxSync_Broadcast {
 	*
 	* @since		1.0.0
 	* @param		$post_data (array)
-	* @return		(mix) new created post ID, or false in case of error
+	* @return		(mix) New created post ID, or false in case of error
 	*/
 	private function insert_post( $post_data ) {
 
@@ -612,6 +629,150 @@ class MSTaxSync_Broadcast {
 
 		// return
 		return $post_id;
+
+	}
+
+	/**
+	* broadcast_manage_posts_columns
+	*
+	* This function will add broadcast custom columns
+	*
+	* @since		1.0.0
+	* @param		$post_columns (array)
+	* @return		(array)
+	*/
+	public function broadcast_manage_posts_columns( $post_columns ) {
+
+		// vars
+		$main_site		= is_main_site();
+		$display_column	= $main_site ? get_option( 'mstaxsync_display_synced_posts_column', array( 'can' ) ) : get_option( 'mstaxsync_display_main_post_column', array( 'can' ) );
+
+		if ( ! $display_column )
+			return $post_columns;
+
+		$custom_columns = array(
+			'mstaxsync_synced'	=> $main_site ? __( 'Synced Sites', 'mstaxsync' ) : __( 'Main Site Post', 'mstaxsync' ),
+		);
+
+		// return
+		return array_merge( $post_columns, $custom_columns );
+
+	}
+
+	/**
+	* broadcast_manage_custom_column
+	*
+	* This function will add broadcast custom columns content
+	*
+	* @since		1.0.0
+	* @param		$column_name (string)
+	* @param		$post_id (int)
+	* @return		N/A
+	*/
+	public function broadcast_manage_custom_column( $column_name, $post_id ) {
+
+		// vars
+		$main_site = is_main_site();
+
+		switch ( $column_name ) {
+
+			case 'mstaxsync_synced':
+				$content = $main_site ? $this->get_synced_sites_posts( $post_id ) : $this->get_main_site_post( $post_id );
+				break;
+
+		}
+
+		echo $content;
+
+	}
+
+	/**
+	* get_synced_sites_posts
+	*
+	* This function will return list of synced sites and post IDs for a main site post ID
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @return		(string)
+	*/
+	private function get_synced_sites_posts( $post_id ) {
+
+		// vars
+		$synced_posts	= get_post_meta( $post_id, 'synced_posts', true );
+		$sites			= array();
+		$output			= '';
+
+		if ( $synced_posts ) {
+
+			foreach ( $synced_posts as $site_id => $site_post_id ) {
+
+				if ( ! array_key_exists( $site_id, $sites ) ) {
+
+					$sites[ $site_id ] = array();
+
+					$site_details = get_blog_details( array( 'blog_id' => $site_id ) );
+
+					$sites[ $site_id ][ 'site_name' ]		= $site_details ? $site_details->blogname : '';
+					$sites[ $site_id ][ 'site_admin_url' ]	= get_admin_url( $site_id );
+					$sites[ $site_id ][ 'site_post_id' ]	= $site_post_id;
+
+				}
+
+			}
+
+			if ( ! empty( $sites ) ) {
+
+				// sort $sites array by site name
+				uasort( $sites, function( $a, $b ) {
+					return strtolower( $a[ 'site_name' ] ) <=> strtolower( $b[ 'site_name' ] );
+				});
+
+				$output .= '<ul>';
+
+				foreach ( $sites as $site_id => $site ) {
+					if ( $site[ 'site_name' ] && $site[ 'site_admin_url' ] && $site[ 'site_post_id' ] ) {
+						$output .= '<li><a href="' . $site[ 'site_admin_url' ] . '">' . $site[ 'site_name' ] . '</a>: ' . $site[ 'site_post_id' ] . '</li>';
+					}
+				}
+
+				$output .= '</ul>';
+
+			}
+
+		}
+		else {
+			$output .= '<span aria-hidden="true">—</span><span class="screen-reader-text">No Synced Sites Posts</span>';
+		}
+
+		// return
+		return $output;
+
+	}
+
+	/**
+	* get_main_site_post
+	*
+	* This function will return main site post ID for a local site post ID
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @return		(string)
+	*/
+	private function get_main_site_post( $post_id ) {
+
+		// vars
+		$main_post		= get_post_meta( $post_id, 'main_post', true );
+		$output			= '';
+
+		if ( $main_post ) {
+			$output .= $main_post;
+		}
+		else {
+			$output .= '<span aria-hidden="true">—</span><span class="screen-reader-text">No Synced Main Site Post</span>';
+		}
+
+		// return
+		return $output;
 
 	}
 

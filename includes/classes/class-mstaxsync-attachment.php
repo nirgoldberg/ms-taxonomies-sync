@@ -14,14 +14,14 @@ if ( ! class_exists( 'MSTaxSync_Attachment' ) ) :
 class MSTaxSync_Attachment {
 
 	/**
-	 * remote image URL
+	 * Remote image URL
 	 *
 	 * @var (string)
 	 */
 	private $url = '';
 
 	/**
-	 * remote attachment data in this format:
+	 * Remote attachment data in this format:
 	 *
 	 * array(
 	 * 		$title       = '',
@@ -35,14 +35,14 @@ class MSTaxSync_Attachment {
 	private $attachment_data = array();
 
 	/**
-	 * attachment ID, or false if none
+	 * Attachment ID, or false if none
 	 *
 	 * @var (mix)
 	 */
 	private $attachment_id = false;
 
 	/**
-	 * post ID to assign attachment to
+	 * Post ID to assign attachment to
 	 *
 	 * @var (int)
 	 */
@@ -52,9 +52,9 @@ class MSTaxSync_Attachment {
 	* __construct
 	*
 	* @since		1.0.0
-	* @param		$url (string) remote image URL
-	* @param		$post_id (int) post ID to assign attachment to
-	* @param		$attachment_data (array) data to be used for the attachment
+	* @param		$url (string) Remote image URL
+	* @param		$post_id (int) Post ID to assign attachment to
+	* @param		$attachment_data (array) Data to be used for the attachment
 	* @return		N/A
 	*/
 	public function __construct( $url, $post_id, $attachment_data = array() ) {
@@ -75,7 +75,7 @@ class MSTaxSync_Attachment {
 	*
 	* @since		1.0.0
 	* @param		N/A
-	* @return		(mix) attachment ID, or false on failure
+	* @return		(mix) Attachment ID, or false on failure
 	*/
 	public function set_post_attachment() {
 
@@ -111,7 +111,7 @@ class MSTaxSync_Attachment {
 	*
 	* @since		1.0.0
 	* @param		N/A
-	* @return		(mix) associative array of file attributes, or false on failure
+	* @return		(mix) Associative array of file attributes, or false on failure
 	*/
 	private function sideload() {
 
@@ -196,7 +196,7 @@ class MSTaxSync_Attachment {
 	*
 	* @since		1.0.0
 	* @param		$mime_type (string)
-	* @return		(string) file extension or empty string if not found
+	* @return		(string) File extension or empty string if not found
 	*/
 	private function get_extension_from_mime_type( $mime_type ) {
 
@@ -401,10 +401,10 @@ endif; // class_exists check
  * This function will download and associate an image as an attachment to a specified post ID
  *
  * @since		1.0.0
- * @param		$url (string) remote image URL
- * @param		$post_id (int) post ID to assign attachment to
- * @param		$attachment_data (array) data to be used for the attachment
- * @return		(int) attachment ID, or false on failure
+ * @param		$url (string) Remote image URL
+ * @param		$post_id (int) Post ID to assign attachment to
+ * @param		$attachment_data (array) Data to be used for the attachment
+ * @return		(int) Attachment ID, or false on failure
  */
 function mstaxsync_set_post_attachment( $url, $post_id, $attachment_data = array() ) {
 

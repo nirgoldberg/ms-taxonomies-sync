@@ -14,12 +14,17 @@ if ( ! class_exists( 'MSTaxSync_Admin_Page' ) ) :
 class MSTaxSync_Admin_Page {
 
 	/**
-	 * vars
+	 * Instances array
 	 *
-	 * @var $_instances (array) instances array
-	 * @var $settings (array) settings array
+	 * @var (array)
 	 */
 	protected static $_instances = array();
+
+	/**
+	 * Settings array
+	 *
+	 * @var (array)
+	 */
 	protected $settings = array();
 
 	/**

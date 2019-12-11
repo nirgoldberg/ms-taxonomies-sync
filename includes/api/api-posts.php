@@ -114,7 +114,7 @@ function mstaxsync_update_main_post_correlation( $main_id, $local_id, &$result )
  * mstaxsync_before_delete_post
  *
  * @since		1.0.0
- * @param		$post_id (int) post ID
+ * @param		$post_id (int) Post ID
  * @return		N/A
  */
 function mstaxsync_before_delete_post( $post_id ) {

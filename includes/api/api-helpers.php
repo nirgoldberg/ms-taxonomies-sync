@@ -73,7 +73,7 @@ function mstaxsync_update_setting( $name, $value ) {
  * This function will return the path to a file within the plugin folder
  *
  * @since		1.0.0
- * @param		$path (string) the relative path from the root of the plugin folder
+ * @param		$path (string) The relative path from the root of the plugin folder
  * @return		(string)
  */
 function mstaxsync_get_path( $path = '' ) {
@@ -89,7 +89,7 @@ function mstaxsync_get_path( $path = '' ) {
  * This function will return the url to a file within the plugin folder
  *
  * @since		1.0.0
- * @param		$path (string) the relative path from the root of the plugin folder
+ * @param		$path (string) The relative path from the root of the plugin folder
  * @return		(string)
  */
 function mstaxsync_get_url( $path = '' ) {
@@ -108,7 +108,7 @@ function mstaxsync_get_url( $path = '' ) {
  * This function will include a file
  *
  * @since		1.0.0
- * @param		$file (string) the file name to be included
+ * @param		$file (string) The file name to be included
  * @return		N/A
  */
 function mstaxsync_include( $file ) {
@@ -148,9 +148,9 @@ function mstaxsync_get_view( $view_name = '', $args = array() ) {
  * This function will return a variable if it exists in an array
  *
  * @since		1.0.0
- * @param		$array (array) the array to look within
- * @param		$key (key) the array key to look for
- * @param		$default (mixed) the value returned if not found
+ * @param		$array (array) The array to look within
+ * @param		$key (key) The array key to look for
+ * @param		$default (mixed) The value returned if not found
  * @return		(mixed)
  */
 function mstaxsync_maybe_get( $array = array(), $key = 0, $default = null ) {
@@ -288,7 +288,7 @@ function mstaxsync_get_main_site_id() {
  *
  * @since		1.0.0
  * @param		N/A
- * @return		(bool)
+ * @return		(boolean)
  */
 function mstaxsync_is_main_site_wpml_active() {
 
@@ -304,7 +304,7 @@ function mstaxsync_is_main_site_wpml_active() {
  *
  * @since		1.0.0
  * @param		N/A
- * @return		(bool)
+ * @return		(boolean)
  */
 function mstaxsync_is_local_site_wpml_active() {
 
@@ -321,7 +321,7 @@ function mstaxsync_is_local_site_wpml_active() {
  *
  * @since		1.0.0
  * @param		$term_id (int) Term ID
- * @param		$direction (boolean) true - synced in local site (default) / false - synced in main site
+ * @param		$direction (boolean) True - synced in local site (default) / false - synced in main site
  * @return		(mixed)
  */
 function mstaxsync_is_term_synced( $term_id, $direction = true ) {
@@ -367,9 +367,9 @@ function mstaxsync_is_term_synced( $term_id, $direction = true ) {
  * Child categories will be placed under a 'children' member of their parent term
  *
  * @since		1.0.0
- * @param		$terms (array) taxonomy term objects to sort
- * @param		$output (array) result array to put sorted terms in
- * @param		$parent_id (int) the current parent ID to put sorted terms in
+ * @param		$terms (array) Taxonomy term objects to sort
+ * @param		$output (array) Result array to put sorted terms in
+ * @param		$parent_id (int) The current parent ID to put sorted terms in
  * @return		N/A
  */
 function mstaxsync_sort_terms_hierarchically( &$terms = array(), &$output = array(), $parent_id = 0 ) {
@@ -400,9 +400,9 @@ function mstaxsync_sort_terms_hierarchically( &$terms = array(), &$output = arra
  * It will also check for synced terms and will mark them accordingly
  *
  * @since		1.0.0
- * @param		$terms (array) taxonomy term objects
- * @param		$li_class (string) taxonomy term li class
- * @param		$echo (boolean) whether to echo or return terms
+ * @param		$terms (array) Taxonomy term objects
+ * @param		$li_class (string) Taxonomy term li class
+ * @param		$echo (boolean) Whether to echo or return terms
  * @return		(string)
  */
 function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = null, $echo = true ) {
@@ -479,8 +479,8 @@ function mstaxsync_display_terms_hierarchically( $terms = array(), $li_class = n
  * If term is synced, its ID will be returned
  *
  * @since		1.0.0
- * @param		$post_id (int) post ID
- * @param		$direction (boolean) true - synced in local site (default) / false - synced in main site
+ * @param		$post_id (int) Post ID
+ * @param		$direction (boolean) True - synced in local site (default) / false - synced in main site
  * @return		(mixed)
  */
 function mstaxsync_is_post_synced( $post_id, $direction = true ) {

@@ -39,8 +39,16 @@ if ( 'options-general.php' != $parent_slug ) {
 		if ( ! empty( $tabs ) ) : ?>
 
 			<h2 class="nav-tab-wrapper">
-				<?php foreach ( $tabs as $tab_slug => $tab ) : ?>
+				<?php foreach ( $tabs as $tab_slug => $tab ) :
+
+					// verify section target
+					if ( isset( $tab[ 'target' ] ) && ( ( $is_main_site && 'local' == $tab[ 'target' ] ) || ( ! $is_main_site && 'main' == $tab[ 'target' ] ) ) )
+						continue;
+
+					?>
+
 					<a class="nav-tab<?php echo ( $active_tab == $tab_slug ) ? ' nav-tab-active' : ''; ?>" href="<?php echo admin_url( "admin.php?page={$menu_slug}&tab={$tab_slug}" ); ?>"><?php echo $tab[ 'title' ]; ?></a>
+
 				<?php endforeach; ?>
 			</h2>
 
@@ -56,6 +64,10 @@ if ( 'options-general.php' != $parent_slug ) {
 				// tabs
 				foreach ( $tabs[ $active_tab ][ 'sections' ] as $section_slug => $section ) {
 
+					// verify section target
+					if ( isset( $section[ 'target' ] ) && ( ( $is_main_site && 'local' == $section[ 'target' ] ) || ( ! $is_main_site && 'main' == $section[ 'target' ] ) ) )
+						continue;
+
 					// vars
 					$section_id = $active_tab . '-' . $section_slug;
 
@@ -70,6 +82,10 @@ if ( 'options-general.php' != $parent_slug ) {
 			} elseif ( ! empty( $sections ) ) {
 				// no tabs, only sections
 				foreach ( $sections as $section_slug => $section ) {
+
+					// verify section target
+					if ( isset( $section[ 'target' ] ) && ( ( $is_main_site && 'local' == $section[ 'target' ] ) || ( ! $is_main_site && 'main' == $section[ 'target' ] ) ) )
+						continue;
 
 					// vars
 					$section_id = $section_slug;

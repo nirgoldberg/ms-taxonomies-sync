@@ -25,6 +25,10 @@ if ( $sites ) {
 		'mstaxsync_sync_categories',
 		'mstaxsync_synced_taxonomies',
 		'mstaxsync_advanced_treeview',
+		'mstaxsync_display_synced_taxonomy_terms_column',
+		'mstaxsync_display_main_taxonomy_term_column',
+		'mstaxsync_display_synced_posts_column',
+		'mstaxsync_display_main_post_column',
 		'mstaxsync_edit_taxonomy_terms',
 		'mstaxsync_detach_taxonomy_terms',
 		'mstaxsync_delete_taxonomy_terms',
@@ -77,26 +81,6 @@ function mstaxsync_remove_data( $site_id, $options = array() ) {
  * @return		N/A
  */
 function mstaxsync_remove_options_data( $site_id, &$options = array() ) {
-
-	/* todo: add this block if language based options should be added
-
-	// globals
-	global $wpdb;
-
-	// get options table
-	$options_table = $wpdb->get_blog_prefix( $site_id ) . 'options';
-
-	// append language based options
-	$mstaxsync_language_based_options = $wpdb->get_results(
-		"SELECT option_name FROM $options_table
-		 WHERE option_name like 'mstaxsync_%'", ARRAY_N
-	);
-
-	foreach ( $mstaxsync_language_based_options as $option ) {
-		$options[] = $option[0];
-	}
-
-	*/
 
 	foreach ( $options as $option ) {
 		delete_blog_option( $site_id, $option );

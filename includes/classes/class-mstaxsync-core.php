@@ -14,23 +14,23 @@ if ( ! class_exists( 'MSTaxSync_Core' ) ) :
 class MSTaxSync_Core {
 
 	/**
-	 * main site ID
+	 * Main site ID
 	 *
 	 * @var (int)
 	 */
 	private $main_site_id = '';
 
 	/**
-	 * main site wpml active
+	 * Main site wpml active
 	 *
-	 * @var (bool)
+	 * @var (boolean)
 	 */
 	private $main_site_wpml_active = false;
 
 	/**
-	 * local site wpml active
+	 * Local site wpml active
 	 *
-	 * @var (bool)
+	 * @var (boolean)
 	 */
 	private $local_site_wpml_active = false;
 
@@ -287,7 +287,11 @@ class MSTaxSync_Core {
 	public function manage_edit_columns( $columns ) {
 
 		// vars
-		$main_site = is_main_site();
+		$main_site		= is_main_site();
+		$display_column	= $main_site ? get_option( 'mstaxsync_display_synced_taxonomy_terms_column', array( 'can' ) ) : get_option( 'mstaxsync_display_main_taxonomy_term_column', array( 'can' ) );
+
+		if ( ! $display_column )
+			return $columns;
 
 		$custom_columns = array(
 			'mstaxsync_synced'	=> $main_site ? __( 'Synced Sites', 'mstaxsync' ) : __( 'Main Site Term', 'mstaxsync' ),
@@ -340,12 +344,10 @@ class MSTaxSync_Core {
 
 		// vars
 		$synced_taxonomy_terms	= get_term_meta( $term_id, 'synced_taxonomy_terms', true );
-		$sites					= array();		// stores sites data in order to prevent duplicated calls for same data
+		$sites					= array();
 		$output					= '';
 
 		if ( $synced_taxonomy_terms ) {
-
-			$output .= '<ul>';
 
 			foreach ( $synced_taxonomy_terms as $site_id => $site_term_id ) {
 
@@ -353,7 +355,9 @@ class MSTaxSync_Core {
 
 					$sites[ $site_id ] = array();
 
-					$sites[ $site_id ][ 'site_details' ]	= get_blog_details( array( 'blog_id' => $site_id ) );
+					$site_details = get_blog_details( array( 'blog_id' => $site_id ) );
+
+					$sites[ $site_id ][ 'site_name' ]		= $site_details ? $site_details->blogname : '';
 					$sites[ $site_id ][ 'site_admin_url' ]	= get_admin_url( $site_id );
 
 				}
@@ -364,13 +368,30 @@ class MSTaxSync_Core {
 
 				restore_current_blog();
 
-				if ( $sites[ $site_id ][ 'site_details' ] && $sites[ $site_id ][ 'site_admin_url' ] && $term && ! is_wp_error( $term ) ) {
-					$output .= '<li><a href="' . $sites[ $site_id ][ 'site_admin_url' ] . '">' . $sites[ $site_id ][ 'site_details' ]->blogname . '</a>: ' . $term->name . '</li>';
+				if ( $term && ! is_wp_error( $term ) ) {
+					$sites[ $site_id ][ 'site_term' ] = $term;
 				}
 
 			}
 
-			$output .= '</ul>';
+			if ( ! empty( $sites ) ) {
+
+				// sort $sites array by site name
+				uasort( $sites, function( $a, $b ) {
+					return strtolower( $a[ 'site_name' ] ) <=> strtolower( $b[ 'site_name' ] );
+				});
+
+				$output .= '<ul>';
+
+				foreach ( $sites as $site_id => $site ) {
+					if ( $site[ 'site_name' ] && $site[ 'site_admin_url' ] && $site[ 'site_term' ] ) {
+						$output .= '<li><a href="' . $site[ 'site_admin_url' ] . '">' . $site[ 'site_name' ] . '</a>: ' . $site[ 'site_term' ]->name . '</li>';
+					}
+				}
+
+				$output .= '</ul>';
+
+			}
 
 		}
 		else {
@@ -516,7 +537,7 @@ class MSTaxSync_Core {
 	*
 	* @since		1.0.0
 	* @param		$site_id (int)
-	* @return		(bool)
+	* @return		(boolean)
 	*/
 	private function is_wpml_active( $site_id = false ) {
 
@@ -645,7 +666,7 @@ class MSTaxSync_Core {
 	*
 	* @since		1.0.0
 	* @param		N/A
-	* @return		(bool)
+	* @return		(boolean)
 	*/
 	public function is_main_site_wpml_active() {
 
@@ -661,7 +682,7 @@ class MSTaxSync_Core {
 	*
 	* @since		1.0.0
 	* @param		N/A
-	* @return		(bool)
+	* @return		(boolean)
 	*/
 	public function is_local_site_wpml_active() {
 

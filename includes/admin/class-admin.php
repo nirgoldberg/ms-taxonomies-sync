@@ -14,9 +14,9 @@ if ( ! class_exists( 'MSTaxSync_Admin' ) ) :
 class MSTaxSync_Admin {
 
 	/**
-	 * vars
+	 * Settings array
 	 *
-	 * @var $settings (array) settings array
+	 * @var (array)
 	 */
 	private $settings = array();
 

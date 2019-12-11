@@ -18,12 +18,17 @@ if ( ! class_exists( 'MSTaxSync' ) ) :
 class MSTaxSync {
 
 	/**
-	 * vars
+	 * Plugin version
 	 *
-	 * @var $version (string) plugin version number
-	 * @var required_plugins (array) required plugins must be active for MSTaxSync
+	 * @var (string)
 	 */
 	private $version;
+
+	/**
+	 * Required plugins must be active for MSTaxSync
+	 *
+	 * @var (array)
+	 */
 	private $required_plugins;
 
 	/**
