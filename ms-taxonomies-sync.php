@@ -97,10 +97,13 @@ class MSTaxSync {
 		$this->define( 'MSTaxSync_VERSION',	$this->version );
 		$this->define( 'MSTaxSync_PATH',	$path );
 
-		// api
+		// helpers
 		include_once( MSTaxSync_PATH . 'includes/api/api-helpers.php' );
-		include_once( MSTaxSync_PATH . 'includes/api/api-taxonomy-terms.php' );
-		include_once( MSTaxSync_PATH . 'includes/api/api-posts.php' );
+
+		// api
+		mstaxsync_include( 'includes/api/api-taxonomy-terms.php' );
+		mstaxsync_include( 'includes/api/api-posts.php' );
+		mstaxsync_include( 'includes/api/api-broadcast.php' );
 
 		// classes
 		mstaxsync_include( 'includes/classes/class-mstaxsync-core.php' );

@@ -44,8 +44,9 @@ class MSTaxSync_Broadcast {
 		add_action( 'add_meta_boxes',				array( $this, 'add_meta_boxes' ), 99 );
 		add_action( 'save_post_post',				array( $this, 'save_post' ), 10, 3 );
 		add_action( 'manage_posts_custom_column',	array( $this, 'broadcast_manage_custom_column' ), 10, 2);
-//		add_action( 'quick_edit_custom_box',		array( $this, 'broadcast_quick_edit_custom_box' ), 10, 2 );
-//		add_action( 'bulk_edit_custom_box',			array( $this, 'broadcast_quick_edit_custom_box' ), 10, 2 );
+		add_action( 'quick_edit_custom_box',		array( $this, 'broadcast_quick_edit_custom_box' ), 10, 2 );
+		add_action( 'bulk_edit_custom_box',			array( $this, 'broadcast_quick_edit_custom_box' ), 10, 2 );
+		add_action( 'save_post_post',				array( $this, 'broadcast_quick_edit_save_post' ), 10, 3 );
 
 		// filters
 		add_filter( 'manage_post_posts_columns',	array( $this, 'broadcast_manage_posts_columns' ) );
@@ -367,7 +368,7 @@ class MSTaxSync_Broadcast {
 	* @param		$sites (array)
 	* @return		N/A
 	*/
-	private function broadcast_single_post( $post, $sites ) {
+	public function broadcast_single_post( $post, $sites ) {
 
 		if ( ! $post || 'post' != get_post_type( $post ) || ! is_array( $sites ) || empty( $sites ) )
 			return;
@@ -731,7 +732,7 @@ class MSTaxSync_Broadcast {
 
 				foreach ( $sites as $site_id => $site ) {
 					if ( $site[ 'site_name' ] && $site[ 'site_admin_url' ] && $site[ 'site_post_id' ] ) {
-						$output .= '<li><a href="' . $site[ 'site_admin_url' ] . '">' . $site[ 'site_name' ] . '</a>: ' . $site[ 'site_post_id' ] . '</li>';
+						$output .= '<li id="site-' . $site_id . '"><a href="' . $site[ 'site_admin_url' ] . '">' . $site[ 'site_name' ] . '</a>: ' . $site[ 'site_post_id' ] . '</li>';
 					}
 				}
 
@@ -761,8 +762,8 @@ class MSTaxSync_Broadcast {
 	private function get_main_site_post( $post_id ) {
 
 		// vars
-		$main_post		= get_post_meta( $post_id, 'main_post', true );
-		$output			= '';
+		$main_post	= get_post_meta( $post_id, 'main_post', true );
+		$output		= '';
 
 		if ( $main_post ) {
 			$output .= $main_post;
@@ -773,6 +774,117 @@ class MSTaxSync_Broadcast {
 
 		// return
 		return $output;
+
+	}
+
+	/**
+	* broadcast_quick_edit_custom_box
+	*
+	* This function will add broadcast custom columns to Quick Edit
+	*
+	* @since		1.0.0
+	* @param		$column_name (string)
+	* @param		$post_type (string)
+	* @return		N/A
+	*/
+	public function broadcast_quick_edit_custom_box( $column_name, $post_type ) {
+
+		if ( 'post' != $post_type || ! is_main_site() )
+			return;
+
+		switch ( $column_name ) {
+
+			case 'mstaxsync_synced':
+				$this->display_sites_inputs();
+				break;
+
+		}
+
+	}
+
+	/**
+	* display_sites_inputs
+	*
+	* This function will display checkbox input for each local site
+	*
+	* @since		1.0.0
+	* @param		N/A
+	* @return		N/A
+	*/
+	private function display_sites_inputs() {
+
+		// get sites
+		$sites = get_sites( array(
+			'site__not_in'	=> mstaxsync_get_main_site_id(),
+			'fields'		=> 'ids',
+		) );
+
+		if ( ! $sites )
+			return;
+
+		?>
+
+		<fieldset class="inline-edit-col-right inline-edit-mstaxsync-broadcast">
+			<div class="inline-edit-col">
+
+				<span class="title inline-edit-categories-label"><?php _e( 'Broadcast', 'mstaxsync' ); ?></span>
+				<input type="hidden" name="mstaxsync_dest_sites[]" value="0">
+
+				<?php wp_nonce_field( 'mstaxsync_quick_edit_post_broadcast', 'mstaxsync_quick_edit_post_broadcast' ); ?>
+
+				<ul class="cat-checklist mstaxsync-broadcast-checklist">
+
+					<?php foreach ( $sites as $site_id ) {
+
+						$site_details	= get_blog_details( array( 'blog_id' => $site_id ) );
+						$site_name		= $site_details ? $site_details->blogname : '';
+
+						?>
+
+						<li id="site-<?php echo $site_id; ?>">
+							<label class="selectit">
+								<input value="<?php echo $site_id; ?>" type="checkbox" name="mstaxsync_dest_sites[]" id="site-cb-<?php echo $site_id; ?>" />
+								<?php echo $site_name; ?>
+							</label>
+						</li>
+
+					<?php } ?>
+
+				</ul>
+
+			</div>
+		</fieldset>
+
+		<?php
+
+	}
+
+	/**
+	* broadcast_quick_edit_save_post
+	*
+	* This function will initialize a quick edit broadcast as part of save_post_post action
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @param		$post (object)
+	* @param		$update (boolean)
+	* @return		N/A
+	*/
+	public function broadcast_quick_edit_save_post( $post_id, $post, $update ) {
+
+		if ( ! is_main_site() || ! $update || wp_is_post_revision( $post_id ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || in_array( $post->post_status, array( 'trash', 'auto-draft' ) ) )
+			return;
+
+		// verify nonce
+		if ( ! isset( $_POST[ 'mstaxsync_quick_edit_post_broadcast' ] ) || ! wp_verify_nonce( $_POST[ 'mstaxsync_quick_edit_post_broadcast' ], 'mstaxsync_quick_edit_post_broadcast' ) )
+			return;
+
+		if ( isset( $_POST[ 'mstaxsync_dest_sites' ] ) && $_POST[ 'mstaxsync_dest_sites' ] ) {
+
+			// broadcast single post
+			$this->broadcast_single_post( $post, $_POST[ 'mstaxsync_dest_sites' ] );
+
+		}
 
 	}
 

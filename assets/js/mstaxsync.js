@@ -1283,6 +1283,12 @@ var $ = jQuery,
 			// single post broadcast
 			broadcastSinglePost();
 
+			// quick edit
+			broadcastQuickEdit();
+
+			// bulk edit
+			broadcastBulkEdit();
+
 		};
 
 		/**
@@ -1348,6 +1354,145 @@ var $ = jQuery,
 
 			// check
 			cbs.prop('checked', false);
+
+		};
+
+		/**
+		 * broadcastQuickEdit
+		 *
+		 * Quick edit broadcast operations
+		 *
+		 * @since		1.0.0
+		 * @param		N/A
+		 * @return		N/A
+		 */
+		var broadcastQuickEdit = function() {
+
+			// copy of the inline edit function
+			var wpInlineEditFunction = inlineEditPost.edit;
+
+			// overwrite inline edit function
+			inlineEditPost.edit = function(post_id) {
+
+				// merge arguments of the original function
+				wpInlineEditFunction.apply(this, arguments);
+
+				// get post ID from the argument
+				var id = 0;
+
+				if (typeof(post_id) == 'object') {
+					id = parseInt(this.getId(post_id));
+				}
+
+				if (id > 0) {
+
+					// populate input fields
+					QuickEditPopulateInputs(id);
+
+				}
+			}
+
+		};
+
+		/**
+		 * QuickEditPopulateInputs
+		 *
+		 * Quick edit populate input fields
+		 *
+		 * @since		1.0.0
+		 * @param		id (int)
+		 * @return		N/A
+		 */
+		var QuickEditPopulateInputs = function(id) {
+
+			// vars
+			var postEditRow = $('#edit-' + id),
+				postRow = $('#post-' + id),
+				syncedSites = postRow.find('.column-mstaxsync_synced li'),
+				destSites = postEditRow.find('.mstaxsync-broadcast-checklist li'),
+				syncedSitesArr = [];
+
+			if (syncedSites.length && destSites.length) {
+				// build synced sites array
+				syncedSites.each(function() {
+					syncedSitesArr.push($(this).attr('id'));
+				});
+
+				// populate input fields with column data
+				destSites.each(function() {
+					var site = $(this).attr('id'),
+						checked = false,
+						disabled = false;
+
+					// check if dest site exists in synced sites array
+					if ($.inArray(site, syncedSitesArr) > -1) {
+						checked = true;
+						disabled = true;
+					}
+
+					// populate input field
+					$(this).find('input').prop({'checked': checked, 'disabled': disabled});
+				});
+			}
+
+		};
+
+		/**
+		 * broadcastBulkEdit
+		 *
+		 * Bulk edit broadcast operations
+		 *
+		 * @since		1.0.0
+		 * @param		N/A
+		 * @return		N/A
+		 */
+		var broadcastBulkEdit = function() {
+
+			$('body').on('click', 'input[name="bulk_edit"]', function() {
+
+				// add the WordPress default spinner just before the button
+				$(this).after('<span class="spinner is-active"></span>');
+
+				// bulk edit table row
+				var nonce = $('#mstaxsync_quick_edit_post_broadcast').val(),
+					bulkEditRow = $('tr#bulk-edit'),
+					post_ids = [],
+					destSites = bulkEditRow.find('.mstaxsync-broadcast-checklist li'),
+					destSitesArr = [];
+
+				// obtain the post IDs selected for bulk edit
+				bulkEditRow.find('#bulk-titles').children().each(function() {
+					post_ids.push($(this).attr('id').replace(/^(ttle)/i,''));
+				});
+
+				if (!post_ids.length)
+					return;
+
+				// build dest sites array
+				destSites.each(function() {
+					// is checked
+					checked = $(this).find('input').attr('checked');
+
+					if (checked) {
+						id = $(this).attr('id').replace(/^(site-)/i,'');
+						destSitesArr.push(id);
+					}
+				});
+
+				// save data
+				$.ajax({
+					type: 'post',
+					url: _mstaxsync.ajaxurl,
+					async: false,
+					cache: false,
+					data: {
+						action: 'bulk_broadcast',
+						nonce: nonce,
+						post_ids: post_ids,
+						dest_sites: destSitesArr,
+					},
+				});
+			});
 
 		};
 
