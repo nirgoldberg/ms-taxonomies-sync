@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-12-11 12:14+0200\n"
-"PO-Revision-Date: 2019-12-11 12:23+0200\n"
+"POT-Creation-Date: 2020-01-02 08:26+0200\n"
+"PO-Revision-Date: 2020-01-02 08:27+0200\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -72,38 +72,42 @@ msgid "User Interface Settings"
 msgstr "הגדרות ממשק משתמש"
 
 #: includes/admin/class-admin-settings.php:67
-msgid "Capabilities"
-msgstr "אפשרויות עריכה"
+msgid "Permissions"
+msgstr "הרשאות"
 
 #: includes/admin/class-admin-settings.php:71
 msgid "Edit Settings"
 msgstr "הגדרות עריכה"
 
-#: includes/admin/class-admin-settings.php:77
+#: includes/admin/class-admin-settings.php:76
+msgid "Posts Broadcast/Import Settings"
+msgstr "הגדרות שידור/יבוא פוסטים"
+
+#: includes/admin/class-admin-settings.php:82
 msgid "Uninstall"
 msgstr "הסרת תוסף"
 
-#: includes/admin/class-admin-settings.php:80
+#: includes/admin/class-admin-settings.php:85
 msgid "Uninstall Settings"
 msgstr "הגדרות הסרת תוסף"
 
-#: includes/admin/class-admin-settings.php:96
+#: includes/admin/class-admin-settings.php:101
 msgid "Sync categories?"
 msgstr "לסנכרן קטגוריות?"
 
-#: includes/admin/class-admin-settings.php:105
+#: includes/admin/class-admin-settings.php:110
 msgid "(Default: sync categories)"
 msgstr "(ברירת מחדל: לסנכרן קטגוריות)"
 
-#: includes/admin/class-admin-settings.php:110
+#: includes/admin/class-admin-settings.php:115
 msgid "Taxonomies to sync"
 msgstr "טקסונומיות לסנכרון"
 
-#: includes/admin/class-admin-settings.php:120
+#: includes/admin/class-admin-settings.php:125
 msgid "Advanced tree view"
 msgstr "תצוגת עץ משופרת"
 
-#: includes/admin/class-admin-settings.php:129
+#: includes/admin/class-admin-settings.php:134
 msgid ""
 "Check this option to allow advanced tree view enabling multiselect taxonomy "
 "terms to sync"
@@ -111,20 +115,21 @@ msgstr ""
 "סימון אפשרות זו יאפשר תצוגה משופרת של עץ ערכי טקסונומיה המאפשר בחירה מרובה "
 "של ערכים לסנכרון"
 
-#: includes/admin/class-admin-settings.php:130
-#: includes/admin/class-admin-settings.php:145
-#: includes/admin/class-admin-settings.php:160
-#: includes/admin/class-admin-settings.php:175
-#: includes/admin/class-admin-settings.php:190
-#: includes/admin/class-admin-settings.php:205
+#: includes/admin/class-admin-settings.php:135
+#: includes/admin/class-admin-settings.php:150
+#: includes/admin/class-admin-settings.php:165
+#: includes/admin/class-admin-settings.php:180
+#: includes/admin/class-admin-settings.php:195
+#: includes/admin/class-admin-settings.php:210
+#: includes/admin/class-admin-settings.php:253
 msgid "(Default: true)"
 msgstr "(ברירת מחדל: כן)"
 
-#: includes/admin/class-admin-settings.php:135
+#: includes/admin/class-admin-settings.php:140
 msgid "Display taxonomy terms 'Synced Sites' column"
 msgstr "תצוגת עמודת 'אתרים מסונכרנים' עבור ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:144
+#: includes/admin/class-admin-settings.php:149
 msgid ""
 "Check this option to display taxonomy terms 'Synced Sites' column (taxonomy "
 "screen)"
@@ -132,11 +137,11 @@ msgstr ""
 "סימון אפשרות זו יאפשר הצגת עמודת 'אתרים מסונכרנים' עבור ערכי טקסונומיה (מסך "
 "טקסונומיה)"
 
-#: includes/admin/class-admin-settings.php:150
+#: includes/admin/class-admin-settings.php:155
 msgid "Display taxonomy terms 'Main Site Term' column"
 msgstr "תצוגת עמודת 'ערך האתר הראשי' עבור ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:159
+#: includes/admin/class-admin-settings.php:164
 msgid ""
 "Check this option to display taxonomy terms 'Main Site Term' column "
 "(taxonomy screen)"
@@ -144,40 +149,40 @@ msgstr ""
 "סימון אפשרות זו יאפשר הצגת עמודת 'ערך האתר הראשי' עבור ערכי טקסונומיה (מסך "
 "טקסונומיה)"
 
-#: includes/admin/class-admin-settings.php:165
+#: includes/admin/class-admin-settings.php:170
 msgid "Display posts 'Synced Sites' column"
 msgstr "תצוגת עמודת 'אתרים מסונכרנים' עבור פוסטים"
 
-#: includes/admin/class-admin-settings.php:174
+#: includes/admin/class-admin-settings.php:179
 msgid "Check this option to display posts 'Synced Sites' column (posts screen)"
 msgstr ""
 "סימון אפשרות זו יאפשר הצגת עמודת 'אתרים מסונכרנים' עבור פוסטים (מסך פוסטים)"
 
-#: includes/admin/class-admin-settings.php:180
+#: includes/admin/class-admin-settings.php:185
 msgid "Display posts 'Main Site Post' column"
 msgstr "תצוגת עמודת 'פוסט האתר הראשי' עבור פוסטים"
 
-#: includes/admin/class-admin-settings.php:189
+#: includes/admin/class-admin-settings.php:194
 msgid ""
 "Check this option to display posts 'Main Site Post' column (posts screen)"
 msgstr ""
 "סימון אפשרות זו יאפשר הצגת עמודת 'פוסט האתר הראשי' עבור פוסטים (מסך פוסטים)"
 
-#: includes/admin/class-admin-settings.php:195
+#: includes/admin/class-admin-settings.php:200
 msgid "Edit taxonomy term names"
 msgstr "עריכת שמות ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:204
+#: includes/admin/class-admin-settings.php:209
 msgid ""
 "Check this option to allow editing taxonomy term names directly from this "
 "plugin"
 msgstr "סימון אפשרות זו יאפשר עריכת שמות ערכי טקסונומיה ישירות מתוך תוסף זה"
 
-#: includes/admin/class-admin-settings.php:210
+#: includes/admin/class-admin-settings.php:215
 msgid "Detach taxonomy terms"
 msgstr "ניתוק סנכרון ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:218
+#: includes/admin/class-admin-settings.php:223
 msgid ""
 "Check this option to allow detaching of already synced taxonomy terms.<br /"
 ">Detaching a taxonomy term will not remove or modify posts associated with "
@@ -186,17 +191,17 @@ msgstr ""
 "סימון אפשרות זו יאפשר ניתוק סנכרון ערכי טקסונומיה.<br />ניתוק ערך טקסונומיה "
 "לא יגרור הסרה או שינוי של פוסטים המשויכים לערך זה"
 
-#: includes/admin/class-admin-settings.php:219
-#: includes/admin/class-admin-settings.php:233
-#: includes/admin/class-admin-settings.php:246
+#: includes/admin/class-admin-settings.php:224
+#: includes/admin/class-admin-settings.php:238
+#: includes/admin/class-admin-settings.php:266
 msgid "(Default: false)"
 msgstr "(ברירת מחדל: לא)"
 
-#: includes/admin/class-admin-settings.php:224
+#: includes/admin/class-admin-settings.php:229
 msgid "Delete taxonomy terms"
 msgstr "מחיקת ערכי טקסונומיה"
 
-#: includes/admin/class-admin-settings.php:232
+#: includes/admin/class-admin-settings.php:237
 msgid ""
 "Check this option to allow deleting of taxonomy terms.<br />Deleting a "
 "synced taxonomy term will first detach it.<br />Deleting a taxonomy term "
@@ -206,11 +211,21 @@ msgstr ""
 "אותו תחילה מסנכרון.<br />מחיקת ערך טקסונומיה לא תגרור הסרה או שינוי של "
 "פוסטים המשויכים לערך זה"
 
-#: includes/admin/class-admin-settings.php:237
+#: includes/admin/class-admin-settings.php:243
+msgid "Import taxonomy terms posts"
+msgstr "יבוא פוסטים המשוייכים לערכי טקסונומיה"
+
+#: includes/admin/class-admin-settings.php:252
+msgid ""
+"Check this option to allow importing of taxonomy terms posts from main site"
+msgstr ""
+"סימון אפשרות זו יאפשר יבוא פוסטים המשוייכים לערכי טקסונומיה מתוך האתר הראשי"
+
+#: includes/admin/class-admin-settings.php:257
 msgid "Remove data on uninstall"
 msgstr "מחיקת כלל נתוני התוסף עם הסרתו"
 
-#: includes/admin/class-admin-settings.php:245
+#: includes/admin/class-admin-settings.php:265
 msgid "Caution: all data will be removed without any option to restore"
 msgstr "אזהרה: כל המידע יימחק ללא אפשרות שחזור"
 
@@ -272,12 +287,12 @@ msgid "Sort and edit terms"
 msgstr "מיון ועריכת ערכים"
 
 #: includes/admin/views/taxonomy-terms.php:89 includes/api/api-helpers.php:423
-#: includes/classes/class-mstaxsync-broadcast.php:275
+#: includes/classes/class-mstaxsync-broadcast.php:288
 msgid "Select All"
 msgstr "בחר הכל"
 
 #: includes/admin/views/taxonomy-terms.php:89 includes/api/api-helpers.php:423
-#: includes/classes/class-mstaxsync-broadcast.php:275
+#: includes/classes/class-mstaxsync-broadcast.php:288
 msgid "Remove All"
 msgstr "הסר הכל"
 
@@ -321,20 +336,21 @@ msgstr "לא קיים ערך טקסונומיה למחיקה"
 msgid "Failed to delete a taxonomy term"
 msgstr "כשלון בעת ניסיון למחוק ערך טקסונומיה"
 
-#: includes/classes/class-mstaxsync-broadcast.php:93
+#: includes/classes/class-mstaxsync-broadcast.php:94
+#: includes/classes/class-mstaxsync-broadcast.php:830
 msgid "Broadcast"
 msgstr "שידור"
 
-#: includes/classes/class-mstaxsync-broadcast.php:142
-#: includes/classes/class-mstaxsync-broadcast.php:151
+#: includes/classes/class-mstaxsync-broadcast.php:143
+#: includes/classes/class-mstaxsync-broadcast.php:152
 msgid "Post is not available for broadcasting."
 msgstr "לא ניתן לשדר פוסט."
 
-#: includes/classes/class-mstaxsync-broadcast.php:143
+#: includes/classes/class-mstaxsync-broadcast.php:144
 msgid "Make sure post's category and taxonomy terms are synced to local sites."
 msgstr "וודא שערכי הקטגוריה והטקסונומיה של הפוסט מסונכרנים עם אתרים מקומיים."
 
-#: includes/classes/class-mstaxsync-broadcast.php:152
+#: includes/classes/class-mstaxsync-broadcast.php:153
 msgid ""
 "Make sure post is assigned to category and/or taxonomy terms.<br />If this "
 "is a new post, you have to publish it before broadcast."
@@ -342,16 +358,16 @@ msgstr ""
 "וודא שהפוסט משוייך לערכי קטגוריה ו/או טקסונומיה.<br />במידה וזהו פוסט חדש, "
 "יש לפרסם אותו לפני ביצוע שידור."
 
-#: includes/classes/class-mstaxsync-broadcast.php:274
+#: includes/classes/class-mstaxsync-broadcast.php:287
 msgid "Broadcast to:"
 msgstr "שידור אל:"
 
-#: includes/classes/class-mstaxsync-broadcast.php:643
+#: includes/classes/class-mstaxsync-broadcast.php:655
 #: includes/classes/class-mstaxsync-core.php:297
 msgid "Synced Sites"
 msgstr "אתרים מסונכרנים"
 
-#: includes/classes/class-mstaxsync-broadcast.php:643
+#: includes/classes/class-mstaxsync-broadcast.php:655
 msgid "Main Site Post"
 msgstr "פוסט האתר הראשי"
 
@@ -359,59 +375,90 @@ msgstr "פוסט האתר הראשי"
 msgid "Main Site Term"
 msgstr "ערך האתר הראשי"
 
-#: ms-taxonomies-sync.php:264
+#: includes/classes/class-mstaxsync-import.php:139
+msgid "Posts Import"
+msgstr "יבוא פוסטים"
+
+#: includes/classes/class-mstaxsync-import.php:203
+#, php-format
+msgid "Import %s posts"
+msgstr "יבוא %s פוסטים"
+
+#: includes/classes/class-mstaxsync-import.php:203
+msgid "Import one post"
+msgstr "יבוא פוסט אחד"
+
+#: includes/classes/class-mstaxsync-import.php:208
+msgid "No posts to import"
+msgstr "לא נמצאו פוסטים ליבוא"
+
+#: ms-taxonomies-sync.php:269
 msgid "New item"
 msgstr "ערך חדש"
 
-#: ms-taxonomies-sync.php:265
+#: ms-taxonomies-sync.php:270
 msgid "Changed"
 msgstr "השתנה"
 
-#: ms-taxonomies-sync.php:266
+#: ms-taxonomies-sync.php:271
 msgid "All terms were updated successfully."
 msgstr "כל הערכים עודכנו בהצלחה."
 
-#: ms-taxonomies-sync.php:267
+#: ms-taxonomies-sync.php:272
 msgid "new terms were synced."
 msgstr "ערכים חדשים סונכרנו."
 
-#: ms-taxonomies-sync.php:268
+#: ms-taxonomies-sync.php:273
 msgid "terms were updated."
 msgstr "ערכים עודכנו."
 
-#: ms-taxonomies-sync.php:269
+#: ms-taxonomies-sync.php:274
 msgid "The following errors were found:"
 msgstr "נמצאו השגיאות הבאות:"
 
-#: ms-taxonomies-sync.php:270
+#: ms-taxonomies-sync.php:275
 msgid "Error"
 msgstr "שגיאה"
 
-#: ms-taxonomies-sync.php:271
+#: ms-taxonomies-sync.php:276
 msgid "Internal server error"
 msgstr "שגיאת שרת כללית"
 
-#: ms-taxonomies-sync.php:272
+#: ms-taxonomies-sync.php:277
 msgid "You are about to permanently detach this taxonomy term."
 msgstr "הנכם עומדים לנתק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:272 ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:277 ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
 msgid "This action cannot be undone."
 msgstr "פעולה זו אינה ניתנת לביטול."
 
-#: ms-taxonomies-sync.php:272
+#: ms-taxonomies-sync.php:277
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr "לחצו 'Cancel' לביטול, 'OK' לניתוק."
 
-#: ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:278
 msgid "You are about to permanently delete this taxonomy term."
 msgstr "הנכם עומדים למחוק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:278
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr "לחצו 'Cancel' לביטול, 'OK' למחיקה."
 
-#: ms-taxonomies-sync.php:531
+#: ms-taxonomies-sync.php:279
+#, php-format
+msgid "You are about to import %s posts."
+msgstr "הנכם עומדים לייבא %s פוסטים."
+
+#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
+msgid "'Cancel' to stop, 'OK' to import."
+msgstr "לחצו 'Cancel' לביטול, 'OK' ליבוא."
+
+#: ms-taxonomies-sync.php:280
+msgid "You are about to import one post."
+msgstr "הנכם עומדים לייבא פוסט אחד."
+
+#: ms-taxonomies-sync.php:538
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
@@ -419,7 +466,7 @@ msgid ""
 msgstr ""
 "הפעלת התוסף <strong>%s</strong> נכשלה.<br />נדרשת התקנת מערכת Multisite."
 
-#: ms-taxonomies-sync.php:550
+#: ms-taxonomies-sync.php:557
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

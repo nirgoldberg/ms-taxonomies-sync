@@ -443,6 +443,37 @@
 			margin: 0;
 		}
 	}
+
+	td.mstaxsync_import {
+		.mstaxsync-import {
+			color: #0073aa;
+			cursor: pointer;
+
+			&:hover {
+				color: #00a0d2;
+			}
+
+			&.active {
+				& + .ajax-loading {
+					visibility: visible;
+				}
+			}
+		}
+
+		.ajax-loading {
+			margin-top: 3px;
+			width: 24px;
+			height: 24px;
+			font-size: 24px;
+			vertical-align: middle;
+			display: block;
+			-webkit-animation:	rotating 2s linear infinite;
+			-moz-animation:		rotating 2s linear infinite;
+			-ms-animation:		rotating 2s linear infinite;
+			-o-animation:		rotating 2s linear infinite;
+			animation:			rotating 2s linear infinite;
+		}
+	}
 }
 
 /**********************************/

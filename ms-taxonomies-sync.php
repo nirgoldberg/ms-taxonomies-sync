@@ -104,11 +104,13 @@ class MSTaxSync {
 		mstaxsync_include( 'includes/api/api-taxonomy-terms.php' );
 		mstaxsync_include( 'includes/api/api-posts.php' );
 		mstaxsync_include( 'includes/api/api-broadcast.php' );
+		mstaxsync_include( 'includes/api/api-import.php' );
 
 		// classes
 		mstaxsync_include( 'includes/classes/class-mstaxsync-core.php' );
 		mstaxsync_include( 'includes/classes/class-mstaxsync-attachment.php' );
 		mstaxsync_include( 'includes/classes/class-mstaxsync-broadcast.php' );
+		mstaxsync_include( 'includes/classes/class-mstaxsync-import.php' );
 
 		// actions
 		add_action( 'init',	array( $this, 'init' ), 99 );
@@ -262,6 +264,7 @@ class MSTaxSync {
 				'edit_terms'								=> get_option( 'mstaxsync_edit_taxonomy_terms', array( 'can' ) ),
 				'detach_terms'								=> get_option( 'mstaxsync_detach_taxonomy_terms' ),
 				'delete_terms'								=> get_option( 'mstaxsync_delete_taxonomy_terms' ),
+				'import_posts'								=> get_option( 'mstaxsync_import_taxonomy_terms_posts', array( 'can' ) ),
 			),
 			'strings'		=> array(
 				'relationship_new_item_str'					=> __( 'New item',	'mstaxsync' ),
@@ -274,6 +277,8 @@ class MSTaxSync {
 				'relationship_internal_server_error_str'	=> __( 'Internal server error', 'mstaxsync' ),
 				'confirm_detach'							=> __( 'You are about to permanently detach this taxonomy term.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to detach.", 'mstaxsync' ),
 				'confirm_delete'							=> __( 'You are about to permanently delete this taxonomy term.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to delete.", 'mstaxsync' ),
+				'confirm_import'							=> __( 'You are about to import %s posts.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to import.", 'mstaxsync' ),
+				'confirm_single_import'						=> __( 'You are about to import one post.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to import.", 'mstaxsync' ),
 			),
 			'ajaxurl'										=> admin_url( 'admin-ajax.php' ),
 		);

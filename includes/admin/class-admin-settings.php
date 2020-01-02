@@ -62,13 +62,18 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 						),
 					),
 				),
-				'capabilities'		=> array(
+				'permissions'		=> array(
 					'target'			=> 'local',
-					'title'				=> __( 'Capabilities', 'mstaxsync' ),
+					'title'				=> __( 'Permissions', 'mstaxsync' ),
 					'sections'			=> array(
 						'edit'			=> array(
 							'target'		=> 'local',
 							'title'			=> __( 'Edit Settings', 'mstaxsync' ),
+							'description'	=> '',
+						),
+						'broadcast'		=> array(
+							'target'		=> 'local',
+							'title'			=> __( 'Posts Broadcast/Import Settings', 'mstaxsync' ),
 							'description'	=> '',
 						),
 					),
@@ -194,7 +199,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'uid'				=> 'mstaxsync_edit_taxonomy_terms',
 					'label'				=> __( 'Edit taxonomy term names', 'mstaxsync' ),
 					'label_for'			=> 'mstaxsync_edit_taxonomy_terms',
-					'tab'				=> 'capabilities',
+					'tab'				=> 'permissions',
 					'section'			=> 'edit',
 					'type'				=> 'checkbox',
 					'options'			=> array(
@@ -209,7 +214,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'uid'				=> 'mstaxsync_detach_taxonomy_terms',
 					'label'				=> __( 'Detach taxonomy terms', 'mstaxsync' ),
 					'label_for'			=> 'mstaxsync_detach_taxonomy_terms',
-					'tab'				=> 'capabilities',
+					'tab'				=> 'permissions',
 					'section'			=> 'edit',
 					'type'				=> 'checkbox',
 					'options'			=> array(
@@ -223,7 +228,7 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'uid'				=> 'mstaxsync_delete_taxonomy_terms',
 					'label'				=> __( 'Delete taxonomy terms', 'mstaxsync' ),
 					'label_for'			=> 'mstaxsync_delete_taxonomy_terms',
-					'tab'				=> 'capabilities',
+					'tab'				=> 'permissions',
 					'section'			=> 'edit',
 					'type'				=> 'checkbox',
 					'options'			=> array(
@@ -231,6 +236,21 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					),
 					'supplimental'		=> __( 'Check this option to allow deleting of taxonomy terms.<br />Deleting a synced taxonomy term will first detach it.<br />Deleting a taxonomy term will not remove or modify posts associated with this term', 'mstaxsync' ),
 					'helper'			=> __( '(Default: false)', 'mstaxsync' ),
+				),
+				array(
+					'target'			=> 'local',
+					'uid'				=> 'mstaxsync_import_taxonomy_terms_posts',
+					'label'				=> __( 'Import taxonomy terms posts', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_import_taxonomy_terms_posts',
+					'tab'				=> 'permissions',
+					'section'			=> 'broadcast',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'can'			=> '',
+					),
+					'default'			=> array( 'can' ),
+					'supplimental'		=> __( 'Check this option to allow importing of taxonomy terms posts from main site', 'mstaxsync' ),
+					'helper'			=> __( '(Default: true)', 'mstaxsync' ),
 				),
 				array(
 					'uid'				=> 'mstaxsync_uninstall_remove_data',

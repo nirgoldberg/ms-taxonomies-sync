@@ -115,6 +115,9 @@ var $ = jQuery,
 			// broadcast
 			broadcast();
 
+			// import
+			postsImport();
+
 		};
 
 		/**
@@ -1368,6 +1371,9 @@ var $ = jQuery,
 		 */
 		var broadcastQuickEdit = function() {
 
+			if (typeof inlineEditPost == 'undefined')
+				return;
+
 			// copy of the inline edit function
 			var wpInlineEditFunction = inlineEditPost.edit;
 
@@ -1492,6 +1498,68 @@ var $ = jQuery,
 						dest_sites: destSitesArr,
 					},
 				});
+			});
+
+		};
+
+		/**
+		 * postsImport
+		 *
+		 * @since		1.0.0
+		 * @param		N/A
+		 * @return		N/A
+		 */
+		var postsImport = function() {
+
+			// import
+			$('body').on('click', '.mstaxsync-import', function() {
+				onClickImport($(this));
+			});
+
+		};
+
+		/**
+		 * onClickImport
+		 *
+		 * Imports all taxonomy terms posts
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @return		N/A
+		 */
+		var onClickImport = function(el) {
+
+			// vars
+			var nonce = el.data('nonce'),
+				mainTermId = el.data('id'),
+				mainTermCount = el.data('term-count'),
+				import_posts = _mstaxsync.settings.import_posts,
+				confirm_import = mainTermCount > 1 ? _mstaxsync.strings.confirm_import.replace('%s', mainTermCount) : _mstaxsync.strings.confirm_single_import;
+
+			// check if import posts capability is on
+			if (el.hasClass('active') || !import_posts || !confirm(confirm_import))
+				return;
+
+			// expose loader
+			el.addClass('active');
+
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: _mstaxsync.ajaxurl,
+				data: {
+					action: 'import_taxonomy_term_posts',
+					nonce: nonce,
+					main_term_id: mainTermId,
+				},
+				success: function(response) {
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+				},
+				complete: function(jqXHR, textStatus) {
+					// hide loader
+					el.removeClass('active');
+				}
 			});
 
 		};

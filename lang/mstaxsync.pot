@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2019-12-11 12:14+0200\n"
+"POT-Creation-Date: 2020-01-02 08:26+0200\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -73,133 +73,148 @@ msgid "User Interface Settings"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:67
-msgid "Capabilities"
+msgid "Permissions"
 msgstr ""
 
 #: includes/admin/class-admin-settings.php:71
 msgid "Edit Settings"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:77
+#: includes/admin/class-admin-settings.php:76
+msgid "Posts Broadcast/Import Settings"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:82
 msgid "Uninstall"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:80
+#: includes/admin/class-admin-settings.php:85
 msgid "Uninstall Settings"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:96
+#: includes/admin/class-admin-settings.php:101
 msgid "Sync categories?"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:105
+#: includes/admin/class-admin-settings.php:110
 msgid "(Default: sync categories)"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:110
+#: includes/admin/class-admin-settings.php:115
 msgid "Taxonomies to sync"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:120
+#: includes/admin/class-admin-settings.php:125
 msgid "Advanced tree view"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:129
+#: includes/admin/class-admin-settings.php:134
 msgid ""
 "Check this option to allow advanced tree view enabling multiselect "
 "taxonomy terms to sync"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:130
-#: includes/admin/class-admin-settings.php:145
-#: includes/admin/class-admin-settings.php:160
-#: includes/admin/class-admin-settings.php:175
-#: includes/admin/class-admin-settings.php:190
-#: includes/admin/class-admin-settings.php:205
+#: includes/admin/class-admin-settings.php:135
+#: includes/admin/class-admin-settings.php:150
+#: includes/admin/class-admin-settings.php:165
+#: includes/admin/class-admin-settings.php:180
+#: includes/admin/class-admin-settings.php:195
+#: includes/admin/class-admin-settings.php:210
+#: includes/admin/class-admin-settings.php:253
 msgid "(Default: true)"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:135
+#: includes/admin/class-admin-settings.php:140
 msgid "Display taxonomy terms 'Synced Sites' column"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:144
+#: includes/admin/class-admin-settings.php:149
 msgid ""
 "Check this option to display taxonomy terms 'Synced Sites' column "
 "(taxonomy screen)"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:150
+#: includes/admin/class-admin-settings.php:155
 msgid "Display taxonomy terms 'Main Site Term' column"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:159
+#: includes/admin/class-admin-settings.php:164
 msgid ""
 "Check this option to display taxonomy terms 'Main Site Term' column "
 "(taxonomy screen)"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:165
+#: includes/admin/class-admin-settings.php:170
 msgid "Display posts 'Synced Sites' column"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:174
+#: includes/admin/class-admin-settings.php:179
 msgid ""
 "Check this option to display posts 'Synced Sites' column (posts screen)"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:180
+#: includes/admin/class-admin-settings.php:185
 msgid "Display posts 'Main Site Post' column"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:189
+#: includes/admin/class-admin-settings.php:194
 msgid ""
 "Check this option to display posts 'Main Site Post' column (posts screen)"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:195
+#: includes/admin/class-admin-settings.php:200
 msgid "Edit taxonomy term names"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:204
+#: includes/admin/class-admin-settings.php:209
 msgid ""
 "Check this option to allow editing taxonomy term names directly from this "
 "plugin"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:210
+#: includes/admin/class-admin-settings.php:215
 msgid "Detach taxonomy terms"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:218
+#: includes/admin/class-admin-settings.php:223
 msgid ""
 "Check this option to allow detaching of already synced taxonomy terms."
 "<br />Detaching a taxonomy term will not remove or modify posts "
 "associated with this term"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:219
-#: includes/admin/class-admin-settings.php:233
-#: includes/admin/class-admin-settings.php:246
+#: includes/admin/class-admin-settings.php:224
+#: includes/admin/class-admin-settings.php:238
+#: includes/admin/class-admin-settings.php:266
 msgid "(Default: false)"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:224
+#: includes/admin/class-admin-settings.php:229
 msgid "Delete taxonomy terms"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:232
+#: includes/admin/class-admin-settings.php:237
 msgid ""
 "Check this option to allow deleting of taxonomy terms.<br />Deleting a "
 "synced taxonomy term will first detach it.<br />Deleting a taxonomy term "
 "will not remove or modify posts associated with this term"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:237
+#: includes/admin/class-admin-settings.php:243
+msgid "Import taxonomy terms posts"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:252
+msgid ""
+"Check this option to allow importing of taxonomy terms posts from main "
+"site"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:257
 msgid "Remove data on uninstall"
 msgstr ""
 
-#: includes/admin/class-admin-settings.php:245
+#: includes/admin/class-admin-settings.php:265
 msgid "Caution: all data will be removed without any option to restore"
 msgstr ""
 
@@ -260,13 +275,13 @@ msgstr ""
 
 #: includes/admin/views/taxonomy-terms.php:89
 #: includes/api/api-helpers.php:423
-#: includes/classes/class-mstaxsync-broadcast.php:275
+#: includes/classes/class-mstaxsync-broadcast.php:288
 msgid "Select All"
 msgstr ""
 
 #: includes/admin/views/taxonomy-terms.php:89
 #: includes/api/api-helpers.php:423
-#: includes/classes/class-mstaxsync-broadcast.php:275
+#: includes/classes/class-mstaxsync-broadcast.php:288
 msgid "Remove All"
 msgstr ""
 
@@ -310,36 +325,37 @@ msgstr ""
 msgid "Failed to delete a taxonomy term"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:93
+#: includes/classes/class-mstaxsync-broadcast.php:94
+#: includes/classes/class-mstaxsync-broadcast.php:830
 msgid "Broadcast"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:142
-#: includes/classes/class-mstaxsync-broadcast.php:151
+#: includes/classes/class-mstaxsync-broadcast.php:143
+#: includes/classes/class-mstaxsync-broadcast.php:152
 msgid "Post is not available for broadcasting."
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:143
+#: includes/classes/class-mstaxsync-broadcast.php:144
 msgid ""
 "Make sure post's category and taxonomy terms are synced to local sites."
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:152
+#: includes/classes/class-mstaxsync-broadcast.php:153
 msgid ""
 "Make sure post is assigned to category and/or taxonomy terms.<br />If "
 "this is a new post, you have to publish it before broadcast."
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:274
+#: includes/classes/class-mstaxsync-broadcast.php:287
 msgid "Broadcast to:"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:643
+#: includes/classes/class-mstaxsync-broadcast.php:655
 #: includes/classes/class-mstaxsync-core.php:297
 msgid "Synced Sites"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:643
+#: includes/classes/class-mstaxsync-broadcast.php:655
 msgid "Main Site Post"
 msgstr ""
 
@@ -347,66 +363,97 @@ msgstr ""
 msgid "Main Site Term"
 msgstr ""
 
-#: ms-taxonomies-sync.php:264
-msgid "New item"
+#: includes/classes/class-mstaxsync-import.php:139
+msgid "Posts Import"
 msgstr ""
 
-#: ms-taxonomies-sync.php:265
-msgid "Changed"
+#: includes/classes/class-mstaxsync-import.php:203
+#, php-format
+msgid "Import %s posts"
 msgstr ""
 
-#: ms-taxonomies-sync.php:266
-msgid "All terms were updated successfully."
+#: includes/classes/class-mstaxsync-import.php:203
+msgid "Import one post"
 msgstr ""
 
-#: ms-taxonomies-sync.php:267
-msgid "new terms were synced."
-msgstr ""
-
-#: ms-taxonomies-sync.php:268
-msgid "terms were updated."
+#: includes/classes/class-mstaxsync-import.php:208
+msgid "No posts to import"
 msgstr ""
 
 #: ms-taxonomies-sync.php:269
-msgid "The following errors were found:"
+msgid "New item"
 msgstr ""
 
 #: ms-taxonomies-sync.php:270
-msgid "Error"
+msgid "Changed"
 msgstr ""
 
 #: ms-taxonomies-sync.php:271
+msgid "All terms were updated successfully."
+msgstr ""
+
+#: ms-taxonomies-sync.php:272
+msgid "new terms were synced."
+msgstr ""
+
+#: ms-taxonomies-sync.php:273
+msgid "terms were updated."
+msgstr ""
+
+#: ms-taxonomies-sync.php:274
+msgid "The following errors were found:"
+msgstr ""
+
+#: ms-taxonomies-sync.php:275
+msgid "Error"
+msgstr ""
+
+#: ms-taxonomies-sync.php:276
 msgid "Internal server error"
 msgstr ""
 
-#: ms-taxonomies-sync.php:272
+#: ms-taxonomies-sync.php:277
 msgid "You are about to permanently detach this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:272 ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:277 ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
 msgid "This action cannot be undone."
 msgstr ""
 
-#: ms-taxonomies-sync.php:272
+#: ms-taxonomies-sync.php:277
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr ""
 
-#: ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:278
 msgid "You are about to permanently delete this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:278
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
-#: ms-taxonomies-sync.php:531
+#: ms-taxonomies-sync.php:279
+#, php-format
+msgid "You are about to import %s posts."
+msgstr ""
+
+#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
+msgid "'Cancel' to stop, 'OK' to import."
+msgstr ""
+
+#: ms-taxonomies-sync.php:280
+msgid "You are about to import one post."
+msgstr ""
+
+#: ms-taxonomies-sync.php:538
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:550
+#: ms-taxonomies-sync.php:557
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "
