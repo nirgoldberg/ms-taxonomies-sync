@@ -1530,18 +1530,19 @@ var $ = jQuery,
 		var onClickImport = function(el) {
 
 			// vars
-			var nonce = el.data('nonce'),
+			var row = el.parent(),
+				nonce = el.data('nonce'),
 				mainTermId = el.data('id'),
 				mainTermCount = el.data('term-count'),
 				import_posts = _mstaxsync.settings.import_posts,
 				confirm_import = mainTermCount > 1 ? _mstaxsync.strings.confirm_import.replace('%s', mainTermCount) : _mstaxsync.strings.confirm_single_import;
 
 			// check if import posts capability is on
-			if (el.hasClass('active') || !import_posts || !confirm(confirm_import))
+			if (row.hasClass('done') || row.hasClass('active') || !import_posts || !confirm(confirm_import))
 				return;
 
 			// expose loader
-			el.addClass('active');
+			row.addClass('active');
 
 			$.ajax({
 				type: 'post',
@@ -1553,12 +1554,15 @@ var $ = jQuery,
 					main_term_id: mainTermId,
 				},
 				success: function(response) {
+					row.children('.mstaxsync-import-result').html(_mstaxsync.strings.success_import + response);
+					row.addClass('done');
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
+					row.children('.mstaxsync-import-result').html(_mstaxsync.strings.failed_import);
 				},
 				complete: function(jqXHR, textStatus) {
 					// hide loader
-					el.removeClass('active');
+					row.removeClass('active');
 				}
 			});
 

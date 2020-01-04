@@ -452,12 +452,11 @@
 			&:hover {
 				color: #00a0d2;
 			}
+		}
 
-			&.active {
-				& + .ajax-loading {
-					visibility: visible;
-				}
-			}
+		.mstaxsync-import-result {
+			margin-top: 5px;
+			display: block;
 		}
 
 		.ajax-loading {
@@ -472,6 +471,23 @@
 			-ms-animation:		rotating 2s linear infinite;
 			-o-animation:		rotating 2s linear infinite;
 			animation:			rotating 2s linear infinite;
+		}
+
+		&.active {
+			.ajax-loading {
+				visibility: visible;
+			}
+		}
+
+		&.active,
+		&.done {
+			.mstaxsync-import {
+				cursor: default;
+
+				&:hover {
+					color: #0073aa;
+				}
+			}
 		}
 	}
 }

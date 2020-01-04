@@ -279,6 +279,8 @@ class MSTaxSync {
 				'confirm_delete'							=> __( 'You are about to permanently delete this taxonomy term.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to delete.", 'mstaxsync' ),
 				'confirm_import'							=> __( 'You are about to import %s posts.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to import.", 'mstaxsync' ),
 				'confirm_single_import'						=> __( 'You are about to import one post.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to import.", 'mstaxsync' ),
+				'success_import'							=> __( 'Number of posts imported successfully: ', 'mstaxsync' ),
+				'failed_import'								=> __( 'Import process has been failed', 'mstaxsync' ),
 			),
 			'ajaxurl'										=> admin_url( 'admin-ajax.php' ),
 		);

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2020-01-02 08:26+0200\n"
+"POT-Creation-Date: 2020-01-05 01:06+0200\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -326,7 +326,7 @@ msgid "Failed to delete a taxonomy term"
 msgstr ""
 
 #: includes/classes/class-mstaxsync-broadcast.php:94
-#: includes/classes/class-mstaxsync-broadcast.php:830
+#: includes/classes/class-mstaxsync-broadcast.php:843
 msgid "Broadcast"
 msgstr ""
 
@@ -350,12 +350,12 @@ msgstr ""
 msgid "Broadcast to:"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:655
+#: includes/classes/class-mstaxsync-broadcast.php:668
 #: includes/classes/class-mstaxsync-core.php:297
 msgid "Synced Sites"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:655
+#: includes/classes/class-mstaxsync-broadcast.php:668
 msgid "Main Site Post"
 msgstr ""
 
@@ -376,84 +376,92 @@ msgstr ""
 msgid "Import one post"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-import.php:208
+#: includes/classes/class-mstaxsync-import.php:210
 msgid "No posts to import"
 msgstr ""
 
-#: ms-taxonomies-sync.php:269
+#: ms-taxonomies-sync.php:270
 msgid "New item"
 msgstr ""
 
-#: ms-taxonomies-sync.php:270
+#: ms-taxonomies-sync.php:271
 msgid "Changed"
 msgstr ""
 
-#: ms-taxonomies-sync.php:271
+#: ms-taxonomies-sync.php:272
 msgid "All terms were updated successfully."
 msgstr ""
 
-#: ms-taxonomies-sync.php:272
+#: ms-taxonomies-sync.php:273
 msgid "new terms were synced."
 msgstr ""
 
-#: ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:274
 msgid "terms were updated."
 msgstr ""
 
-#: ms-taxonomies-sync.php:274
+#: ms-taxonomies-sync.php:275
 msgid "The following errors were found:"
 msgstr ""
 
-#: ms-taxonomies-sync.php:275
+#: ms-taxonomies-sync.php:276
 msgid "Error"
 msgstr ""
 
-#: ms-taxonomies-sync.php:276
+#: ms-taxonomies-sync.php:277
 msgid "Internal server error"
 msgstr ""
 
-#: ms-taxonomies-sync.php:277
+#: ms-taxonomies-sync.php:278
 msgid "You are about to permanently detach this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:277 ms-taxonomies-sync.php:278
-#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
+#: ms-taxonomies-sync.php:278 ms-taxonomies-sync.php:279
+#: ms-taxonomies-sync.php:280 ms-taxonomies-sync.php:281
 msgid "This action cannot be undone."
 msgstr ""
 
-#: ms-taxonomies-sync.php:277
+#: ms-taxonomies-sync.php:278
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr ""
 
-#: ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:279
 msgid "You are about to permanently delete this taxonomy term."
 msgstr ""
 
-#: ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:279
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
-#: ms-taxonomies-sync.php:279
+#: ms-taxonomies-sync.php:280
 #, php-format
 msgid "You are about to import %s posts."
 msgstr ""
 
-#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
+#: ms-taxonomies-sync.php:280 ms-taxonomies-sync.php:281
 msgid "'Cancel' to stop, 'OK' to import."
 msgstr ""
 
-#: ms-taxonomies-sync.php:280
+#: ms-taxonomies-sync.php:281
 msgid "You are about to import one post."
 msgstr ""
 
-#: ms-taxonomies-sync.php:538
+#: ms-taxonomies-sync.php:282
+msgid "Number of posts imported successfully: "
+msgstr ""
+
+#: ms-taxonomies-sync.php:283
+msgid "Import process has been failed"
+msgstr ""
+
+#: ms-taxonomies-sync.php:541
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:557
+#: ms-taxonomies-sync.php:560
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

@@ -366,12 +366,15 @@ class MSTaxSync_Broadcast {
 	* @since		1.0.0
 	* @param		$post (object)
 	* @param		$sites (array)
-	* @return		N/A
+	* @return		(array) site IDs and created post IDs
 	*/
 	public function broadcast_single_post( $post, $sites ) {
 
 		if ( ! $post || 'post' != get_post_type( $post ) || ! is_array( $sites ) || empty( $sites ) )
 			return;
+
+		// vars
+		$post_ids = array();
 
 		$post_data = $this->get_post_data( $post );
 
@@ -389,9 +392,19 @@ class MSTaxSync_Broadcast {
 		foreach ( $sites as $site_id ) {
 
 			// broadcast post to a single local site
-			$this->broadcast( $post_data, $synced_terms, $site_id );
+			$post_id = $this->broadcast( $post_data, $synced_terms, $site_id );
+
+			if ( $post_id ) {
+				$post_ids[] = array(
+					'site_id'	=> $site_id,
+					'post_id'	=> $post_id,
+				);
+			}
 
 		}
+
+		// return
+		return $post_ids;
 
 	}
 

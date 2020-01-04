@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2020-01-02 08:26+0200\n"
-"PO-Revision-Date: 2020-01-02 08:27+0200\n"
+"POT-Creation-Date: 2020-01-05 01:08+0200\n"
+"PO-Revision-Date: 2020-01-05 01:08+0200\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -337,7 +337,7 @@ msgid "Failed to delete a taxonomy term"
 msgstr "כשלון בעת ניסיון למחוק ערך טקסונומיה"
 
 #: includes/classes/class-mstaxsync-broadcast.php:94
-#: includes/classes/class-mstaxsync-broadcast.php:830
+#: includes/classes/class-mstaxsync-broadcast.php:843
 msgid "Broadcast"
 msgstr "שידור"
 
@@ -362,12 +362,12 @@ msgstr ""
 msgid "Broadcast to:"
 msgstr "שידור אל:"
 
-#: includes/classes/class-mstaxsync-broadcast.php:655
+#: includes/classes/class-mstaxsync-broadcast.php:668
 #: includes/classes/class-mstaxsync-core.php:297
 msgid "Synced Sites"
 msgstr "אתרים מסונכרנים"
 
-#: includes/classes/class-mstaxsync-broadcast.php:655
+#: includes/classes/class-mstaxsync-broadcast.php:668
 msgid "Main Site Post"
 msgstr "פוסט האתר הראשי"
 
@@ -388,77 +388,85 @@ msgstr "יבוא %s פוסטים"
 msgid "Import one post"
 msgstr "יבוא פוסט אחד"
 
-#: includes/classes/class-mstaxsync-import.php:208
+#: includes/classes/class-mstaxsync-import.php:210
 msgid "No posts to import"
 msgstr "לא נמצאו פוסטים ליבוא"
 
-#: ms-taxonomies-sync.php:269
+#: ms-taxonomies-sync.php:270
 msgid "New item"
 msgstr "ערך חדש"
 
-#: ms-taxonomies-sync.php:270
+#: ms-taxonomies-sync.php:271
 msgid "Changed"
 msgstr "השתנה"
 
-#: ms-taxonomies-sync.php:271
+#: ms-taxonomies-sync.php:272
 msgid "All terms were updated successfully."
 msgstr "כל הערכים עודכנו בהצלחה."
 
-#: ms-taxonomies-sync.php:272
+#: ms-taxonomies-sync.php:273
 msgid "new terms were synced."
 msgstr "ערכים חדשים סונכרנו."
 
-#: ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:274
 msgid "terms were updated."
 msgstr "ערכים עודכנו."
 
-#: ms-taxonomies-sync.php:274
+#: ms-taxonomies-sync.php:275
 msgid "The following errors were found:"
 msgstr "נמצאו השגיאות הבאות:"
 
-#: ms-taxonomies-sync.php:275
+#: ms-taxonomies-sync.php:276
 msgid "Error"
 msgstr "שגיאה"
 
-#: ms-taxonomies-sync.php:276
+#: ms-taxonomies-sync.php:277
 msgid "Internal server error"
 msgstr "שגיאת שרת כללית"
 
-#: ms-taxonomies-sync.php:277
+#: ms-taxonomies-sync.php:278
 msgid "You are about to permanently detach this taxonomy term."
 msgstr "הנכם עומדים לנתק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:277 ms-taxonomies-sync.php:278
-#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
+#: ms-taxonomies-sync.php:278 ms-taxonomies-sync.php:279
+#: ms-taxonomies-sync.php:280 ms-taxonomies-sync.php:281
 msgid "This action cannot be undone."
 msgstr "פעולה זו אינה ניתנת לביטול."
 
-#: ms-taxonomies-sync.php:277
+#: ms-taxonomies-sync.php:278
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr "לחצו 'Cancel' לביטול, 'OK' לניתוק."
 
-#: ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:279
 msgid "You are about to permanently delete this taxonomy term."
 msgstr "הנכם עומדים למחוק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:279
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr "לחצו 'Cancel' לביטול, 'OK' למחיקה."
 
-#: ms-taxonomies-sync.php:279
+#: ms-taxonomies-sync.php:280
 #, php-format
 msgid "You are about to import %s posts."
 msgstr "הנכם עומדים לייבא %s פוסטים."
 
-#: ms-taxonomies-sync.php:279 ms-taxonomies-sync.php:280
+#: ms-taxonomies-sync.php:280 ms-taxonomies-sync.php:281
 msgid "'Cancel' to stop, 'OK' to import."
 msgstr "לחצו 'Cancel' לביטול, 'OK' ליבוא."
 
-#: ms-taxonomies-sync.php:280
+#: ms-taxonomies-sync.php:281
 msgid "You are about to import one post."
 msgstr "הנכם עומדים לייבא פוסט אחד."
 
-#: ms-taxonomies-sync.php:538
+#: ms-taxonomies-sync.php:282
+msgid "Number of posts imported successfully: "
+msgstr "מספר הפוסטים שיובאו בהצלחה: "
+
+#: ms-taxonomies-sync.php:283
+msgid "Import process has been failed"
+msgstr "תהליך היבוא נכשל"
+
+#: ms-taxonomies-sync.php:541
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
@@ -466,7 +474,7 @@ msgid ""
 msgstr ""
 "הפעלת התוסף <strong>%s</strong> נכשלה.<br />נדרשת התקנת מערכת Multisite."
 
-#: ms-taxonomies-sync.php:557
+#: ms-taxonomies-sync.php:560
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

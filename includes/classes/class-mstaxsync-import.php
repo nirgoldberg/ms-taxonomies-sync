@@ -202,13 +202,13 @@ class MSTaxSync_Import {
 					$output .= '<span class="mstaxsync-import" data-id="' . $term->term_id . '" data-term-count="' . $term->count . '" data-nonce="' . $import_nonce . '">';
 					$output .= $term->count > 1 ? sprintf( __( 'Import %s posts', 'mstaxsync' ), $term->count ) : __( 'Import one post', 'mstaxsync' );
 					$output .= '</span>';
+					$output .= '<span class="mstaxsync-import-result"></span>';
+					$output .= '<span class="ajax-loading dashicons dashicons-update"></span>';
 
 				}
 				else {
 					$output .= __( 'No posts to import', 'mstaxsync' );
 				}
-
-				$output .= '<span class="ajax-loading dashicons dashicons-update"></span>';
 
 			}
 
