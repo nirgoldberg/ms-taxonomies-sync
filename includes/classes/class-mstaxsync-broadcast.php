@@ -391,6 +391,13 @@ class MSTaxSync_Broadcast {
 
 		foreach ( $sites as $site_id ) {
 
+			// is locked
+			if ( $this->is_post_locked( $post->ID, $site_id ) )
+				continue;
+
+			// lock post
+			$this->lock_post( $post->ID, $site_id );
+
 			// broadcast post to a single local site
 			$post_id = $this->broadcast( $post_data, $synced_terms, $site_id );
 
@@ -400,6 +407,9 @@ class MSTaxSync_Broadcast {
 					'post_id'	=> $post_id,
 				);
 			}
+
+			// unlock post
+			$this->unlock_post( $post->ID, $site_id );
 
 		}
 
@@ -527,6 +537,102 @@ class MSTaxSync_Broadcast {
 
 		// return
 		return $synced_terms;
+
+	}
+
+	/**
+	* is_post_locked
+	*
+	* This function will check whether post ID is locked for broadcasting to a specific local site ID
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @param		$site_id (int)
+	* @return		(boolean)
+	*/
+	private function is_post_locked( $post_id, $site_id ) {
+
+		// get post meta
+		$post_locks = get_post_meta( $post_id, 'mstaxsync_post_locks', true );
+
+		if ( ! $post_locks || ! is_array( $post_locks ) || empty( $post_locks ) )
+			return false;
+
+		// return
+		return in_array( $site_id, $post_locks );
+
+	}
+
+	/**
+	* lock_post
+	*
+	* This function will lock post ID for broadcasting to a specific local site ID
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @param		$site_id (int)
+	* @return		N/A
+	*/
+	private function lock_post( $post_id, $site_id ) {
+
+		// get post meta
+		$post_locks = get_post_meta( $post_id, 'mstaxsync_post_locks', true );
+
+		if ( ! $post_locks || ! is_array( $post_locks ) || empty( $post_locks ) )
+			$post_locks = array();
+
+		if ( ! in_array( $site_id, $post_locks ) ) {
+
+			// lock post for site ID
+			$post_locks[] = $site_id;
+
+			// update post locks
+			update_post_meta( $post_id, 'mstaxsync_post_locks', $post_locks );
+
+		}
+
+	}
+
+	/**
+	* unlock_post
+	*
+	* This function will unlock post ID for broadcasting to a specific local site ID
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @param		$site_id (int)
+	* @return		N/A
+	*/
+	private function unlock_post( $post_id, $site_id ) {
+
+		// get post meta
+		$post_locks = get_post_meta( $post_id, 'mstaxsync_post_locks', true );
+
+		if ( ! $post_locks || ! is_array( $post_locks ) || empty( $post_locks ) )
+			return;
+
+		// unlock post for site ID
+		$key = array_search( $site_id, $post_locks );
+
+		if ( $key !== false ) {
+
+			// unset site ID from post_locks
+			unset( $post_locks[ $key ] );
+
+		}
+
+		if ( ! count( $post_locks ) ) {
+
+			// delete post meta
+			delete_post_meta( $post_id, 'mstaxsync_post_locks' );
+
+		}
+		else {
+
+			// update post locks
+			update_post_meta( $post_id, 'mstaxsync_post_locks', $post_locks );
+
+		}
 
 	}
 
