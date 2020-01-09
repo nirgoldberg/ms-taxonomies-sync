@@ -664,7 +664,9 @@ class MSTaxSync_Broadcast {
 		}
 
 		// vars
-		$post_id = 0;
+		$post_id						= 0;
+		$default_category_term_id		= (int) get_option( 'default_category' );
+		$assigned_to_default_category	= false;	// whether this post is assigned to default category, if it doesn't simply unassign default category from local created post
 
 		switch_to_blog( $site_id );
 
@@ -686,10 +688,28 @@ class MSTaxSync_Broadcast {
 					// assign term
 					wp_set_post_terms( $post_id, $local_term_id, $data[ 'taxonomy' ], true );
 
+					// check if default category
+					if ( ! $assigned_to_default_category && $default_category_term_id && $main_term_id == $default_category_term_id ) {
+						$assigned_to_default_category = true;
+					}
+
 					break;
 
 				}
 			}
+		}
+
+		// check if default category should be unassigned
+		if ( $post_id && ! $assigned_to_default_category ) {
+
+			// get local site default category
+			$default_category_term_id = (int) get_option( 'default_category' );
+
+			// unassign default category
+			if ( $default_category_term_id ) {
+				wp_remove_object_terms( $post_id, $default_category_term_id, 'category' );
+			}
+
 		}
 
 		restore_current_blog();
