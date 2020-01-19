@@ -768,24 +768,3 @@ function mstaxsync_pre_delete_term( $term, $taxonomy ) {
 
 }
 add_action( 'pre_delete_term', 'mstaxsync_pre_delete_term', 10, 2 );
-
-/**
- * mstaxsync_result_log
- *
- * This function will log API activity
- *
- * @since		1.0.0
- * @param		$type (string) Log type
- * @param		$data (array)
- * @param		&$result (array)
- * @return		N/A
- */
-function mstaxsync_result_log( $type, $data, &$result ) {
-
-	if ( ! $result[ $type ] ) {
-		$result[ $type ] = array();
-	}
-
-	$result[ $type ][] = $data;
-
-}

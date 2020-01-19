@@ -518,3 +518,24 @@ function mstaxsync_is_post_synced( $post_id, $direction = true ) {
 	}
 
 }
+
+/**
+ * mstaxsync_result_log
+ *
+ * This function will log API activity
+ *
+ * @since		1.0.0
+ * @param		$type (string) Log type
+ * @param		$data (array)
+ * @param		&$result (array)
+ * @return		N/A
+ */
+function mstaxsync_result_log( $type, $data, &$result ) {
+
+	if ( ! $result[ $type ] ) {
+		$result[ $type ] = array();
+	}
+
+	$result[ $type ][] = $data;
+
+}

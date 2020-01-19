@@ -18,6 +18,7 @@ var $ = jQuery,
 			relationship_fields:	$('.mstaxsync-relationship'),
 			single_post_meta_box:	$('#mstaxsync_single_post_broadcast'),
 			rtl:					$('html').attr('dir') && 'rtl' == $('html').attr('dir'),
+			totalImported:			{},	// total posts imported successfully
 
 		};
 
@@ -1521,7 +1522,7 @@ var $ = jQuery,
 		/**
 		 * onClickImport
 		 *
-		 * Imports all taxonomy terms posts
+		 * Imports all taxonomy term posts
 		 *
 		 * @since		1.0.0
 		 * @param		el (jQuery)
@@ -1544,26 +1545,127 @@ var $ = jQuery,
 			// expose loader
 			row.addClass('active');
 
+			// init totalImported
+			params.totalImported[mainTermId] = 0;
+
+			// import
+			initImport(row, mainTermId, nonce);
+
+		};
+
+		/**
+		 * initImport
+		 *
+		 * Initializes import process
+		 *
+		 * @since		1.0.0
+		 * @param		row (jQuery)
+		 * @param		mainTermId (int) Main site term ID
+		 * @param		nonce (string)
+		 * @return		N/A
+		 */
+		var initImport = function(row, mainTermId, nonce) {
+
+			if (!row || !mainTermId || !nonce)
+				return;
+
 			$.ajax({
 				type: 'post',
 				dataType: 'json',
 				url: _mstaxsync.ajaxurl,
 				data: {
-					action: 'import_taxonomy_term_posts',
+					action: 'prepare_taxonomy_term_posts_import',
 					nonce: nonce,
 					main_term_id: mainTermId,
 				},
 				success: function(response) {
-					row.children('.mstaxsync-import-result').html(_mstaxsync.strings.success_import + response);
-					row.addClass('done');
+					row.children('.mstaxsync-import-result').html(_mstaxsync.strings.success_import + 0);
+
+					if (response.posts && response.posts.length) {
+						importPosts(row, mainTermId, response.posts, nonce);
+					}
+					else {
+						row.addClass('done');
+
+						// hide loader
+						row.removeClass('active');
+					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					row.children('.mstaxsync-import-result').html(_mstaxsync.strings.failed_import);
-				},
-				complete: function(jqXHR, textStatus) {
+
 					// hide loader
 					row.removeClass('active');
-				}
+				},
+			});
+
+		};
+
+		/**
+		 * importPosts
+		 *
+		 * Imports all taxonomy term posts
+		 *
+		 * @since		1.0.0
+		 * @param		row (jQuery)
+		 * @param		mainTermId (int)
+		 * @param		posts (json)
+		 * @param		nonce (string)
+		 * @return		N/A
+		 */
+		var importPosts = function(row, mainTermId, posts, nonce) {
+
+			if (posts && posts.length) {
+				$.each(posts, function(i, post) {
+					importPost(row, mainTermId, post, i, posts.length, nonce);
+				});
+			}
+
+		};
+
+		/**
+		 * importPost
+		 *
+		 * Imports a single post
+		 *
+		 * @since		1.0.0
+		 * @param		row (jQuery)
+		 * @param		mainTermId (int)
+		 * @param		post (json)
+		 * @param		index (int)
+		 * @param		totalToImport (int)
+		 * @param		nonce (string)
+		 * @return		N/A
+		 */
+		var importPost = function(row, mainTermId, post, index, totalToImport, nonce) {
+
+			if (!post)
+				return;
+
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: _mstaxsync.ajaxurl,
+				data: {
+					action: 'import_post',
+					nonce: nonce,
+					post: post,
+				},
+				success: function(response) {
+					if (response.length) {
+						// update totalImported
+						params.totalImported[mainTermId]++;
+						row.children('.mstaxsync-import-result').html(_mstaxsync.strings.success_import + params.totalImported[mainTermId]);
+					}
+				},
+				complete: function(jqXHR, textStatus) {
+					if (index+1 == totalToImport) {
+						row.addClass('done');
+
+						// hide loader
+						row.removeClass('active');
+					}
+				},
 			});
 
 		};

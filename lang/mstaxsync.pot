@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2020-01-05 01:06+0200\n"
+"POT-Creation-Date: 2020-01-19 14:40+0200\n"
 "PO-Revision-Date: 2019-08-21 17:56+0300\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
@@ -285,6 +285,15 @@ msgstr ""
 msgid "Remove All"
 msgstr ""
 
+#: includes/api/api-import.php:91 ms-taxonomies-sync.php:277
+msgid "Internal server error"
+msgstr ""
+
+#: includes/api/api-import.php:143
+#: includes/classes/class-mstaxsync-import.php:210
+msgid "No posts to import"
+msgstr ""
+
 #: includes/api/api-posts.php:57
 msgid "Failed to update a post correlation (local site post)"
 msgstr ""
@@ -326,7 +335,7 @@ msgid "Failed to delete a taxonomy term"
 msgstr ""
 
 #: includes/classes/class-mstaxsync-broadcast.php:94
-#: includes/classes/class-mstaxsync-broadcast.php:843
+#: includes/classes/class-mstaxsync-broadcast.php:935
 msgid "Broadcast"
 msgstr ""
 
@@ -350,12 +359,12 @@ msgstr ""
 msgid "Broadcast to:"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:668
+#: includes/classes/class-mstaxsync-broadcast.php:760
 #: includes/classes/class-mstaxsync-core.php:297
 msgid "Synced Sites"
 msgstr ""
 
-#: includes/classes/class-mstaxsync-broadcast.php:668
+#: includes/classes/class-mstaxsync-broadcast.php:760
 msgid "Main Site Post"
 msgstr ""
 
@@ -374,10 +383,6 @@ msgstr ""
 
 #: includes/classes/class-mstaxsync-import.php:203
 msgid "Import one post"
-msgstr ""
-
-#: includes/classes/class-mstaxsync-import.php:210
-msgid "No posts to import"
 msgstr ""
 
 #: ms-taxonomies-sync.php:270
@@ -406,10 +411,6 @@ msgstr ""
 
 #: ms-taxonomies-sync.php:276
 msgid "Error"
-msgstr ""
-
-#: ms-taxonomies-sync.php:277
-msgid "Internal server error"
 msgstr ""
 
 #: ms-taxonomies-sync.php:278
@@ -451,17 +452,21 @@ msgid "Number of posts imported successfully: "
 msgstr ""
 
 #: ms-taxonomies-sync.php:283
+msgid "Timeout occurred in import process"
+msgstr ""
+
+#: ms-taxonomies-sync.php:284
 msgid "Import process has been failed"
 msgstr ""
 
-#: ms-taxonomies-sync.php:541
+#: ms-taxonomies-sync.php:542
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support "
 "must be enabled."
 msgstr ""
 
-#: ms-taxonomies-sync.php:560
+#: ms-taxonomies-sync.php:561
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

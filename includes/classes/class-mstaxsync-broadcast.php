@@ -396,7 +396,8 @@ class MSTaxSync_Broadcast {
 				continue;
 
 			// lock post
-			$this->lock_post( $post->ID, $site_id );
+			if ( ! $this->lock_post( $post->ID, $site_id ) )
+				continue;
 
 			// broadcast post to a single local site
 			$post_id = $this->broadcast( $post_data, $synced_terms, $site_id );
@@ -550,16 +551,10 @@ class MSTaxSync_Broadcast {
 	* @param		$site_id (int)
 	* @return		(boolean)
 	*/
-	private function is_post_locked( $post_id, $site_id ) {
-
-		// get post meta
-		$post_locks = get_post_meta( $post_id, 'mstaxsync_post_locks', true );
-
-		if ( ! $post_locks || ! is_array( $post_locks ) || empty( $post_locks ) )
-			return false;
+	public function is_post_locked( $post_id, $site_id ) {
 
 		// return
-		return in_array( $site_id, $post_locks );
+		return get_post_meta( $post_id, 'mstaxsync_post_lock_' . $site_id, true );
 
 	}
 
@@ -571,25 +566,22 @@ class MSTaxSync_Broadcast {
 	* @since		1.0.0
 	* @param		$post_id (int)
 	* @param		$site_id (int)
-	* @return		N/A
+	* @return		(boolean) True if post has been locked successfully, false if post is already locked
 	*/
 	private function lock_post( $post_id, $site_id ) {
 
-		// get post meta
-		$post_locks = get_post_meta( $post_id, 'mstaxsync_post_locks', true );
+		// update post meta
+		$meta = update_post_meta( $post_id, 'mstaxsync_post_lock_' . $site_id, 1 );
 
-		if ( ! $post_locks || ! is_array( $post_locks ) || empty( $post_locks ) )
-			$post_locks = array();
+		if ( is_numeric( $meta ) ) {
 
-		if ( ! in_array( $site_id, $post_locks ) ) {
-
-			// lock post for site ID
-			$post_locks[] = $site_id;
-
-			// update post locks
-			update_post_meta( $post_id, 'mstaxsync_post_locks', $post_locks );
+			// new meta has been added
+			return true;
 
 		}
+
+		// meta is already exist
+		return false;
 
 	}
 
@@ -605,34 +597,8 @@ class MSTaxSync_Broadcast {
 	*/
 	private function unlock_post( $post_id, $site_id ) {
 
-		// get post meta
-		$post_locks = get_post_meta( $post_id, 'mstaxsync_post_locks', true );
-
-		if ( ! $post_locks || ! is_array( $post_locks ) || empty( $post_locks ) )
-			return;
-
-		// unlock post for site ID
-		$key = array_search( $site_id, $post_locks );
-
-		if ( $key !== false ) {
-
-			// unset site ID from post_locks
-			unset( $post_locks[ $key ] );
-
-		}
-
-		if ( ! count( $post_locks ) ) {
-
-			// delete post meta
-			delete_post_meta( $post_id, 'mstaxsync_post_locks' );
-
-		}
-		else {
-
-			// update post locks
-			update_post_meta( $post_id, 'mstaxsync_post_locks', $post_locks );
-
-		}
+		// delete post meta
+		delete_post_meta( $post_id, 'mstaxsync_post_lock_' . $site_id );
 
 	}
 

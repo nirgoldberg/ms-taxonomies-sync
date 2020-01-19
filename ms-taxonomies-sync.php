@@ -280,6 +280,7 @@ class MSTaxSync {
 				'confirm_import'							=> __( 'You are about to import %s posts.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to import.", 'mstaxsync' ),
 				'confirm_single_import'						=> __( 'You are about to import one post.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to import.", 'mstaxsync' ),
 				'success_import'							=> __( 'Number of posts imported successfully: ', 'mstaxsync' ),
+				'timeout_import'							=> __( 'Timeout occurred in import process', 'mstaxsync' ),
 				'failed_import'								=> __( 'Import process has been failed', 'mstaxsync' ),
 			),
 			'ajaxurl'										=> admin_url( 'admin-ajax.php' ),
