@@ -163,7 +163,7 @@ class MSTaxSync_Broadcast {
 	*
 	* @since		1.0.0
 	* @param		$post_id (int)
-	* @return		(mix) Array of post term IDs, or false on failure
+	* @return		(mix) Array of post term IDs, or false in case of error
 	*/
 	private function get_post_terms( $post_id ) {
 
@@ -646,8 +646,14 @@ class MSTaxSync_Broadcast {
 
 						$post_id = $this->insert_post( $post_data );
 
-						if ( ! $post_id )
+						if ( ! $post_id ) {
+
+							restore_current_blog();
+
+							// return
 							return false;
+
+						}
 
 					}
 
@@ -990,6 +996,162 @@ class MSTaxSync_Broadcast {
 			$this->broadcast_single_post( $post, $_POST[ 'mstaxsync_dest_sites' ] );
 
 		}
+
+	}
+
+	/**
+	* resync_single_post
+	*
+	* This function will resync a single local post
+	*
+	* @since		1.0.0
+	* @param		$local_post_id (int) Local post ID
+	* @param		$main_post_id (int) Main post ID
+	* @return		(mix) Array of reassigned taxonomy terms, or false in case of error
+	*/
+	public function resync_single_post( $local_post_id, $main_post_id = null ) {
+
+		if ( ! $local_post_id )
+			return false;
+
+		if ( ! $main_post_id ) {
+			$main_post_id = get_post_meta( $local_post_id, 'main_post', true );
+		}
+
+		if ( ! $main_post_id )
+			return false;
+
+		// switch to main site
+		switch_to_blog( mstaxsync_get_main_site_id() );
+
+		// get main post taxonomy terms
+		$post_taxonomies = get_post_taxonomies( $main_post_id );
+
+		if ( isset( $post_taxonomies ) && ! empty( $post_taxonomies ) ) {
+			$synced_terms = $this->get_post_synced_terms( $main_post_id, $post_taxonomies );
+		}
+
+		restore_current_blog();
+
+		if ( ! isset( $post_taxonomies ) || empty( $post_taxonomies ) || ! isset( $synced_terms ) || empty( $synced_terms ) )
+			return false;
+
+		// return
+		return $this->resync( $local_post_id, $synced_terms );
+
+	}
+
+	/**
+	* resync
+	*
+	* This function will resync a single local post by reassigning current synced category and taxonomy terms
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @param		$synced_terms (array)
+	* @return		(mix) Array of reassigned taxonomy terms, or false in case of error
+	*/
+	private function resync( $post_id, $synced_terms ) {
+
+		if ( ! $post_id || ! is_array( $synced_terms ) || empty( $synced_terms ) )
+			return false;
+
+		// vars
+		$site_id		= get_current_blog_id();
+		$local_tt		= $this->get_post_taxonomy_terms( $post_id );	// local taxonomy terms associated with local post
+		$reassigned_tt	= array();								// local taxonomy terms reassigned to local post
+
+		// find site synced terms and reassign terms if necessary
+		foreach ( $synced_terms as $main_term_id => $data ) {
+			foreach ( $data[ 'synced_taxonomy_terms' ] as $local_site_id => $local_term_id ) {
+				if ( $site_id == $local_site_id ) {
+
+					// check if local term id does not assigned to local post
+					if ( isset( $local_tt[ $data[ 'taxonomy' ] ] ) && ! in_array( $local_term_id, $local_tt[ $data[ 'taxonomy' ] ] ) ) {
+
+						// reassign taxonomy term
+						$terms = wp_set_post_terms( $post_id, $local_term_id, $data[ 'taxonomy' ], true );
+
+						if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+
+							// log reassigned taxonomy term
+							if ( ! isset( $reassigned_tt[ $data[ 'taxonomy' ] ] ) ) {
+
+								$tax = get_taxonomy( $data[ 'taxonomy' ] );
+
+								if ( $tax ) {
+
+									$reassigned_tt[ $data[ 'taxonomy' ] ] = array(
+										'label'		=> $tax->label,
+										'terms'		=> array(),
+									);
+
+								}
+								else {
+									continue;
+								}
+
+							}
+
+							$local_term = get_term( $local_term_id, $data[ 'taxonomy' ] );
+
+							if ( ! is_wp_error( $local_term ) && ! empty( $local_term ) ) {
+								$reassigned_tt[ $data[ 'taxonomy' ] ][ 'terms' ][ $local_term_id ] = $local_term->name;
+							}
+
+						}
+
+					}
+
+					break;
+
+				}
+			}
+		}
+
+		// return
+		return $reassigned_tt;
+
+	}
+
+	/**
+	* get_post_taxonomy_terms
+	*
+	* This function will return array of taxonomies and term IDs associated with a single post
+	*
+	* @since		1.0.0
+	* @param		$post_id (int)
+	* @return		(array)
+	*/
+	private function get_post_taxonomy_terms( $post_id ) {
+
+		// vars
+		$terms = array();
+
+		if ( ! $post_id )
+			return $terms;
+
+		// get post taxonomies
+		$taxonomies = get_post_taxonomies( $post_id );
+
+		if ( isset( $taxonomies ) && ! empty( $taxonomies ) ) {
+			foreach ( $taxonomies as $taxonomy ) {
+
+				$terms[ $taxonomy ] = array();
+
+				$post_terms = wp_get_post_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
+
+				if ( ! is_wp_error( $post_terms ) && ! empty( $post_terms ) ) {
+					foreach ( $post_terms as $term_id ) {
+						$terms[ $taxonomy ][] = $term_id;
+					}
+				}
+
+			}
+		}
+
+		// return
+		return $terms;
 
 	}
 

@@ -105,6 +105,7 @@ class MSTaxSync {
 		mstaxsync_include( 'includes/api/api-posts.php' );
 		mstaxsync_include( 'includes/api/api-broadcast.php' );
 		mstaxsync_include( 'includes/api/api-import.php' );
+		mstaxsync_include( 'includes/api/api-resync.php' );
 
 		// classes
 		mstaxsync_include( 'includes/classes/class-mstaxsync-core.php' );
@@ -168,6 +169,7 @@ class MSTaxSync {
 			mstaxsync_include( 'includes/admin/class-admin-taxonomies.php' );
 			mstaxsync_include( 'includes/admin/class-admin-settings-page.php' );
 			mstaxsync_include( 'includes/admin/class-admin-settings.php' );
+			mstaxsync_include( 'includes/admin/class-admin-tools.php' );
 
 		}
 
@@ -265,6 +267,7 @@ class MSTaxSync {
 				'detach_terms'								=> get_option( 'mstaxsync_detach_taxonomy_terms' ),
 				'delete_terms'								=> get_option( 'mstaxsync_delete_taxonomy_terms' ),
 				'import_posts'								=> get_option( 'mstaxsync_import_taxonomy_terms_posts', array( 'can' ) ),
+				'resync_posts'								=> get_option( 'mstaxsync_resync_posts', array( 'can' ) ),
 			),
 			'strings'		=> array(
 				'relationship_new_item_str'					=> __( 'New item',	'mstaxsync' ),
@@ -282,6 +285,11 @@ class MSTaxSync {
 				'success_import'							=> __( 'Number of posts imported successfully: ', 'mstaxsync' ),
 				'timeout_import'							=> __( 'Timeout occurred in import process', 'mstaxsync' ),
 				'failed_import'								=> __( 'Import process has been failed', 'mstaxsync' ),
+				'confirm_resync'							=> __( 'You are about to reassign current synced category and taxonomy terms for all synced posts.', 'mstaxsync' ) . "\n" . __( 'Be aware that terms which have been manually removed after last import might be reassigned.', 'mstaxsync' ) . "\n" . __( 'This action cannot be undone.', 'mstaxsync' ) . "\n" . __( "'Cancel' to stop, 'OK' to resync.", 'mstaxsync' ),
+				'synced_posts_found'						=> __( 'Found %s synced posts.', 'mstaxsync' ),
+				'total_posts_resynced'						=> __( '%s posts resynced successfully', 'mstaxsync' ),
+				'no_synced_posts'							=> __( 'There are no synced posts', 'mstaxsync' ),
+				'failed_resync'								=> __( 'Resync process has been failed', 'mstaxsync' ),
 			),
 			'ajaxurl'										=> admin_url( 'admin-ajax.php' ),
 		);

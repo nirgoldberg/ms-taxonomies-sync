@@ -33,6 +33,7 @@ if ( $sites ) {
 		'mstaxsync_detach_taxonomy_terms',
 		'mstaxsync_delete_taxonomy_terms',
 		'mstaxsync_import_taxonomy_terms_posts',
+		'mstaxsync_resync_posts',
 		'mstaxsync_uninstall_remove_data',
 	);
 

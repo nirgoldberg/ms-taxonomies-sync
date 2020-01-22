@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-taxonomies-sync 1.0.0\n"
-"POT-Creation-Date: 2020-01-19 14:41+0200\n"
-"PO-Revision-Date: 2020-01-19 14:41+0200\n"
+"POT-Creation-Date: 2020-01-22 23:23+0200\n"
+"PO-Revision-Date: 2020-01-22 23:24+0200\n"
 "Last-Translator: Nir Goldberg <nir@htmline.com>\n"
 "Language-Team: Nir Goldberg <nir@htmline.com>\n"
 "Language: he_IL\n"
@@ -122,6 +122,7 @@ msgstr ""
 #: includes/admin/class-admin-settings.php:195
 #: includes/admin/class-admin-settings.php:210
 #: includes/admin/class-admin-settings.php:253
+#: includes/admin/class-admin-settings.php:268
 msgid "(Default: true)"
 msgstr "(ברירת מחדל: כן)"
 
@@ -193,7 +194,7 @@ msgstr ""
 
 #: includes/admin/class-admin-settings.php:224
 #: includes/admin/class-admin-settings.php:238
-#: includes/admin/class-admin-settings.php:266
+#: includes/admin/class-admin-settings.php:281
 msgid "(Default: false)"
 msgstr "(ברירת מחדל: לא)"
 
@@ -221,11 +222,23 @@ msgid ""
 msgstr ""
 "סימון אפשרות זו יאפשר יבוא פוסטים המשוייכים לערכי טקסונומיה מתוך האתר הראשי"
 
-#: includes/admin/class-admin-settings.php:257
+#: includes/admin/class-admin-settings.php:258
+msgid "Resync posts"
+msgstr "סנכרון פוסטים מחדש"
+
+#: includes/admin/class-admin-settings.php:267
+msgid ""
+"Check this option to allow reassigning current synced category and taxonomy "
+"terms for all synced posts"
+msgstr ""
+"סימון אפשרות זו יאפשר שיוך מחדש של ערכי קטגוריה וטקסונומיה עבור כל הפוסטים "
+"המסונכרנים"
+
+#: includes/admin/class-admin-settings.php:272
 msgid "Remove data on uninstall"
 msgstr "מחיקת כלל נתוני התוסף עם הסרתו"
 
-#: includes/admin/class-admin-settings.php:265
+#: includes/admin/class-admin-settings.php:280
 msgid "Caution: all data will be removed without any option to restore"
 msgstr "אזהרה: כל המידע יימחק ללא אפשרות שחזור"
 
@@ -237,6 +250,19 @@ msgstr "סנכרון טקסונומיות"
 #: includes/admin/class-admin-taxonomies.php:67
 msgid "Categories"
 msgstr "קטגוריות"
+
+#: includes/admin/class-admin-tools.php:34
+msgid "Multisite Taxonomies Sync Tools"
+msgstr "כלים - סנכרון טקסונומיות למערכת Multisite"
+
+#: includes/admin/class-admin-tools.php:35
+msgid "Tools"
+msgstr "כלים"
+
+#: includes/admin/class-admin-tools.php:40
+#: includes/admin/views/tools-resync-posts.php:22
+msgid "Resync Posts"
+msgstr "סנכרון פוסטים מחדש"
 
 #: includes/admin/class-admin.php:59 ms-taxonomies-sync.php:73
 msgid "Multisite Taxonomies Sync"
@@ -258,6 +284,10 @@ msgid ""
 msgstr ""
 "לא נבחרו טקסונומיות לסנכרון.<br /><a href=\"%s\">יש לבחור טקסונומיה אחת "
 "לפחות</a>"
+
+#: includes/admin/views/mstaxsync-tools.php:67
+msgid "There are no available tools"
+msgstr "לא נמצאו כלים זמינים"
 
 #: includes/admin/views/settings.php:22
 msgid "Settings saved."
@@ -296,7 +326,12 @@ msgstr "בחר הכל"
 msgid "Remove All"
 msgstr "הסר הכל"
 
-#: includes/api/api-import.php:91 ms-taxonomies-sync.php:277
+#: includes/admin/views/tools-resync-posts.php:19
+msgid ""
+"Reassign current synced category and taxonomy terms for all synced posts"
+msgstr "שיוך מחדש של ערכי קטגוריה וטקסונומיה עבור כל הפוסטים המסונכרנים"
+
+#: includes/api/api-import.php:91 ms-taxonomies-sync.php:280
 msgid "Internal server error"
 msgstr "שגיאת שרת כללית"
 
@@ -312,6 +347,10 @@ msgstr "כשלון בעת ניסיון לסנכרן פוסט (אתר מקומי)
 #: includes/api/api-posts.php:104
 msgid "Failed to update a post correlation (main site post)"
 msgstr "כשלון בעת ניסיון לסנכרן פוסט (אתר ראשי)"
+
+#: includes/api/api-resync.php:97
+msgid "No synced posts"
+msgstr "לא קיימים פוסטים מסונכרנים"
 
 #: includes/api/api-taxonomy-terms.php:79
 msgid "No taxonomy terms to update"
@@ -346,7 +385,7 @@ msgid "Failed to delete a taxonomy term"
 msgstr "כשלון בעת ניסיון למחוק ערך טקסונומיה"
 
 #: includes/classes/class-mstaxsync-broadcast.php:94
-#: includes/classes/class-mstaxsync-broadcast.php:935
+#: includes/classes/class-mstaxsync-broadcast.php:941
 msgid "Broadcast"
 msgstr "שידור"
 
@@ -371,12 +410,12 @@ msgstr ""
 msgid "Broadcast to:"
 msgstr "שידור אל:"
 
-#: includes/classes/class-mstaxsync-broadcast.php:760
+#: includes/classes/class-mstaxsync-broadcast.php:766
 #: includes/classes/class-mstaxsync-core.php:297
 msgid "Synced Sites"
 msgstr "אתרים מסונכרנים"
 
-#: includes/classes/class-mstaxsync-broadcast.php:760
+#: includes/classes/class-mstaxsync-broadcast.php:766
 msgid "Main Site Post"
 msgstr "פוסט האתר הראשי"
 
@@ -397,81 +436,119 @@ msgstr "יבוא %s פוסטים"
 msgid "Import one post"
 msgstr "יבוא פוסט אחד"
 
-#: ms-taxonomies-sync.php:270
+#: ms-taxonomies-sync.php:273
 msgid "New item"
 msgstr "ערך חדש"
 
-#: ms-taxonomies-sync.php:271
+#: ms-taxonomies-sync.php:274
 msgid "Changed"
 msgstr "השתנה"
 
-#: ms-taxonomies-sync.php:272
+#: ms-taxonomies-sync.php:275
 msgid "All terms were updated successfully."
 msgstr "כל הערכים עודכנו בהצלחה."
 
-#: ms-taxonomies-sync.php:273
+#: ms-taxonomies-sync.php:276
 msgid "new terms were synced."
 msgstr "ערכים חדשים סונכרנו."
 
-#: ms-taxonomies-sync.php:274
+#: ms-taxonomies-sync.php:277
 msgid "terms were updated."
 msgstr "ערכים עודכנו."
 
-#: ms-taxonomies-sync.php:275
+#: ms-taxonomies-sync.php:278
 msgid "The following errors were found:"
 msgstr "נמצאו השגיאות הבאות:"
 
-#: ms-taxonomies-sync.php:276
+#: ms-taxonomies-sync.php:279
 msgid "Error"
 msgstr "שגיאה"
 
-#: ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:281
 msgid "You are about to permanently detach this taxonomy term."
 msgstr "הנכם עומדים לנתק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:278 ms-taxonomies-sync.php:279
-#: ms-taxonomies-sync.php:280 ms-taxonomies-sync.php:281
+#: ms-taxonomies-sync.php:281 ms-taxonomies-sync.php:282
+#: ms-taxonomies-sync.php:283 ms-taxonomies-sync.php:284
+#: ms-taxonomies-sync.php:288
 msgid "This action cannot be undone."
 msgstr "פעולה זו אינה ניתנת לביטול."
 
-#: ms-taxonomies-sync.php:278
+#: ms-taxonomies-sync.php:281
 msgid "'Cancel' to stop, 'OK' to detach."
 msgstr "לחצו 'Cancel' לביטול, 'OK' לניתוק."
 
-#: ms-taxonomies-sync.php:279
+#: ms-taxonomies-sync.php:282
 msgid "You are about to permanently delete this taxonomy term."
 msgstr "הנכם עומדים למחוק לצמיתות את ערך הטקסונומיה הזה."
 
-#: ms-taxonomies-sync.php:279
+#: ms-taxonomies-sync.php:282
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr "לחצו 'Cancel' לביטול, 'OK' למחיקה."
 
-#: ms-taxonomies-sync.php:280
+#: ms-taxonomies-sync.php:283
 #, php-format
 msgid "You are about to import %s posts."
 msgstr "הנכם עומדים לייבא %s פוסטים."
 
-#: ms-taxonomies-sync.php:280 ms-taxonomies-sync.php:281
+#: ms-taxonomies-sync.php:283 ms-taxonomies-sync.php:284
 msgid "'Cancel' to stop, 'OK' to import."
 msgstr "לחצו 'Cancel' לביטול, 'OK' ליבוא."
 
-#: ms-taxonomies-sync.php:281
+#: ms-taxonomies-sync.php:284
 msgid "You are about to import one post."
 msgstr "הנכם עומדים לייבא פוסט אחד."
 
-#: ms-taxonomies-sync.php:282
+#: ms-taxonomies-sync.php:285
 msgid "Number of posts imported successfully: "
 msgstr "מספר הפוסטים שיובאו בהצלחה: "
 
-#: ms-taxonomies-sync.php:283
+#: ms-taxonomies-sync.php:286
 msgid "Timeout occurred in import process"
 msgstr "פסק זמן התרחש בתהליך הייבוא"
 
-#: ms-taxonomies-sync.php:284
+#: ms-taxonomies-sync.php:287
 msgid "Import process has been failed"
 msgstr "תהליך היבוא נכשל"
 
-#: ms-taxonomies-sync.php:542
+#: ms-taxonomies-sync.php:288
+msgid ""
+"You are about to reassign current synced category and taxonomy terms for all "
+"synced posts."
+msgstr ""
+"הנכם עומדים לשייך מחדש ערכי קטגוריה וטקסונומיה עבור כל הפוסטים המסונכרנים."
+
+#: ms-taxonomies-sync.php:288
+msgid ""
+"Be aware that terms which have been manually removed after last import might "
+"be reassigned."
+msgstr ""
+"שימו לב שערכים שנותקו מפוסטים באופן ידני לאחר ביצוע היבוא האחרון עלולים "
+"להיות משויכים מחדש."
+
+#: ms-taxonomies-sync.php:288
+msgid "'Cancel' to stop, 'OK' to resync."
+msgstr "לחצו 'Cancel' לביטול, 'OK' לסנכרון מחדש."
+
+#: ms-taxonomies-sync.php:289
+#, php-format
+msgid "Found %s synced posts."
+msgstr "נמצאו %s פוסטים מסונכרנים."
+
+#: ms-taxonomies-sync.php:290
+#, php-format
+msgid "%s posts resynced successfully"
+msgstr "%s פוסטים סונכרנו מחדש בהצלחה"
+
+#: ms-taxonomies-sync.php:291
+msgid "There are no synced posts"
+msgstr "לא נמצאו פוסטים מסונכרנים"
+
+#: ms-taxonomies-sync.php:292
+msgid "Resync process has been failed"
+msgstr "תהליך הסנכרון מחדש נכשל"
+
+#: ms-taxonomies-sync.php:550
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />Multisite support must "
@@ -479,7 +556,7 @@ msgid ""
 msgstr ""
 "הפעלת התוסף <strong>%s</strong> נכשלה.<br />נדרשת התקנת מערכת Multisite."
 
-#: ms-taxonomies-sync.php:561
+#: ms-taxonomies-sync.php:569
 #, php-format
 msgid ""
 "<strong>%s</strong> plugin can't be activated.<br />The following plugins "

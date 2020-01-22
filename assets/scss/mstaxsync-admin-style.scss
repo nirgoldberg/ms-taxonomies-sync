@@ -522,6 +522,53 @@
 	}
 }
 
+/************************/
+/* tools - resync posts */
+/************************/
+
+.mstaxsync-resync-posts {
+	&.active {
+		cursor: default;
+
+		& + .ajax-loading {
+			visibility: visible;
+		}
+	}
+}
+
+.resync-posts-summary {
+	margin: -10px 0 15px;
+	font-style: italic;
+}
+
+.resync-posts-result {
+	.mstaxsync-resynced-post {
+		padding: 10px;
+		background-color: $gray-color1;
+
+		&:nth-child(even) {
+			background-color: $gray-color4;
+		}
+
+		.mstaxsync-resynced-post-title {
+			font-weight: bold;
+			text-decoration: underline;
+		}
+
+		.mstaxsync-resynced-post-taxonomy-title {
+			font-style: italic;
+		}
+
+		ul {
+			padding-left: 25px;
+
+			li {
+				list-style: disc;
+			}
+		}
+	}
+}
+
 /**************/
 /* responsive */
 /**************/

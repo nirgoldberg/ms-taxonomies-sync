@@ -19,6 +19,7 @@ var $ = jQuery,
 			single_post_meta_box:	$('#mstaxsync_single_post_broadcast'),
 			rtl:					$('html').attr('dir') && 'rtl' == $('html').attr('dir'),
 			totalImported:			{},	// total posts imported successfully
+			totalResynced:			{},	// total posts resynced successfully
 
 		};
 
@@ -118,6 +119,9 @@ var $ = jQuery,
 
 			// import
 			postsImport();
+
+			// resync
+			postsResync();
 
 		};
 
@@ -1667,6 +1671,215 @@ var $ = jQuery,
 					}
 				},
 			});
+
+		};
+
+		/**
+		 * postsResync
+		 *
+		 * @since		1.0.0
+		 * @param		N/A
+		 * @return		N/A
+		 */
+		var postsResync = function() {
+
+			// import
+			$('body').on('click', '.mstaxsync-resync-posts', function() {
+				onClickResync($(this));
+			});
+
+		};
+
+		/**
+		 * onClickResync
+		 *
+		 * Resyncs all posts by reassigning current synced category and taxonomy terms
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @return		N/A
+		 */
+		var onClickResync = function(el) {
+
+			// vars
+			var resync_posts = _mstaxsync.settings.resync_posts,
+				confirm_resync = _mstaxsync.strings.confirm_resync;
+
+			// check if resync posts capability is on
+			if (el.hasClass('disabled') || el.hasClass('active') || !resync_posts || !confirm(confirm_resync))
+				return;
+
+			// expose loader
+			el.addClass('active');
+
+			// init resync posts
+			initResync(el);
+
+		};
+
+		/**
+		 * initResync
+		 *
+		 * Initializes resync posts process
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @return		N/A
+		 */
+		var initResync = function(el) {
+
+			// vars
+			var nonce = el.data('nonce'),
+				summaryContainer = $('.resync-posts-summary');
+
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: _mstaxsync.ajaxurl,
+				data: {
+					action: 'prepare_posts_resync',
+					nonce: nonce,
+				},
+				success: function(response) {
+					if (response.posts && response.posts.length) {
+						summaryContainer.html(_mstaxsync.strings.synced_posts_found.replace('%s', response.posts.length));
+
+						// init totalResynced
+						params.totalResynced = 0;
+
+						resyncPosts(el, response.posts, nonce);
+					}
+					else {
+						summaryContainer.html(_mstaxsync.strings.no_synced_posts);
+
+						el.addClass('disabled');
+
+						// hide loader
+						el.removeClass('active');
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					summaryContainer.html(_mstaxsync.strings.failed_resync);
+
+					// hide loader
+					el.removeClass('active');
+				},
+			});
+
+		};
+
+		/**
+		 * resyncPosts
+		 *
+		 * Resyncs all posts
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @param		posts (json)
+		 * @param		nonce (string)
+		 * @return		N/A
+		 */
+		var resyncPosts = function(el, posts, nonce) {
+
+			if (posts && posts.length) {
+				$.each(posts, function(i, post) {
+					resyncPost(el, post, i, posts.length, nonce);
+				});
+			}
+
+		};
+
+		/**
+		 * resyncPost
+		 *
+		 * Imports a single post
+		 *
+		 * @since		1.0.0
+		 * @param		el (jQuery)
+		 * @param		post (json)
+		 * @param		index (int)
+		 * @param		totalToResync (int)
+		 * @param		nonce (string)
+		 * @return		N/A
+		 */
+		var resyncPost = function(el, post, index, totalToResync, nonce) {
+
+			if (!post)
+				return;
+
+			// vars
+			var summaryContainer = $('.resync-posts-summary'),
+				resultContainer = $('.resync-posts-result');
+
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: _mstaxsync.ajaxurl,
+				data: {
+					action: 'resync_post',
+					nonce: nonce,
+					post: post,
+				},
+				success: function(response) {
+					// vars
+					var output = resyncBuildResultMsg(response);
+
+					if (output) {
+						resultContainer.append(output);
+						params.totalResynced++;
+					}
+				},
+				complete: function(jqXHR, textStatus) {
+					if (index+1 == totalToResync) {
+						el.addClass('disabled');
+
+						// hide loader
+						el.removeClass('active');
+
+						// display resync summary
+						summaryContainer.append('<br />' + _mstaxsync.strings.total_posts_resynced.replace('%s', params.totalResynced));
+
+					}
+				},
+			});
+
+		};
+
+		/**
+		 * resyncBuildResultMsg
+		 *
+		 * Builds resync process result message
+		 *
+		 * @since		1.0.0
+		 * @param		response (json)
+		 * @return		(string)
+		 */
+		var resyncBuildResultMsg = function(response) {
+
+			// vars
+			var output = '';
+
+			if (response.post_title && response.post_title.length && response.taxonomies && response.taxonomies.length) {
+				output += '<div class="mstaxsync-resynced-post">';
+				output += '<div class="mstaxsync-resynced-post-title">' + response.post_title + '</div>';
+
+				$.each(response.taxonomies[0], function(i, taxonomy) {
+					if (taxonomy.label && taxonomy.terms) {
+						output += '<p class="mstaxsync-resynced-post-taxonomy-title">' + taxonomy.label + '</p><ul>';
+
+						$.each(taxonomy.terms, function(term_id, term) {
+							output += '<li>' + term + '</li>';
+						});
+
+						output += '</ul>';
+					}
+				});
+
+				output += '</div>';
+			}
+
+			// return
+			return output;
 
 		};
 

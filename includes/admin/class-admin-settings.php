@@ -253,6 +253,21 @@ class MSTaxSync_Admin_Settings extends MSTaxSync_Admin_Settings_Page {
 					'helper'			=> __( '(Default: true)', 'mstaxsync' ),
 				),
 				array(
+					'target'			=> 'local',
+					'uid'				=> 'mstaxsync_resync_posts',
+					'label'				=> __( 'Resync posts', 'mstaxsync' ),
+					'label_for'			=> 'mstaxsync_resync_posts',
+					'tab'				=> 'permissions',
+					'section'			=> 'broadcast',
+					'type'				=> 'checkbox',
+					'options'			=> array(
+						'can'			=> '',
+					),
+					'default'			=> array( 'can' ),
+					'supplimental'		=> __( 'Check this option to allow reassigning current synced category and taxonomy terms for all synced posts', 'mstaxsync' ),
+					'helper'			=> __( '(Default: true)', 'mstaxsync' ),
+				),
+				array(
 					'uid'				=> 'mstaxsync_uninstall_remove_data',
 					'label'				=> __( 'Remove data on uninstall', 'mstaxsync' ),
 					'label_for'			=> 'mstaxsync_uninstall_remove_data',
